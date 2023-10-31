@@ -12,11 +12,11 @@ CREATE TABLE `Student` (
 
 # Create TABLE 'LoginBehaviour'
 CREATE TABLE `LoginBehaviour` (
+  `student_id` int NOT NULL,
   `login_time` time NOT NULL,
   `login_date` date NOT NULL,
   `logout_time` time NOT NULL,
   `logout_date` date NOT NULL,
-  `student_id` int NOT NULL,
   PRIMARY KEY (`student_id`, `login_time`, `login_date`)
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE `RegconitionModel` (
 CREATE TABLE `Courses` (
   `course_id` int NOT NULL,
   `course_code` varchar(8) NOT NULL,
-  `class` varchar(2) NOT NULL,
+  `class_id` varchar(2) NOT NULL,
   `year_offered` int NOT NULL,
   `course_name` varchar(50) NOT NULL,
   `welcome_message` varchar(1000),
