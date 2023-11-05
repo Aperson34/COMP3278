@@ -17,7 +17,8 @@ def executeSQL(filename):
     except Error as e:
           print("Error executing SQL script", e)
 
-executeSQL("database.sql");
+executeSQL("tables.sql");
+executeSQL("data.sql");
 
 def putLoginInfo(student_id, ctime, cdate):
     mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {ctime}, {cdate}, 0, 0);") #insert login data
