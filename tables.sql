@@ -6,6 +6,7 @@ CREATE TABLE `Student` (
   `email` varchar(50) NOT NULL,
   `name` varchar(50) NOT NULL,
   `birthday` date NOT NULL,
+  `password` varchar(50) NOT NULL,
   PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
