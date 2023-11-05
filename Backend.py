@@ -12,6 +12,13 @@ myresult = mycursor.fetchall() #get results
 for x in myresult:
   print(x)  #a tuple of each row's element
 
+def putLoginInfo(student_id, ctime, cdate):
+    mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {ctime}, {cdate}, 0, 0);") #insert login data
+
+def putLogoutInfo(student_id, login_time, login_date, ctime, cdate):
+    mycursor.execute(f"DELETE FROM LoginBehaviour WHERE student_id = {student_id} AND login_time = {login_time} AND login_date = {login_date};") #delete partial login record
+    mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {login_time}, {login_date}, {ctime}, {cdate});") #insert login data
+
 def getStudentInfo(student_id):
   mycursor.execute(f"SELECT * FROM Student WHERE student_id = {student_id}") #input instructions
   myresult = mycursor.fetchall()
