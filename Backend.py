@@ -1,3 +1,5 @@
+#change the password & databasename
+# delete all '#' in .sql file
 import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
@@ -6,13 +8,16 @@ mydb = mysql.connector.connect(host="localhost", user="root", password="123456",
 mycursor = mydb.cursor()
 
 
-try:    #execute .sql file automatically
-      with open("database.sql", "r") as file:
-          sql_script = file.read()
-          mycursor.execute(sql_script, multi=True)
-          print("SQL script executed successfully")
-except Error as e:
-      print("Error executing SQL script", e)
+def executeSQL(filename):
+    try:
+          with open(filename, "r") as file:
+              sql_script = file.read()
+              mycursor.execute(sql_script, multi=True)
+              print("SQL script executed successfully")
+    except Error as e:
+          print("Error executing SQL script", e)
+
+executeSQL("database.sql");
 
 def putLoginInfo(student_id, ctime, cdate):
     mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {ctime}, {cdate}, 0, 0);") #insert login data
