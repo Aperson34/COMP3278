@@ -1,4 +1,7 @@
 #for testing purposes
 from Backend import *
 
-print(getStudentInfo(1))
+(email,name,birthday)=getStudentInfo(1)
+print(email)
+print(name)
+print(type(birthday))

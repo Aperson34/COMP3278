@@ -1,8 +1,8 @@
-INSERT INTO Student (student_id, email, name, birthday) VALUES ('1', "mail@mail.com", "Alix", "1970-01-01");
-INSERT INTO Student (student_id, email, name, birthday) VALUES ('2', "mail@mail.com", "Janice", "1970-01-01");
-INSERT INTO Student (student_id, email, name, birthday) VALUES ('3', "mail@mail.com", "Jeremy", "1970-01-01");
-INSERT INTO Student (student_id, email, name, birthday) VALUES ('4', "mail@mail.com", "Justin", "1970-01-01");
-INSERT INTO Student (student_id, email, name, birthday) VALUES ('5', "mail@mail.com", "Zay", "1970-01-01");
+INSERT INTO Student (student_id, email, name, birthday, password) VALUES ('1', "mail@mail.com", "Alix", "1970-01-01", "123");
+INSERT INTO Student (student_id, email, name, birthday, password) VALUES ('2', "mail@mail.com", "Janice", "1970-01-01", "124");
+INSERT INTO Student (student_id, email, name, birthday, password) VALUES ('3', "mail@mail.com", "Jeremy", "1970-01-01", "215");
+INSERT INTO Student (student_id, email, name, birthday, password) VALUES ('4', "mail@mail.com", "Justin", "1970-01-01", "124");
+INSERT INTO Student (student_id, email, name, birthday, password) VALUES ('5', "mail@mail.com", "Zay", "1970-01-01", "355");
 
 INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ("1", "01:02:03", "2023-11-02", "05:02:03", "2023-11-02");
 INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ("2", "01:02:04", "2023-11-02", "05:02:03", "2023-11-02");
