@@ -4,7 +4,7 @@ import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
 
-mydb = mysql.connector.connect(host="localhost", user="root", password="123456", database="databasename") #change the password & database
+mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279", database="Project") #change the password & database
 mycursor = mydb.cursor()
 
 
@@ -13,12 +13,23 @@ def executeSQL(filename):
           with open(filename, "r") as file:
               sql_script = file.read()
               mycursor.execute(sql_script, multi=True)
+               
               print("SQL script executed successfully")
     except Error as e:
           print("Error executing SQL script", e)
 
-executeSQL("tables.sql");
-executeSQL("data.sql");
+def executeSQLdata(filename):
+    try:
+          with open(filename, "r") as file:
+              sql_script = file.read()
+              mycursor.execute(sql_script, multi=True)
+              mydb.commit()
+              print("SQL script executed successfully")
+    except Error as e:
+          print("Error executing data SQL script", e)
+#executeSQL("proj_tables_1.sql")
+#executeSQLdata("proj_data_1.sql")
+
 
 def putLoginInfo(student_id, ctime, cdate):
     mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {ctime}, {cdate}, 0, 0);") #insert login data
@@ -30,9 +41,9 @@ def putLogoutInfo(student_id, login_time, login_date, ctime, cdate):
 def getStudentInfo(student_id):
   mycursor.execute(f"SELECT * FROM Student WHERE student_id = {student_id}") #input instructions
   myresult = mycursor.fetchall()
-  email = myresult[2]
-  name = myresult[3]
-  birthday = myresult[4]
+  email = myresult[0][1]
+  name = myresult[0][2]
+  birthday = myresult[0][3]
   return (email, name, birthday)
 
 def getCourseInfo(course_id):
