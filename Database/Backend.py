@@ -1,5 +1,8 @@
 #change the password & databasename
 # delete all '#' in .sql file
+import smtplib
+import ssl
+from email.message import EmailMessage
 from datetime import datetime, date, timedelta
 import mysql.connector #MySQL API Library
 from mysql.connector import Error
@@ -8,6 +11,38 @@ from mysql.connector import Error
 mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279", database="Project") #change the password & database
 mycursor = mydb.cursor()
 
+def sendemail(filename):    #sendemail ('Hello.txt') will send the Hello.txt as attachment
+    # Define email sender and receiver
+    email_sender = 'dbmsgroup19@gmail.com'
+    #google password: icmsicms1919
+    email_password = 'gkma bvtw qbii wulg'
+    email_receiver = 'justinyeung1096@gmail.com'
+
+    # Set the subject and body of the email
+    subject = 'Please Find Your Course Information Attached'
+    body = """
+    See title.
+    """
+
+    em = EmailMessage()
+    em['From'] = email_sender
+    em['To'] = email_receiver
+    em['Subject'] = subject
+
+    em.set_content(body)
+
+    # Add the attachment to the email
+    attachment_path = filename
+    with open(attachment_path, 'rb') as attachment:
+        em.add_attachment(attachment.read(), maintype='application', subtype='octet-stream', filename=attachment_path)
+
+    # Add SSL (layer of security)
+    context = ssl.create_default_context()
+
+    # Log in and send the email
+    with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
+        smtp.login(email_sender, email_password)
+        smtp.sendmail(email_sender, email_receiver, em.as_string())
 
 def executeSQL(filename):
     try:
