@@ -1,6 +1,6 @@
 #change the password & databasename
 # delete all '#' in .sql file
-from datetime import datetime
+from datetime import datetime, date, timedelta
 import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
@@ -29,6 +29,7 @@ def executeSQLdata(filename):
           print("Error executing data SQL script", e)
 #executeSQL("proj_tables_1.sql")
 #executeSQLdata("proj_data_1.sql")
+#these should only be executed once for initialisation, better use another .py to handle
 
 
 def putLoginInfo(student_id, ctime, cdate):
@@ -55,14 +56,14 @@ def checkLoginCredentials(username, password): #tested
     else:
         return "0000000000"
 
-def getCourseInfo(course_id):
-  mycursor.execute(f"SELECT * FROM Course WHERE course_id = {course_id}") #input instructions
+def getCourseInfo(course_id): #tested
+  mycursor.execute(f"SELECT * FROM Courses WHERE course_id = {course_id}") #input instructions
   myresult = mycursor.fetchall()
-  course_code = myresult[0][2]
-  class_id = myresult[0][3]
-  year_offered = myresult[0][4]
-  coursename = myresult[0][5]
-  welcome_message = myresult[0][6]
+  course_code = myresult[0][1]
+  class_id = myresult[0][2]
+  year_offered = myresult[0][3]
+  coursename = myresult[0][4]
+  welcome_message = myresult[0][5]
   return (course_code, class_id, year_offered, coursename, welcome_message)
 
 def getLoginBehaviour(student_id):
@@ -84,10 +85,24 @@ def getCourseTeacher(course_id):
 
 
   
-def getLectureToday(student_id):
+def getLectureToday(student_id): #tested with 1 record
   now = datetime.now()
   d_string = now.strftime("%Y-%m-%d")
   t_string = now.strftime("%H:%M:%S")
   mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN ClassTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
+
+def HaveClassIn1Hr(LectureToday):
+    for i in range(len(LectureToday)):
+        if within1hr(LectureToday[i][1],LectureToday[i][2]):
+            return LectureToday[i]
+    return ""
+
+def within1hr(date,time):
+    now = datetime.now()
+    print(type(date), type(time))
+    if (datetime.combine(date, datetime.min.time()) + time) < now+timedelta(hours=1): #startime < 1 hour from now, need end class time for sure!
+        return True
+    else:
+        return False
