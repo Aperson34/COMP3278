@@ -1,5 +1,6 @@
 #change the password & databasename
 # delete all '#' in .sql file
+from datetime import datetime
 import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
@@ -26,7 +27,7 @@ def executeSQLdata(filename):
               print("SQL script executed successfully")
     except Error as e:
           print("Error executing data SQL script", e)
-executeSQL("proj_tables_1.sql")
+#executeSQL("proj_tables_1.sql")
 #executeSQLdata("proj_data_1.sql")
 
 
@@ -37,13 +38,22 @@ def putLogoutInfo(student_id, login_time, login_date, ctime, cdate):
     mycursor.execute(f"DELETE FROM LoginBehaviour WHERE student_id = {student_id} AND login_time = {login_time} AND login_date = {login_date};") #delete partial login record
     mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {login_time}, {login_date}, {ctime}, {cdate});") #insert login data
 
-def getStudentInfo(student_id):
+def getStudentInfo(student_id): #tested
   mycursor.execute(f"SELECT * FROM Student WHERE student_id = {student_id}") #input instructions
   myresult = mycursor.fetchall()
   email = myresult[0][1]
   name = myresult[0][2]
   birthday = myresult[0][3]
   return (email, name, birthday)
+
+def checkLoginCredentials(username, password): #tested
+    query = f"SELECT username, pswd, student_id FROM LoginCredentials WHERE username = '{username}' AND pswd = '{password}'"
+    mycursor.execute(query)
+    myresult = mycursor.fetchall()
+    if len(myresult) != 0:
+        return myresult[0][2]
+    else:
+        return "0000000000"
 
 def getCourseInfo(course_id):
   mycursor.execute(f"SELECT * FROM Course WHERE course_id = {course_id}") #input instructions
@@ -73,3 +83,11 @@ def getCourseTeacher(course_id):
   return teacher_name
 
 
+  
+def getNextLecture(student_id):
+  now = datetime.now()
+  d_string = now.strftime("%Y-%m-%d")
+  t_string = now.strftime("%H:%M:%S")
+  print(d_string, t_string)
+  mycursor.execute(f"") #input instructions
+  myresult = mycursor.fetchall()
