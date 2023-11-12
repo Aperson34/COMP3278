@@ -95,14 +95,13 @@ def getLectureToday(student_id): #tested with 1 record
 
 def HaveClassIn1Hr(LectureToday):
     for i in range(len(LectureToday)):
-        if within1hr(LectureToday[i][1],LectureToday[i][2]):
+        if within1hr(LectureToday[i][1],LectureToday[i][2],LectureToday[i][3]):
             return LectureToday[i]
-    return ""
+    return "" #need some dummy
 
-def within1hr(date,time):
+def within1hr(date,starttime,endtime):
     now = datetime.now()
-    print(type(date), type(time))
-    if (datetime.combine(date, datetime.min.time()) + time) < now+timedelta(hours=1): #startime < 1 hour from now, need end class time for sure!
+    if ((datetime.combine(date, datetime.min.time()) + starttime) <= now+timedelta(hours=1)) and ((datetime.combine(date, datetime.min.time()) + endtime) >= now): #startime < 1 hour from now and now is not yet endtime
         return True
     else:
         return False
