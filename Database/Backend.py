@@ -105,3 +105,8 @@ def within1hr(date,starttime,endtime):
         return True
     else:
         return False
+    
+def getCourseTaken(student_id): #untested
+  mycursor.execute(f"SELECT C.course_code, C.class_id, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
+  myresult = mycursor.fetchall()
+  return(myresult)
