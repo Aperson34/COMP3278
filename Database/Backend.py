@@ -84,10 +84,10 @@ def getCourseTeacher(course_id):
 
 
   
-def getNextLecture(student_id):
+def getLectureToday(student_id):
   now = datetime.now()
   d_string = now.strftime("%Y-%m-%d")
   t_string = now.strftime("%H:%M:%S")
-  print(d_string, t_string)
-  mycursor.execute(f"") #input instructions
+  mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN ClassTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string}'") #input instructions
   myresult = mycursor.fetchall()
+  return(myresult)

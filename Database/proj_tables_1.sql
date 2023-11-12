@@ -55,7 +55,7 @@ CREATE TABLE Courses (
 CREATE TABLE CourseClass (
   course_id int NOT NULL,
   class_date date NOT NULL,
-  class_time time NOT NULL,
+  class_time time NOT NULL, --need start and end time?
   class_venue varchar(8),
   zoomlink varchar(100),
   is_tutorial boolean NOT NULL,
