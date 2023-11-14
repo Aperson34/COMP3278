@@ -20,7 +20,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 25))
-        self.menubar.setStyleSheet("background-color: rgb(91, 50, 86); opacity:50%;")
+        self.menubar.setStyleSheet("background-color: rgb(206,194,204);")
         self.menubar.setObjectName("menubar")
         self.menuicon = QtWidgets.QMenu(self.menubar)
         icon = QtGui.QIcon()
