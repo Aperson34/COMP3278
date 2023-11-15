@@ -11,12 +11,12 @@ from mysql.connector import Error
 mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279", database="Project") #change the password & database
 mycursor = mydb.cursor()
 
-def sendemail(filename):    #sendemail ('Hello.txt') will send the Hello.txt as attachment
+def sendemail(filename,to):    #sendemail ('Hello.txt') will send the Hello.txt as attachment
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
     email_password = 'gkma bvtw qbii wulg'
-    email_receiver = 'justinyeung1096@gmail.com'
+    email_receiver = to
 
     # Set the subject and body of the email
     subject = 'Please Find Your Course Information Attached'
