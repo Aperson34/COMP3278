@@ -145,3 +145,11 @@ def getCourseTaken(student_id): #untested
   mycursor.execute(f"SELECT C.course_code, C.class_id, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
+
+def getLectureMaterialPath(course_id, class_date, class_time): #untested
+  mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id = '{course_id}' and CM.class_date = '{class_date}' and CM.class_time = '{class_time}'") #input instructions
+  myresult = mycursor.fetchall()
+  filepaths=[]
+  for row in myresult:
+    filepaths.append(row[0])
+  return filepaths
