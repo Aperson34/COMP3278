@@ -11,17 +11,12 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
-sqlMaterialData = [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Tutoraial 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Lecture 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Tutoraial 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
-                   ,("COMP3278","Lecture 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
-                   ,("COMP3278","Tutoraial 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))]
 
 class Material_Item:
-    def __init__(self, scrollAreaWidgetContents, name, i):
+        
+    def __init__(self, scrollAreaWidgetContents, name, i,checkedList):
+        def checked(checkedList, i):
+            checkedList[i] = not checkedList[i]
         _translate = QtCore.QCoreApplication.translate
         self = QtWidgets.QWidget(scrollAreaWidgetContents)
         self.setGeometry(QtCore.QRect(0, i*130, 1661, 101))
@@ -31,6 +26,7 @@ class Material_Item:
         checkBox.setText("")
         checkBox.setIconSize(QtCore.QSize(50, 48))
         checkBox.setObjectName("checkBox_1")
+        checkBox.clicked.connect(lambda:checked(checkedList, i))
         label = QtWidgets.QLabel(self)
         label.setGeometry(QtCore.QRect(100, 20, 1501, 61))
         font = QtGui.QFont()
@@ -40,14 +36,21 @@ class Material_Item:
         label.setFont(font)
         label.setObjectName("label_1")
         label.setText(_translate("Form", name))
+        checkedList.append(False)
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(1920, 1080)
-        Form.setMinimumSize(QtCore.QSize(1920, 1080))
-        self.frame = QtWidgets.QFrame(Form)
-        self.frame.setGeometry(QtCore.QRect(100, 320, 1664, 757))
+class Material_List(object):
+    sqlMaterialData = [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Tutoraial 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Lecture 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Tutoraial 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
+                   ,("COMP3278","Lecture 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
+                   ,("COMP3278","Tutoraial 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))]
+    def setupUi(self, MainWindow):
+        self.frame = QtWidgets.QFrame(MainWindow)
+        self.frame.setFixedHeight(757)
+        self.frame.setFixedWidth(1664)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -73,20 +76,21 @@ class Ui_Form(object):
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1659, 469))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(0, len(sqlMaterialData)*130))
+        self.scrollAreaWidgetContents.setMinimumSize(QtCore.QSize(0, len(self.sqlMaterialData)*130))
         
         self.materialItem = []
-        for i in range(0,len(sqlMaterialData)):
-            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents, sqlMaterialData[i][1], i))
+        self.checkedList = []
+        for i in range(0,len(self.sqlMaterialData)):
+            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents,self.sqlMaterialData[i][1], i, self.checkedList))
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+        MainWindow.gridLayout.addWidget(self.frame,2,1,1,1)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
-
-    def retranslateUi(self, Form):
+    def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        MainWindow.setWindowTitle(_translate("Form", "Form"))
         self.pushButton.setText(_translate("Form", "Send to Email"))
         self.Title.setText(_translate("Form", "COMP3278 Material"))
       
@@ -96,7 +100,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = Material_List()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

@@ -10,6 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+from course_info import CourseInfo
+
 
 class Sidebar(QtWidgets.QWidget):
     def setupUi(self, MainWindow):
@@ -44,25 +46,26 @@ class Sidebar(QtWidgets.QWidget):
         self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
 
-        self.label_2 = QtWidgets.QLabel(self.frame)
-        self.label_2.setGeometry(QtCore.QRect(50, 200, 601, 91))
-        self.label_2.setFont(font)
-        self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_2.setOpenExternalLinks(True)
-        self.label_2.setObjectName("label_2")
-        self.label_3 = QtWidgets.QLabel(self.frame)
-        self.label_3.setGeometry(QtCore.QRect(50, 350, 601, 91))
-        self.label_3.setFont(font)
-        self.label_3.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_3.setOpenExternalLinks(True)
-        self.label_3.setObjectName("label_3")
-        self.label_4 = QtWidgets.QLabel(self.frame)
-        self.label_4.setGeometry(QtCore.QRect(50, 500, 601, 91))
-        self.label_4.setFont(font)
-        self.label_4.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
-        self.label_4.setOpenExternalLinks(True)
-        self.label_4.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse)
-        self.label_4.setObjectName("label_4")
+        self.Course_List = QtWidgets.QPushButton(self.frame)
+        self.Course_List.setGeometry(QtCore.QRect(50, 200, 601, 91))
+        self.Course_List.setFont(font)
+        self.Course_List.setObjectName("label_2")
+        self.Course_List.setStyleSheet(" background-color: rgb(206,194,204);  border: none; ")  
+        self.Course_List.clicked.connect(lambda:self.toCourse_List(MainWindow))
+
+        self.Timetable = QtWidgets.QPushButton(self.frame)
+        self.Timetable.setGeometry(QtCore.QRect(50, 350, 601, 91))
+        self.Timetable.setFont(font)
+        self.Timetable.setStyleSheet(" background-color: rgb(206,194,204);  border: none; ")  
+        self.Timetable.setObjectName("Timetable")
+        self.Timetable.clicked.connect(lambda:self.toTimetable(MainWindow))
+
+        self.Profile = QtWidgets.QPushButton(self.frame)
+        self.Profile.setGeometry(QtCore.QRect(50, 500, 601, 91))
+        self.Profile.setFont(font)
+        self.Profile.setStyleSheet(" background-color: rgb(206,194,204);  border: none; ")  
+        self.Profile.setObjectName("Profile")
+        self.Profile.clicked.connect(lambda:self.toProfile(MainWindow))
 
         self.retranslateUi()
 
@@ -70,9 +73,9 @@ class Sidebar(QtWidgets.QWidget):
         _translate = QtCore.QCoreApplication.translate
         self.pushButton.setText(_translate("Form", "Logout"))
         self.label.setText(_translate("Form", "Course Management System"))
-        self.label_2.setText(_translate("Form", "Course List"))
-        self.label_3.setText(_translate("Form", "Timetable"))
-        self.label_4.setText(_translate("Form", "Profile"))
+        self.Course_List.setText(_translate("Form", "Course List"))
+        self.Timetable.setText(_translate("Form", "Timetable"))
+        self.Profile.setText(_translate("Form", "Profile"))
     
     def hideSideBar(self,MainWindow):
         while MainWindow.HLayout.count():
@@ -83,13 +86,30 @@ class Sidebar(QtWidgets.QWidget):
             else:
                 MainWindow.HLayoutWidget.setGeometry(QtCore.QRect(0, 0, 0, 0))
         MainWindow.HLayoutWidget.setGeometry(QtCore.QRect(0, 0, 0, 0))
+    
+    def toCourse_List(self,MainWindow):
+        item = MainWindow.gridLayout.takeAt(2)
+        if item is not None:
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+        uiCourseMaterial = CourseInfo()
+        uiCourseMaterial.setupUi(MainWindow)
 
-
-# if __name__ == "__main__":
-#     import sys
-#     app = QtWidgets.QApplication(sys.argv)
-#     Form = QtWidgets.QWidget()
-#     ui = Sidebar()
-#     ui.setupUi(Form)
-#     Form.show()
-#     sys.exit(app.exec_())
+    def toTimetable(self,MainWindow):
+        item = MainWindow.gridLayout.takeAt(2)
+        if item is not None:
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+        # uiTimetable = Timetable()
+        # uiTimetable.setupUi(MainWindow)
+    
+    def toProfile(self,MainWindow):
+        item = MainWindow.gridLayout.takeAt(2)
+        if item is not None:
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+        # uiProfile = Profile()
+        # uiProfile.setupUi(MainWindow)

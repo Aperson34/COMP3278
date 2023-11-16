@@ -30,16 +30,21 @@ class MenuBar(object):
         self.frame.setStyleSheet("background-color: rgb(206,194,204);")
         
         self.menuicon = QtWidgets.QPushButton(self.frame)
+        self.menuicon.setGeometry(QtCore.QRect(0, 0, 128, 128))
         self.menuicon.setIcon(QtGui.QIcon("GUI/menu.svg"))
-        self.menuicon.setGeometry(QtCore.QRect(0, 0, 75, 25))
+        self.menuicon.setStyleSheet(" background-color: rgb(206,194,204);  border: none; ")  
         self.menuicon.setObjectName("menuicon")
         self.menuicon.clicked.connect(lambda:self.showSideBar(MainWindow))
 
+        font = QtGui.QFont()
+        font.setPointSize(24)
+        font.setBold(True)
+        font.setWeight(75)
 
         self.menuusername = QtWidgets.QLabel(self.frame)
-        self.menuusername.setStyleSheet("color: rgb(255, 255, 255)")
         self.menuusername.setObjectName("menuusername")
-        self.menuusername.setGeometry(QtCore.QRect(700, 0, 75, 25))
+        self.menuusername.setGeometry(QtCore.QRect(1420, 0, 500, 128))
+        self.menuusername.setFont(font)
 
         # self.menubar.addAction(self.menuicon.menuAction())
         # self.menubar.addAction(self.menuusername.menuAction())

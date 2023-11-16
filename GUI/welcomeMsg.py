@@ -9,8 +9,16 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import time
+import asyncio
 #from sql
 class WelMsg(object):
+    
+    def removeMsg(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.textBrowser.setHtml(_translate("Form", ""))
+        self.mytimer.stop()
+
     def setupUi(self, Form):
 
         self.frame = QtWidgets.QFrame()
@@ -19,24 +27,25 @@ class WelMsg(object):
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
+        self.frame.setStyleSheet("border: 0px")
 
         self.textBrowser = QtWidgets.QTextBrowser(self.frame)
         self.textBrowser.setGeometry(QtCore.QRect(0, 0, 1920, 195))
         self.textBrowser.setObjectName("textBrowser")
-
-
        
         Form.gridLayout.addWidget(self.frame,1,0,1,3)
 
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(Form)
-
+        self.mytimer = QtCore.QTimer(self.frame)
+        self.mytimer.timeout.connect(self.removeMsg)
+        self.mytimer.start(10000)
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.textBrowser.setHtml(_translate("Form", "<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
-"<span style=\" font-family:\'Inter\'; font-size:64px; font-weight:696; color:#000000; vertical-align:middle;\">"
-"fdsfsdf<br /></span></p></body></html>"))
+"<span style=\" font-family:\'Inter\'; font-size:64px; font-weight:696; vertical-align:middle;\">"
+"Welcome to Course Management System<br /></span></p></body></html>"))
 
 
     

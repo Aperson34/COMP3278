@@ -10,6 +10,8 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
+
+from course_material import Material_List
 #from sql
 sqlCourseData = [("COMP3278", "Introduction to Database Management Systems", "[teacher’s message]", "classroom address",
 datetime.time(15,30,00,00),"[links of Zoom]")]
@@ -17,7 +19,7 @@ sqlMaterialData = [("Lecture 1 note"),("Lecture 2 note"),("Lecture 3 note")]
 
 sqlCourseData = sqlCourseData[0]
 class CourseInfo(object):
-    def setupUi(self, Form):
+    def setupUi(self, MainWindow):
 
         self.frame = QtWidgets.QFrame()
         self.frame.setFixedHeight(757)
@@ -46,10 +48,11 @@ class CourseInfo(object):
         self.pushButton.setFont(font)
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setObjectName("pushButton")
-        Form.gridLayout.addWidget(self.frame,2,1,1,1)
+        self.pushButton.clicked.connect(lambda:self.toMaterial(MainWindow))
+        MainWindow.gridLayout.addWidget(self.frame,2,1,1,1)
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, Form):
         time = sqlCourseData[4].strftime("%H:%M:%S")
@@ -70,8 +73,15 @@ class CourseInfo(object):
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
 ""+materialList+"</span></p></body></html>"))
-        self.pushButton.setText(_translate("Form", "Send to Email"))
-
+        self.pushButton.setText(_translate("Form", "Get Material"))
+    
+    def toMaterial(self,MainWindow):
+        item = MainWindow.gridLayout.takeAt(2)
+        widget = item.widget()
+        if widget is not None:
+                widget.deleteLater()
+        uiCourseMaterial = Material_List()
+        uiCourseMaterial.setupUi(MainWindow)
 
 # if __name__ == "__main__":
 #     import sys
