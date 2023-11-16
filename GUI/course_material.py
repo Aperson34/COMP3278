@@ -77,7 +77,7 @@ class Ui_Form(object):
         
         self.materialItem = []
         for i in range(0,len(sqlMaterialData)):
-            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents, sqlMaterialData[i], i))
+            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents, sqlMaterialData[i][1], i))
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 
