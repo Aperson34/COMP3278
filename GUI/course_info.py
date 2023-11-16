@@ -16,15 +16,12 @@ datetime.time(15,30,00,00),"[links of Zoom]")]
 sqlMaterialData = [("Lecture 1 note"),("Lecture 2 note"),("Lecture 3 note")]
 
 sqlCourseData = sqlCourseData[0]
-class Ui_Form(object):
+class CourseInfo(object):
     def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(1920, 1080)
-        Form.setMinimumSize(QtCore.QSize(1920, 1080))
-        Form.setMaximumSize(QtCore.QSize(1920, 1080))
 
-        self.frame = QtWidgets.QFrame(Form)
-        self.frame.setGeometry(QtCore.QRect(100, 320, 1664, 757))
+        self.frame = QtWidgets.QFrame()
+        self.frame.setFixedHeight(757)
+        self.frame.setFixedWidth(1664)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -49,6 +46,7 @@ class Ui_Form(object):
         self.pushButton.setFont(font)
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setObjectName("pushButton")
+        Form.gridLayout.addWidget(self.frame,2,1,1,1)
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -75,11 +73,11 @@ class Ui_Form(object):
         self.pushButton.setText(_translate("Form", "Send to Email"))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtWidgets.QApplication(sys.argv)
+#     Form = QtWidgets.QWidget()
+#     ui = CourseInfo()
+#     ui.setupUi(Form)
+#     Form.show()
+#     sys.exit(app.exec_())

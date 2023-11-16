@@ -9,36 +9,54 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from course_info import CourseInfo
+from sidebar import Sidebar
+class Ui_MainWindow(QtWidgets.QMainWindow):
 
+    def funcion(self):
+        ui = Sidebar()
+        ui.setupUi(self)
+        self.update()
+        self.show()
+        print('clicked')
+    def __init__(self):
+        super().__init__()
+        self.setupUi()
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1920, 1080)
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+    def setupUi(self):
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint) 
+        self.setObjectName("MainWindow")
+        self.resize(1920, 1080)
+        self.centralwidget = QtWidgets.QWidget()
         self.centralwidget.setObjectName("centralwidget")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
+        self.setCentralWidget(self.centralwidget)
+
+        self.menubar = QtWidgets.QMenuBar(self.centralwidget)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 25))
         self.menubar.setStyleSheet("background-color: rgb(206,194,204);")
         self.menubar.setObjectName("menubar")
+
         self.menuicon = QtWidgets.QMenu(self.menubar)
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../../../../../../../Downloads/menu.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.menuicon.setIcon(icon)
         self.menuicon.setObjectName("menuicon")
+        self.menuicon.aboutToShow.connect(lambda:self.funcion())
+
         self.menuusername = QtWidgets.QMenu(self.menubar)
         self.menuusername.setStyleSheet("color: rgb(255, 255, 255)")
         self.menuusername.setObjectName("menuusername")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+
+        self.setMenuBar(self.menubar)
+        self.statusbar = QtWidgets.QStatusBar(self.centralwidget)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+
         self.menubar.addAction(self.menuicon.menuAction())
         self.menubar.addAction(self.menuusername.menuAction())
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.layout_box = QtWidgets.QHBoxLayout(self.centralwidget)
+        self.retranslateUi(self)
+        QtCore.QMetaObject.connectSlotsByName(self)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -49,8 +67,9 @@ class Ui_MainWindow(object):
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
+    uiMainWindow = Ui_MainWindow()
+    if (True):
+        uiCourseInfo = CourseInfo()
+        uiCourseInfo.setupUi(uiMainWindow)
+    uiMainWindow.show()
     sys.exit(app.exec_())

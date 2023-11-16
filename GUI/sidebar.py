@@ -11,19 +11,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Form(object):
-    def setupUi(self, Form):
+class Sidebar(QtWidgets.QWidget):
+    def setupUi(self, MainWindow):
         font = QtGui.QFont()
         font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
         font.setKerning(True)
-        Form.setObjectName("Form")
-        Form.resize(1920, 1080)
-        Form.setMinimumSize(QtCore.QSize(1017, 667))
-        self.frame = QtWidgets.QFrame(Form)
-        self.frame.setStyleSheet('background-color: rgb(206,194,204)')  
-        self.frame.setGeometry(QtCore.QRect(0, 0, 709, 1080))
+        self.frame = QtWidgets.QFrame()
+        self.frame.setStyleSheet('background-color: rgb(206,194,204)') 
+        self.frame.setFixedHeight(1080)
+        self.frame.setFixedWidth(709)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
@@ -32,49 +30,66 @@ class Ui_Form(object):
         self.pushButton.setObjectName("pushButton")
         self.pushButton.setStyleSheet('background-color: rgb(91, 50, 86)')  
         self.pushButton.setFont(font) 
+
+        self.backButton = QtWidgets.QPushButton(self.frame)
+        self.backButton.setGeometry(QtCore.QRect(600, 0, 100, 100))
+        self.backButton.setObjectName("backButton")
+        self.backButton.setStyleSheet('background-color: rgb(91, 50, 86)')  
+        self.backButton.setFont(font) 
+        self.backButton.clicked.connect(lambda:self.hideSideBar(MainWindow))
+
         self.label = QtWidgets.QLabel(self.frame)
-        self.label.setGeometry(QtCore.QRect(50, 20, 601, 91))
+        self.label.setGeometry(QtCore.QRect(50, 0, 480, 91))
         self.label.setFont(font)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
+        self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label.setObjectName("label")
+
         self.label_2 = QtWidgets.QLabel(self.frame)
-        self.label_2.setGeometry(QtCore.QRect(50, 150, 601, 91))
+        self.label_2.setGeometry(QtCore.QRect(50, 200, 601, 91))
         self.label_2.setFont(font)
         self.label_2.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_2.setOpenExternalLinks(True)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.frame)
-        self.label_3.setGeometry(QtCore.QRect(50, 300, 601, 91))
+        self.label_3.setGeometry(QtCore.QRect(50, 350, 601, 91))
         self.label_3.setFont(font)
         self.label_3.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_3.setOpenExternalLinks(True)
         self.label_3.setObjectName("label_3")
         self.label_4 = QtWidgets.QLabel(self.frame)
-        self.label_4.setGeometry(QtCore.QRect(50, 450, 601, 91))
+        self.label_4.setGeometry(QtCore.QRect(50, 500, 601, 91))
         self.label_4.setFont(font)
         self.label_4.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_4.setOpenExternalLinks(True)
         self.label_4.setTextInteractionFlags(QtCore.Qt.LinksAccessibleByMouse)
         self.label_4.setObjectName("label_4")
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi()
 
-    def retranslateUi(self, Form):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
         self.pushButton.setText(_translate("Form", "Logout"))
         self.label.setText(_translate("Form", "Course Management System"))
         self.label_2.setText(_translate("Form", "Course List"))
         self.label_3.setText(_translate("Form", "Timetable"))
         self.label_4.setText(_translate("Form", "Profile"))
+    
+    def hideSideBar(self,MainWindow):
+        while MainWindow.HLayout.count():
+            item = MainWindow.HLayout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+            else:
+                MainWindow.HLayoutWidget.setGeometry(QtCore.QRect(0, 0, 0, 0))
+        MainWindow.HLayoutWidget.setGeometry(QtCore.QRect(0, 0, 0, 0))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtWidgets.QApplication(sys.argv)
+#     Form = QtWidgets.QWidget()
+#     ui = Sidebar()
+#     ui.setupUi(Form)
+#     Form.show()
+#     sys.exit(app.exec_())
