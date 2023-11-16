@@ -67,6 +67,11 @@ def executeSQLdata(filename):
 #these should only be executed once for initialisation, better use another .py to handle
 
 
+def getCourseMaterial():
+    mycursor.execute(f"SELECT courses.course_code, CourseMaterial.material_name, CourseMaterial.class_date, CourseMaterial.class_time FROM CourseMaterial,courses WHERE CourseMaterial.course_id=courses.course_id") #input instructions
+    myresult = mycursor.fetchall()
+    return myresult
+
 def putLoginInfo(student_id, ctime, cdate):
     mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {ctime}, {cdate}, 0, 0);") #insert login data
 
