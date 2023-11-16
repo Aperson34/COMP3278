@@ -9,8 +9,16 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+import datetime
 
-sqlMaterialData = [("Lecture 1 note"),("Tutoraial 1 note"),("Lecture 2 note"),("Tutoraial 2 note"),("Lecture 3 note"),("Tutoraial 3 note"),("Lecture 4 note"),("Tutoraial 4 note")]
+sqlMaterialData = [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Tutoraial 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Lecture 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+                   ("COMP3278","Tutoraial 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
+                   ,("COMP3278","Lecture 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
+                   ,("COMP3278","Tutoraial 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))]
 
 class Material_Item:
     def __init__(self, scrollAreaWidgetContents, name, i):
