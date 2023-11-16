@@ -22,7 +22,7 @@ class WelMsg(object):
     def setupUi(self, Form):
 
         self.frame = QtWidgets.QFrame()
-        self.frame.setFixedHeight(195)
+        self.frame.setFixedHeight(119)
         self.frame.setFixedWidth(1920)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)

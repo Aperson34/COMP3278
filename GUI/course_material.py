@@ -49,11 +49,12 @@ class Material_List(object):
                    ,("COMP3278","Tutoraial 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))]
     def setupUi(self, MainWindow):
         self.frame = QtWidgets.QFrame(MainWindow)
-        self.frame.setFixedHeight(757)
+        self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
+        self.frame.setStyleSheet("border: 0px")
         self.pushButton = QtWidgets.QPushButton(self.frame)
         self.pushButton.setGeometry(QtCore.QRect(1269, 684, 395, 73))
         font = QtGui.QFont()
@@ -73,6 +74,7 @@ class Material_List(object):
         self.scrollArea.setGeometry(QtCore.QRect(0, 110, 1661, 521))
         self.scrollArea.setWidgetResizable(False)
         self.scrollArea.setObjectName("scrollArea")
+        self.scrollArea.horizontalScrollBar().setStyleSheet("QScrollBar {height:0px;}")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
         self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1659, 469))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")

@@ -10,7 +10,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-from course_info import CourseInfo
+from course_list import Course_List
 
 
 class Sidebar(QtWidgets.QWidget):
@@ -76,6 +76,7 @@ class Sidebar(QtWidgets.QWidget):
         self.Course_List.setText(_translate("Form", "Course List"))
         self.Timetable.setText(_translate("Form", "Timetable"))
         self.Profile.setText(_translate("Form", "Profile"))
+        self.backButton.setText(_translate("Form", "Back"))
     
     def hideSideBar(self,MainWindow):
         while MainWindow.HLayout.count():
@@ -93,7 +94,8 @@ class Sidebar(QtWidgets.QWidget):
             widget = item.widget()
             if widget is not None:
                 widget.deleteLater()
-        uiCourseMaterial = CourseInfo()
+        self.hideSideBar(MainWindow)
+        uiCourseMaterial = Course_List()
         uiCourseMaterial.setupUi(MainWindow)
 
     def toTimetable(self,MainWindow):
@@ -102,6 +104,7 @@ class Sidebar(QtWidgets.QWidget):
             widget = item.widget()
             if widget is not None:
                 widget.deleteLater()
+        self.hideSideBar(MainWindow)
         # uiTimetable = Timetable()
         # uiTimetable.setupUi(MainWindow)
     
@@ -111,5 +114,6 @@ class Sidebar(QtWidgets.QWidget):
             widget = item.widget()
             if widget is not None:
                 widget.deleteLater()
+        self.hideSideBar(MainWindow)
         # uiProfile = Profile()
         # uiProfile.setupUi(MainWindow)

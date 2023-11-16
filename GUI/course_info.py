@@ -13,16 +13,17 @@ import datetime
 
 from course_material import Material_List
 #from sql
-sqlCourseData = [("COMP3278", "Introduction to Database Management Systems", "[teacher’s message]", "classroom address",
-datetime.time(15,30,00,00),"[links of Zoom]")]
-sqlMaterialData = [("Lecture 1 note"),("Lecture 2 note"),("Lecture 3 note")]
-
-sqlCourseData = sqlCourseData[0]
+#give the nearest one if there are more than one class
 class CourseInfo(object):
-    def setupUi(self, MainWindow):
-
+    def setupUi(self, MainWindow, course_id):
+        #using course_id to fetch data
+        self.sqlCourseData = [("COMP3278", "Introduction to Database Management Systems", "[teacher’s message]", "classroom address",
+        datetime.time(15,30,00,00),"[links of Zoom]")]
+        self.sqlMaterialData = [("Lecture 1 note"),("Lecture 2 note"),("Lecture 3 note")]
+        # end of fetching, start gui construction
+        self.sqlCourseData = self.sqlCourseData[0]
         self.frame = QtWidgets.QFrame()
-        self.frame.setFixedHeight(757)
+        self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
@@ -55,20 +56,20 @@ class CourseInfo(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, Form):
-        time = sqlCourseData[4].strftime("%H:%M:%S")
+        time = self.sqlCourseData[4].strftime("%H:%M:%S")
         materialList = ""
-        for i in sqlMaterialData:
+        for i in self.sqlMaterialData:
             materialList = materialList+i+"<br />"
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.textBrowser.setHtml(_translate("Form", "<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\" font-family:\'Inter\'; font-size:64px; font-weight:696; color:#000000; vertical-align:middle;\">"
-""+sqlCourseData[0]+"<br />"+sqlCourseData[1]+"<br /></span></p></body></html>"))
+""+self.sqlCourseData[0]+"<br />"+self.sqlCourseData[1]+"<br /></span></p></body></html>"))
         self.textBrowser_2.setHtml(_translate("Form","<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
-""+sqlCourseData[2]+"<br />"+sqlCourseData[3]+"<br />"+time+"<br />"+sqlCourseData[5]+"<br /></span></p></body></html>"))
+""+self.sqlCourseData[2]+"<br />"+self.sqlCourseData[3]+"<br />"+time+"<br />"+self.sqlCourseData[5]+"<br /></span></p></body></html>"))
         self.textBrowser_3.setHtml(_translate("Form", "<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
@@ -77,8 +78,9 @@ class CourseInfo(object):
     
     def toMaterial(self,MainWindow):
         item = MainWindow.gridLayout.takeAt(2)
-        widget = item.widget()
-        if widget is not None:
+        if item is not None:
+            widget = item.widget()
+            if widget is not None:
                 widget.deleteLater()
         uiCourseMaterial = Material_List()
         uiCourseMaterial.setupUi(MainWindow)
