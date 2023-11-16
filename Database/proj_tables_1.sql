@@ -55,10 +55,10 @@ CREATE TABLE Courses (
 CREATE TABLE CourseClass (
   course_id int NOT NULL,
   class_date date NOT NULL,
-  class_time time NOT NULL, --need start and end time?
+  class_time time NOT NULL,
   class_end_time time NOT NULL,
   class_venue varchar(8),
-  zoomlink varchar(100),
+  zoomlink varchar(1000),
   is_tutorial boolean NOT NULL,
   PRIMARY KEY (course_id, class_date, class_time),
   FOREIGN KEY (course_id) REFERENCES Courses(course_id)
@@ -108,6 +108,6 @@ CREATE TABLE TeacherMessage (
   message_date date NOT NULL,
   message_time time NOT NULL,
   PRIMARY KEY (teacher_id, course_id, message_date, message_time),
-  FOREIGN KEY teacher_id REFERENCES Teachers(teacher_id),
-  FOREIGN KEY course_id REFERENCES Courses(course_id)
+  FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id),
+  FOREIGN KEY (course_id) REFERENCES Courses(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
