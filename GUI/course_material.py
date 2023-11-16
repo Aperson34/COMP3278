@@ -39,7 +39,9 @@ class Material_Item:
         checkedList.append(False)
 
 class Material_List(object):
-    sqlMaterialData = [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+    def setupUi(self, MainWindow ,course_id):
+        #fetch course material data with given course_id
+        self.sqlMaterialData = [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
                    ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
                    ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
                    ("COMP3278","Tutoraial 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
@@ -47,7 +49,6 @@ class Material_List(object):
                    ("COMP3278","Tutoraial 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
                    ,("COMP3278","Lecture 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
                    ,("COMP3278","Tutoraial 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))]
-    def setupUi(self, MainWindow):
         self.frame = QtWidgets.QFrame(MainWindow)
         self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)
@@ -97,12 +98,3 @@ class Material_List(object):
         self.Title.setText(_translate("Form", "COMP3278 Material"))
       
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Material_List()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())

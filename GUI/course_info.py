@@ -49,7 +49,7 @@ class CourseInfo(object):
         self.pushButton.setFont(font)
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(lambda:self.toMaterial(MainWindow))
+        self.pushButton.clicked.connect(lambda:self.toMaterial(MainWindow,course_id))
         MainWindow.gridLayout.addWidget(self.frame,2,1,1,1)
 
         self.retranslateUi(MainWindow)
@@ -76,14 +76,14 @@ class CourseInfo(object):
 ""+materialList+"</span></p></body></html>"))
         self.pushButton.setText(_translate("Form", "Get Material"))
     
-    def toMaterial(self,MainWindow):
+    def toMaterial(self,MainWindow,course_id):
         item = MainWindow.gridLayout.takeAt(2)
         if item is not None:
             widget = item.widget()
             if widget is not None:
                 widget.deleteLater()
         uiCourseMaterial = Material_List()
-        uiCourseMaterial.setupUi(MainWindow)
+        uiCourseMaterial.setupUi(MainWindow,course_id)
 
 # if __name__ == "__main__":
 #     import sys

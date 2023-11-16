@@ -44,20 +44,20 @@ class Course_Item:
         label.clicked.connect(lambda:toCourse_Info(MainWindow,data[2]))
 
 class Course_List(object):
+    def setupUi(self, MainWindow):
     # base on ClassTaken and Courses, from sql
-    sqlSem1CourseData = [("COMP3278","Course Name","course_id"),
+        self.sqlSem1CourseData = [("COMP3278","Course Name","course_id"),
                          ("COMP3278","Course Name","course_id"),
                          ("COMP3278","Course Name","course_id"),
                          ("COMP3278","Course Name","course_id"),
                          ("COMP3278","Course Name","course_id")]
-    sqlSem2CourseData = [("COMP3297","Course Name","course_id"),
+        self.sqlSem2CourseData = [("COMP3297","Course Name","course_id"),
                          ("COMP3297","Course Name","course_id"),
                          ("COMP3297","Course Name","course_id"),
                          ("COMP3297","Course Name","course_id"),
                          ("COMP32976","Course Name","course_id")]
     #not from sql, manually do it
-    sqlCourseData = [sqlSem1CourseData,sqlSem2CourseData]
-    def setupUi(self, MainWindow):
+        self.sqlCourseData = [self.sqlSem1CourseData,self.sqlSem2CourseData]
         self.frame = QtWidgets.QFrame()
         self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)
