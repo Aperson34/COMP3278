@@ -66,6 +66,27 @@ def executeSQLdata(filename):
 #executeSQLdata("proj_data_1.sql")
 #these should only be executed once for initialisation, better use another .py to handle
 
+
+
+def getCourseMaterial(course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
+  mycursor.execute(f"SELECT courses.course_code, coursematerial.material_name,coursematerial.class_date,coursematerial.class_time FROM coursematerial,courses WHERE coursematerial.course_id=courses.course_id AND courses.course_id='{course_id}'") #input instructions
+  myresult = mycursor.fetchall()
+  return(myresult)
+
+def getCourseList(student_id,sem):  #for course_list.py line 48, e.g. getCourseList(1,2)
+  filter = str(sem)+"%"
+  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from ClassTaken, Courses WHERE ClassTaken.course_id=Courses.course_id AND courses.class_id LIKE '{filter}' AND ClassTaken.student_id='{student_id}'") #input instructions
+  myresult = mycursor.fetchall()
+  return(myresult)
+
+def getCourseData(student_id, course_id):  #for course_info.py line 19, e.g. getCourseData(1,1)
+  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.welcome_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from classtaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id=courses.course_id AND classtaken.course_id=CourseClass.course_id AND classtaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
+  myresult = mycursor.fetchall()
+  if (len(myresult) != 0):
+    return(myresult[0])
+
+
+
 def putLoginInfo(student_id, ctime, cdate):
     mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {ctime}, {cdate}, 0, 0);") #insert login data
 
