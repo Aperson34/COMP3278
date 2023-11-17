@@ -32,13 +32,13 @@ INSERT INTO CourseClass (course_id, class_date, class_time, class_end_time, clas
 INSERT INTO CourseClass (course_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "2023-09-19", "13:30:00", "15:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", False);
 INSERT INTO CourseClass (course_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "2023-09-21", "14:30:00", "16:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
 
-INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-01", "14:30:00", "intro", "C:\\Users\\admin\\Desktop\\COMP3278\\lec0.pdf");
-INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-05", "13:30:00", "diagrams1", "C:\\Users\\admin\\Desktop\\COMP3278\\lec1.pdf");
-INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-07", "14:30:00", "diagrams1", "C:\\Users\\admin\\Desktop\\COMP3278\\lec1.pdf");
-INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-12", "13:30:00", "diagrams2", "C:\\Users\\admin\\Desktop\\COMP3278\\lec2.pdf");
-INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-14", "14:30:00", "diagrams2", "C:\\Users\\admin\\Desktop\\COMP3278\\lec2.pdf");
-INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-19", "13:30:00", "sql1", "C:\\Users\\admin\\Desktop\\COMP3278\\lec3.pdf");
-INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-21", "14:30:00", "sql2", "C:\\Users\\admin\\Desktop\\COMP3278\\lec3.pdf");
+INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-01", "14:30:00", "intro", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
+INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-05", "13:30:00", "diagrams1", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
+INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-07", "14:30:00", "diagrams1", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
+INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-12", "13:30:00", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
+INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-14", "14:30:00", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
+INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-19", "13:30:00", "sql1", "../CourseMaterials/2023-24/COMP3278/lec03.pdf");
+--INSERT INTO CourseMaterial (course_id, class_date, class_time, material_name, file_path) VALUES ("1", "2023-09-21", "14:30:00", "sql2", "C:\\Users\\admin\\Desktop\\COMP3278\\lec3.pdf");
 
 INSERT INTO ClassTaken (student_id, course_id) VALUES ("3035788621", "1");
 INSERT INTO ClassTaken (student_id, course_id) VALUES ("3035788622", "1");
