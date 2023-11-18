@@ -12,6 +12,7 @@ mydb = mysql.connector.connect(host="localhost", user="root", password="pswd", d
 mycursor = mydb.cursor()
 
 def sendemail(filename,to):    #sendemail ('Hello.txt') will send the Hello.txt as attachment
+    filename = "../" + filename
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
