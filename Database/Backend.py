@@ -143,11 +143,9 @@ def getCourseTeacher(course_id):
 def getLectureToday(student_id): #tested with 1 record
   now = datetime.now()
   d_string = now.strftime("%Y-%m-%d")
-  t_string = now.strftime("%H:%M:%S")
   mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN CourseTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string} ORDER BY CC.class_date ASC, CC.class_time ASC'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
-
 def HaveClassIn1Hr(LectureToday):
     for i in range(len(LectureToday)):
         if within1hr(LectureToday[i][2],LectureToday[i][3],LectureToday[i][4]):
