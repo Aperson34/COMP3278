@@ -11,16 +11,14 @@ from mysql.connector import Error
 mydb = mysql.connector.connect(host="localhost", user="root", password="pswd", database="Project") #change the password & database
 mycursor = mydb.cursor()
 
-def sendemail(filename,to,class_id):
+def sendemail(filename,to,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
     mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
     myresult = mycursor.fetchall()
-
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
     email_password = 'gkma bvtw qbii wulg'
     email_receiver = to
-
     # Set the subject and body of the email
     subject = f"Please Find Your Course Information Attached - {myresult[0][9]}"
     body = f"Course Code: {myresult[0][9]}\nCourse Name: {myresult[0][12]}\nCourse Date: {myresult[0][2]}\nCourse Start Time: {myresult[0][3]}\nCourse End Time: {myresult[0][4]}\nClass Location: {myresult[0][5]}\nZoom Link: {myresult[0][6]}"
@@ -33,10 +31,10 @@ def sendemail(filename,to,class_id):
     em.set_content(body)
 
     # Add the attachment to the email
-    attachment_path = filename
-    with open(attachment_path, 'rb') as attachment:
-        em.add_attachment(attachment.read(), maintype='application', subtype='octet-stream', filename=attachment_path)
-
+    for i in range(len(filename)):
+      attachment_path = filename[i]
+      with open(attachment_path, 'rb') as attachment:
+          em.add_attachment(attachment.read(), maintype='application', subtype='octet-stream', filename=attachment_path)
     # Add SSL (layer of security)
     context = ssl.create_default_context()
 
