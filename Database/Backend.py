@@ -11,8 +11,10 @@ from mysql.connector import Error
 mydb = mysql.connector.connect(host="localhost", user="root", password="pswd", database="Project") #change the password & database
 mycursor = mydb.cursor()
 
-def sendemail(filename,to):    #sendemail ('Hello.txt') will send the Hello.txt as attachment
-    filename = "../" + filename
+def sendemail(filename,to,class_id):
+    mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
+    myresult = mycursor.fetchall()
+
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
@@ -20,10 +22,8 @@ def sendemail(filename,to):    #sendemail ('Hello.txt') will send the Hello.txt 
     email_receiver = to
 
     # Set the subject and body of the email
-    subject = 'Please Find Your Course Information Attached'
-    body = """
-    See title.
-    """
+    subject = f"Please Find Your Course Information Attached - {myresult[0][9]}"
+    body = f"Course Code: {myresult[0][9]}\nCourse Name: {myresult[0][12]}\nCourse Date: {myresult[0][2]}\nCourse Start Time: {myresult[0][3]}\nCourse End Time: {myresult[0][4]}\nClass Location: {myresult[0][5]}\nZoom Link: {myresult[0][6]}"
 
     em = EmailMessage()
     em['From'] = email_sender
