@@ -11,18 +11,17 @@ from mysql.connector import Error
 mydb = mysql.connector.connect(host="localhost", user="root", password="pswd", database="Project") #change the password & database
 mycursor = mydb.cursor()
 
-def sendemail(filename,to):    #sendemail ('Hello.txt') will send the Hello.txt as attachment
+def sendemail(filename,to,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
+    mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
+    myresult = mycursor.fetchall()
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
     email_password = 'gkma bvtw qbii wulg'
     email_receiver = to
-
     # Set the subject and body of the email
-    subject = 'Please Find Your Course Information Attached'
-    body = """
-    See title.
-    """
+    subject = f"Please Find Your Course Information Attached - {myresult[0][9]}"
+    body = f"Course Code: {myresult[0][9]}\nCourse Name: {myresult[0][12]}\nCourse Date: {myresult[0][2]}\nCourse Start Time: {myresult[0][3]}\nCourse End Time: {myresult[0][4]}\nClass Location: {myresult[0][5]}\nZoom Link: {myresult[0][6]}"
 
     em = EmailMessage()
     em['From'] = email_sender
@@ -32,10 +31,10 @@ def sendemail(filename,to):    #sendemail ('Hello.txt') will send the Hello.txt 
     em.set_content(body)
 
     # Add the attachment to the email
-    attachment_path = filename
-    with open(attachment_path, 'rb') as attachment:
-        em.add_attachment(attachment.read(), maintype='application', subtype='octet-stream', filename=attachment_path)
-
+    for i in range(len(filename)):
+      attachment_path = filename[i]
+      with open(attachment_path, 'rb') as attachment:
+          em.add_attachment(attachment.read(), maintype='application', subtype='octet-stream', filename=attachment_path)
     # Add SSL (layer of security)
     context = ssl.create_default_context()
 
@@ -66,7 +65,10 @@ def executeSQLdata(filename):
 #executeSQLdata("proj_data_1.sql")
 #these should only be executed once for initialisation, better use another .py to handle
 
-
+def getCourseClassInfo(course_id, class_id):
+  mycursor.execute(f"SELECT * FROM CourseClass AS CC WHERE CC.course_id = '{course_id}' AND CC.class_id='{class_id}'") #input instructions
+  myresult = mycursor.fetchall()
+  return(myresult)
 
 def getCourseMaterial(course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
   mycursor.execute(f"SELECT courses.course_code, coursematerial.material_name,coursematerial.class_date,coursematerial.class_time FROM coursematerial,courses WHERE coursematerial.course_id=courses.course_id AND courses.course_id='{course_id}'") #input instructions
@@ -75,12 +77,12 @@ def getCourseMaterial(course_id):   #for course_material.py line 43, e.g. getCou
 
 def getCourseList(student_id,sem):  #for course_list.py line 48, e.g. getCourseList(1,2)
   filter = str(sem)+"%"
-  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from ClassTaken, Courses WHERE ClassTaken.course_id=Courses.course_id AND courses.class_id LIKE '{filter}' AND ClassTaken.student_id='{student_id}'") #input instructions
+  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from CourseTaken, Courses WHERE CourseTaken.course_id=Courses.course_id AND courses.class_id LIKE '{filter}' AND CourseTaken.student_id='{student_id}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 
 def getCourseData(student_id, course_id):  #for course_info.py line 19, e.g. getCourseData(1,1)
-  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.welcome_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from classtaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id=courses.course_id AND classtaken.course_id=CourseClass.course_id AND classtaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
+  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.welcome_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from CourseTaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id = Courses.course_id AND CourseTaken.course_id = CourseClass.course_id AND CourseTaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
   myresult = mycursor.fetchall()
   if (len(myresult) != 0):
     return(myresult[0])
@@ -143,14 +145,12 @@ def getCourseTeacher(course_id):
 def getLectureToday(student_id): #tested with 1 record
   now = datetime.now()
   d_string = now.strftime("%Y-%m-%d")
-  t_string = now.strftime("%H:%M:%S")
-  mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN ClassTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string}'") #input instructions
+  mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN CourseTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string} ORDER BY CC.class_date ASC, CC.class_time ASC'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
-
 def HaveClassIn1Hr(LectureToday):
     for i in range(len(LectureToday)):
-        if within1hr(LectureToday[i][1],LectureToday[i][2],LectureToday[i][3]):
+        if within1hr(LectureToday[i][2],LectureToday[i][3],LectureToday[i][4]):
             return LectureToday[i]
     return "" #need some dummy
 
@@ -162,12 +162,12 @@ def within1hr(date,starttime,endtime):
         return False
     
 def getCourseTaken(student_id): #untested
-  mycursor.execute(f"SELECT C.course_code, C.class_id, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
+  mycursor.execute(f"SELECT C.course_code, C.class_code, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 
-def getLectureMaterialPath(course_id, class_date, class_time): #untested
-  mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id = '{course_id}' and CM.class_date = '{class_date}' and CM.class_time = '{class_time}'") #input instructions
+def getLectureMaterialPath(course_id, class_id): #untested
+  mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id = '{course_id}' and CM.class_id = '{class_id}'") #input instructions
   myresult = mycursor.fetchall()
   filepaths=[]
   for row in myresult:
