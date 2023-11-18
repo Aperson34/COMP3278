@@ -75,12 +75,12 @@ def getCourseMaterial(course_id):   #for course_material.py line 43, e.g. getCou
 
 def getCourseList(student_id,sem):  #for course_list.py line 48, e.g. getCourseList(1,2)
   filter = str(sem)+"%"
-  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from ClassTaken, Courses WHERE ClassTaken.course_id=Courses.course_id AND courses.class_id LIKE '{filter}' AND ClassTaken.student_id='{student_id}'") #input instructions
+  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from CourseTaken, Courses WHERE CourseTaken.course_id=Courses.course_id AND courses.class_id LIKE '{filter}' AND CourseTaken.student_id='{student_id}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 
 def getCourseData(student_id, course_id):  #for course_info.py line 19, e.g. getCourseData(1,1)
-  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.welcome_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from classtaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id=courses.course_id AND classtaken.course_id=CourseClass.course_id AND classtaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
+  mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.welcome_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from CourseTaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id = Courses.course_id AND CourseTaken.course_id = CourseClass.course_id AND CourseTaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
   myresult = mycursor.fetchall()
   if (len(myresult) != 0):
     return(myresult[0])
@@ -144,13 +144,13 @@ def getLectureToday(student_id): #tested with 1 record
   now = datetime.now()
   d_string = now.strftime("%Y-%m-%d")
   t_string = now.strftime("%H:%M:%S")
-  mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN ClassTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string}'") #input instructions
+  mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN CourseTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string} ORDER BY CC.class_date ASC, CC.class_time ASC'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 
 def HaveClassIn1Hr(LectureToday):
     for i in range(len(LectureToday)):
-        if within1hr(LectureToday[i][1],LectureToday[i][2],LectureToday[i][3]):
+        if within1hr(LectureToday[i][2],LectureToday[i][3],LectureToday[i][4]):
             return LectureToday[i]
     return "" #need some dummy
 
@@ -162,12 +162,12 @@ def within1hr(date,starttime,endtime):
         return False
     
 def getCourseTaken(student_id): #untested
-  mycursor.execute(f"SELECT C.course_code, C.class_id, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
+  mycursor.execute(f"SELECT C.course_code, C.class_code, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 
-def getLectureMaterialPath(course_id, class_date, class_time): #untested
-  mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id = '{course_id}' and CM.class_date = '{class_date}' and CM.class_time = '{class_time}'") #input instructions
+def getLectureMaterialPath(course_id, class_id): #untested
+  mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id = '{course_id}' and CM.class_id = '{class_id}'") #input instructions
   myresult = mycursor.fetchall()
   filepaths=[]
   for row in myresult:
