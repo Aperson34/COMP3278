@@ -164,11 +164,20 @@ def HaveClassIn1Hr(LectureToday):
     return [(0, 0, "1997-01-01", timedelta(days=0), timedelta(days=0), "000", "", False)]
 
 def within1hr(date,starttime,endtime):
-    now = datetime.now()
-    if ((datetime.combine(date, datetime.min.time()) + starttime) <= now+timedelta(hours=1)) and ((datetime.combine(date, datetime.min.time()) + endtime) >= now): #startime < 1 hour from now and now is not yet endtime
-        return True
-    else:
-        return False
+  now = datetime.now()
+  if ((datetime.combine(date, datetime.min.time()) + starttime) <= now+timedelta(hours=1)) and ((datetime.combine(date, datetime.min.time()) + endtime) >= now): #startime < 1 hour from now and now is not yet endtime
+    return True
+  else:
+    return False
+
+def checkClassWithin1Hr(student_id):  #checkClassWithin1Hr(3035788621)
+  mycursor.execute(f"SELECT courseclass.class_date,courseclass.class_time,courseclass.class_end_time from courseclass,coursetaken WHERE courseclass.course_id=coursetaken.course_id AND coursetaken.student_id='{student_id}'") #input instructions
+  myresult = mycursor.fetchall()
+  Ans = False
+  for i in range(len(myresult)):
+    Ans = Ans or within1hr(myresult[i][0],myresult[i][1],myresult[i][2])
+  print(Ans)
+  return(Ans)
     
 def getCourseTaken(student_id): #untested
   mycursor.execute(f"SELECT C.course_code, C.class_code, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
