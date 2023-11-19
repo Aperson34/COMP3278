@@ -154,7 +154,7 @@ def getCourseTeacher(course_id):
 def getLectureToday(student_id): #tested with 1 record
   now = datetime.now()
   d_string = now.strftime("%Y-%m-%d")
-  mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN CourseTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string} ORDER BY CC.class_date ASC, CC.class_time ASC'") #input instructions
+  mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN CourseTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string}' ORDER BY CC.class_date ASC, CC.class_time ASC") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 def HaveClassIn1Hr(LectureToday):
@@ -182,3 +182,12 @@ def getLectureMaterialPath(course_id, class_id): #untested
   for row in myresult:
     filepaths.append(row[0])
   return filepaths
+
+def getTimeTableDisplayData(student_id):
+  today = date.today()
+  weekday = today.weekday()
+  sunday = today - timedelta(days=(weekday+1)%7)
+  saturday = sunday + timedelta(days=6)
+  mycursor.execute(f"SELECT C.course_id, C.course_code, C.course_name, CC.class_date, CC.class_time, CC.class_end_time FROM CourseClass AS CC JOIN CourseTaken AS CT JOIN Courses AS C WHERE CC.course_id = CT.course_id AND C.course_id = CC.course_id AND CT.student_id = '{student_id}' AND CC.class_date BETWEEN '{sunday}' AND '{saturday}' ORDER BY CC.class_date ASC, CC.class_time ASC") #input instructions
+  myresult = mycursor.fetchall()
+  return myresult
