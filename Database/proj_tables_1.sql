@@ -72,8 +72,7 @@ CREATE TABLE CourseMaterial (
   material_name varchar(50) NOT NULL,
   file_path varchar(100) NOT NULL,
   PRIMARY KEY (course_id, class_id, material_name),
-  FOREIGN KEY (course_id) REFERENCES Courses(course_id),
-  FOREIGN KEY (class_id) REFERENCES CourseClass(class_id)
+  FOREIGN KEY (course_id, class_id) REFERENCES CourseClass(course_id, class_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- CREATE TABLE 'CourseTaken'
