@@ -8,8 +8,14 @@ import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
 
-mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279", database="Project") #change the password & database
+mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
 mycursor = mydb.cursor()
+mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
+mycursor.execute("CREATE DATABASE GROUP19ICMS;")
+mycursor.execute("USE GROUP19ICMS;")
+
+
+
 
 def sendemail(filename,to,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
     mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
