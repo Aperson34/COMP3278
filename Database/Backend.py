@@ -13,7 +13,9 @@ mycursor = mydb.cursor()
 mycursor.execute("USE GROUP19ICMS;")
 
 
-
+def createicms():
+    mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
+    mycursor.execute("CREATE DATABASE GROUP19ICMS;")
 
 def sendemail(filename,to,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
     mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
