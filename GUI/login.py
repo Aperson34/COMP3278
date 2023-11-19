@@ -1,19 +1,26 @@
 # modified from https://stackoverflow.com/a/22698342
 
 import os
-import sys 
+import sys
+import cv2
+from datetime import datetime
 
 from PyQt5.QtCore import Qt, QTimer, QSize, QRect,QMetaObject
-from PyQt5.QtGui import QIcon, QPixmap, QCursor
+from PyQt5.QtGui import QIcon, QPixmap, QCursor, QImage
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QPushButton, QLabel, QApplication
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFrame, QDesktopWidget, QLineEdit
+from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from qtwidgets import AnimatedToggle
+import pickle
+sys.path.append('../Database')
+import Backend
 from course_info import CourseInfo
 
 from menuBar import MenuBar
 from welcomeMsg import WelMsg
 
 class MainWindow(object):
+
     #after login successfully, please run this function
     def toDashBoard(self,uiMainWindow):
         self.central_widget.deleteLater()
@@ -49,13 +56,10 @@ class MainWindow(object):
         self.frame.setWindowTitle('Course Management System')
 
         self.login_widget = LoginWidget(self.frame)
-        self.face_recognition_widget = FaceRecognitionWidget(self.frame)
-        self.logged_in_widget = LoggedWidget(self.frame)
+        self.face_recognition_widget = FaceRecognitionWidget(self.frame, uiMainWindow, self.toDashBoard)
 
         self.central_widget.addWidget(self.login_widget)
         self.central_widget.addWidget(self.face_recognition_widget)
-        self.central_widget.addWidget(self.logged_in_widget)
-
 
         uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 1920,1080))
         uiMainWindow.HLayout.addWidget(self.frame)
@@ -65,33 +69,28 @@ class MainWindow(object):
         self.face_recognition_widget.return_to_login.clicked.connect(self.to_login)
 
     def login(self, uiMainWindow):
-        # self.flg_login = not self.flg_login
-        # if self.flg_login:
-        #     username = self.login_page.uid_input.text()
-        #     password = self.login_page.password_input.text()
-        #     if not username:
-        #         self.username.setText('root')
-        #     if password == '':
-        #         self.password.setText('1203')
-
-        #     if self.conn is None:
-        #         self.conn = mysql.connector.connect(host="localhost", port=3306, 
-        #             user=self.username.text(), passwd=self.password.text())
-        #     self.btn_login.setStyleSheet(self.btn_login_style_1)
-        #     self.btn_login.setText('Log out')
-        # else:
-        #     if self.conn is not None:
-        #         self.conn = None
-        #     self.btn_login.setStyleSheet(self.btn_login_style_0)
-        #     self.btn_login.setText('Log in')
-
-        # uiMainWindow.stu_id = checkLoginCredentials(idk the pram)
-        self.central_widget.setCurrentWidget(self.logged_in_widget)
+        UID = self.login_widget.uid_input.text()
+        password = self.login_widget.password_input.text()
+        query_result = Backend.checkLoginCredentials(UID, password)
+        if query_result != "0000000000":
+            uiMainWindow.stu_id = query_result
+            uiMainWindow.login_time = datetime.now()
+            self.toDashBoard(uiMainWindow)
+        else:
+            self.error_message = QLabel("Login Failed!")
+            self.error_message.setStyleSheet("QLabel {font-size: 24px; color: red; background-color:#fff}")
+            self.error_message.setGeometry(0, 0, 400, 100)
+            self.error_message.show()
 
     def to_face_recognition(self):
         self.central_widget.setCurrentWidget(self.face_recognition_widget)
 
     def to_login(self):
+        if self.face_recognition_widget.device is not None:
+            self.face_recognition_widget.device.release()
+            self.face_recognition_widget.device = None
+        self.face_recognition_widget.cam_feed.clear()
+        self.face_recognition_widget.timer.stop()
         self.central_widget.setCurrentWidget(self.login_widget)
 
     def moveWindowToCenter(self):
@@ -148,6 +147,14 @@ class LoginWidget(QWidget):
         button_slot.addStretch(1)
         button_slot.addWidget(self.face_recognition_button, stretch=2)
 
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(10)
+        shadow.setOffset(0, 3)
+        self.login_button.setGraphicsEffect(shadow)
+        shadow2 = QGraphicsDropShadowEffect()
+        shadow2.setBlurRadius(10)
+        shadow2.setOffset(0, 3)
+        self.face_recognition_button.setGraphicsEffect(shadow2)
 
         padding = QLabel()
         padding.setMaximumHeight(20)
@@ -157,16 +164,10 @@ class LoginWidget(QWidget):
         login_card_layout.addWidget(padding, 0, 0, 1, 4)
         login_card_layout.addWidget(self.uid_input, 1, 1, 1, 2)
         login_card_layout.addWidget(self.password_input, 2, 1, 1, 2)
-        # login_card_layout.addWidget(self.login_button, 3, 1, 1, 1)
-        # login_card_layout.addWidget(self.face_recognition_button, 3, 2, 1, 1)
         login_card_layout.addLayout(button_slot, 3, 1, 1, 2)
         login_card_layout.setVerticalSpacing(60)
 
         self.login_card.setLayout(login_card_layout)
-
-        self.button2 = QPushButton('try to change text')
-        self.display1 = QLabel("unchanged text")
-        self.button2.clicked.connect(self.change_text)
 
         padding = QLabel()
         padding.setMaximumHeight(200)
@@ -178,12 +179,15 @@ class LoginWidget(QWidget):
 
         self.setLayout(layout)
 
-    def change_text(self):
-        self.display1.setText("modified text")
-
 class FaceRecognitionWidget(QWidget):
-    def __init__(self, parent):
+    def __init__(self, parent, uiMainWindow, toDashBoard):
         super().__init__(parent)
+
+        self.face_cascade = None
+        self.recognizer = None
+
+        self.confidence_threshold = 60
+
         layout = QGridLayout()
         self.setStyleSheet('font-family: inter; font-weight:bold; font-size: 48px;')
 
@@ -210,6 +214,7 @@ class FaceRecognitionWidget(QWidget):
             checked_color="#3399ff",
             pulse_checked_color="#443399ff"
         )
+        self.toggle_button.toggled.connect(lambda: self.connect(uiMainWindow, toDashBoard))
 
         self.return_to_login = QPushButton('Return to Login')
         self.return_to_login.setMinimumHeight(80)
@@ -246,40 +251,72 @@ class FaceRecognitionWidget(QWidget):
 
         self.setLayout(layout)
 
-    # def connect(self,uiMainWindow):
+        self.flg_conn = False
+        self.device = None
 
-    #### plz put stu_id in here: uiMainWindow.stu_id
+    # ~~~~~~~~ connect device ~~~~~~~~
+    def connect(self, uiMainWindow, toDashBoard):
+        if not os.path.isfile('../FaceRecognition/train.yml'):
+            self.error_message = QLabel("Model not found!")
+            self.error_message.setStyleSheet("QLabel {font-size: 24px; color: red; background-color:#fff}")
+            self.error_message.setGeometry(0, 0, 400, 100)
+            self.error_message.show()
+            return
 
-    #     if self.flg_recd:
-    #         self.record()
-    #     self.flg_conn = not self.flg_conn
-    #     if self.flg_conn:
-    #         self.btn_conn.setStyleSheet(self.btn_conn_style_1)
-    #         self.btn_conn.setText('Disconnect Device')
-    #         if self.device is None:
-    #             self.device = cv2.VideoCapture(0)
-    #         self.timer = QTimer()
-    #         self.timer.timeout.connect(self.update)
-    #         self.timer.start(50)
-    #     else:
-    #         self.btn_conn.setStyleSheet(self.btn_conn_style_0)
-    #         self.btn_conn.setText('Connect Device')
-    #         if self.device is not None:
-    #             self.device.release()
-    #             self.device = None
-    #         self.cam_feed.clear()
-    #         self.timer.stop()
+        if self.face_cascade is None:
+            self.face_cascade = cv2.CascadeClassifier('../FaceRecognition/haarcascade/haarcascade_frontalface_default.xml')
+        if self.recognizer is None:
+            self.recognizer = cv2.face.LBPHFaceRecognizer_create()
+            self.recognizer.read("../FaceRecognition/train.yml")
+
+        self.flg_conn = not self.flg_conn
+        if self.flg_conn:
+            self.camera_status.setText('Camera On')
+            if self.device is None:
+                self.device = cv2.VideoCapture(0)
+            self.timer = QTimer()
+            self.timer.timeout.connect(lambda: self.update(uiMainWindow, toDashBoard))
+            self.timer.start(50)
+        else:
+            self.camera_status.setText('Camera not turned on')
+            if self.device is not None:
+                self.device.release()
+                self.device = None
+            self.cam_feed.clear()
+            self.timer.stop()
         
-    #     return
-    
-class LoggedWidget(QWidget):
-    def __init__(self, parent):
-        super().__init__(parent)
-        layout = QHBoxLayout()
-        self.label = QLabel('logged in!')
-        layout.addWidget(self.label)
-        self.setLayout(layout)
+        return
 
+    # ~~~~~~~~ update ~~~~~~~~
+    def update(self, uiMainWindow, toDashBoard):
+        labels = {"person_name": 1}
+        with open("../FaceRecognition/labels.pickle", "rb") as f:
+            labels = pickle.load(f)
+            labels = {v: k for k, v in labels.items()}
+
+        _, frame = self.device.read()
+        Qframe = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        Qframe = QImage(Qframe, Qframe.shape[1], Qframe.shape[0], Qframe.strides[0], QImage.Format_RGB888)
+        self.cam_feed.setPixmap(QPixmap.fromImage(Qframe))
+
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        faces = self.face_cascade.detectMultiScale(gray, scaleFactor=1.5, minNeighbors=5)
+
+        for (x, y, w, h) in faces:
+            print(x, w, y, h)
+            roi_gray = gray[y:y + h, x:x + w]
+            # predict the id and confidence for faces
+            id_, conf = self.recognizer.predict(roi_gray)
+
+            # If the face is recognized
+            if conf >= self.confidence_threshold: # 60
+                uid = labels[id_]
+                uiMainWindow.stu_id = uid
+                uiMainWindow.login_time = datetime.now()
+                toDashBoard(uiMainWindow)
+
+        return
+    
 # if __name__ == '__main__':
 #     app = QApplication(sys.argv)
 #     app.setStyle('Fusion')
