@@ -47,7 +47,7 @@ CREATE TABLE Courses (
   class_code varchar(2) NOT NULL,
   year_offered int NOT NULL,
   course_name varchar(50) NOT NULL,
-  welcome_message varchar(1000),
+  t_message varchar(1000),
   PRIMARY KEY (course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -96,18 +96,6 @@ CREATE TABLE CourseTaught (
   teacher_id int NOT NULL,
   course_id int NOT NULL,
   PRIMARY KEY (teacher_id, course_id),
-  FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id),
-  FOREIGN KEY (course_id) REFERENCES Courses(course_id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- CREATE TABLE 'TeacherMessage'
-CREATE TABLE TeacherMessage (
-  teacher_id int NOT NULL,
-  course_id int NOT NULL,
-  t_message varchar(1000) NOT NULL,
-  message_date date NOT NULL,
-  message_time time NOT NULL,
-  PRIMARY KEY (teacher_id, course_id, message_date, message_time),
   FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id),
   FOREIGN KEY (course_id) REFERENCES Courses(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
