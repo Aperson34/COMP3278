@@ -11,7 +11,13 @@
 import math
 from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
+import sys
+import os
 
+path = os.path.abspath("Database")
+sys.path.append(path)
+
+import Backend
 
 class ClassItem(QtWidgets.QTableWidgetItem):
     def __init__(self, text):
@@ -24,9 +30,10 @@ class ClassItem(QtWidgets.QTableWidgetItem):
 
 class Timetable(object):
     def setupUi(self, Form):
-        self.sqlCourseData = [("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,7), datetime.time(15,30,00,00), datetime.time(17,20,00,00)),
-                              ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,10), datetime.time(16,30,00,00), datetime.time(17,20,00,00)),
-                              ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,9), datetime.time(9,30,00,00), datetime.time(17,20,00,00))]
+        self.sqlCourseData = Backend.getTimeTableDisplayData(Form.stu_id)
+        # [("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,7), datetime.time(15,30,00,00), datetime.time(17,20,00,00)),
+        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,10), datetime.time(16,30,00,00), datetime.time(17,20,00,00)),
+        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,9), datetime.time(9,30,00,00), datetime.time(17,20,00,00))]
         self.frame = QtWidgets.QFrame()
         self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)
