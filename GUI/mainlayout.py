@@ -9,6 +9,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from login import MainWindow
 from welcomeMsg import WelMsg
 from course_info import CourseInfo
 from menuBar import MenuBar
@@ -52,20 +53,8 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
     uiMainWindow = Ui_MainWindow()
     # Login stuff 
-
-    #After login
-    uiMenuBar = MenuBar()
-    uiMenuBar.setupUi(uiMainWindow)
-    uiWelMsg = WelMsg()
-    uiWelMsg.setupUi(uiMainWindow)
-    #check if any course within 1 hr
-    #if yes, return course_id
-    course_id=''
-    if (True):
-        uiCourseInfo = CourseInfo()
-        uiCourseInfo.setupUi(uiMainWindow, course_id)
-    # else:
-    #     timtable()
+    Login = MainWindow()
+    Login.setupUi(uiMainWindow)
         
     uiMainWindow.show()
     sys.exit(app.exec_())

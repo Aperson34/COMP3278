@@ -1,38 +1,73 @@
 # modified from https://stackoverflow.com/a/22698342
 
 import os
-import sys
-import cv2
-import mysql.connector
+import sys 
 
-from PyQt5.QtCore import Qt, QTimer, QSize
+from PyQt5.QtCore import Qt, QTimer, QSize, QRect
 from PyQt5.QtGui import QIcon, QPixmap, QCursor
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QPushButton, QLabel, QApplication
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFrame, QDesktopWidget, QLineEdit
 from qtwidgets import AnimatedToggle
+from course_info import CourseInfo
 
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
+from menuBar import MenuBar
+from welcomeMsg import WelMsg
+
+class MainWindow(object):
+    #after login successfully, please run this function
+    def toDashBoard(self,uiMainWindow):
+        print("clicked")
+        while uiMainWindow.HLayout.count():
+            item = uiMainWindow.HLayout.takeAt(0)
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+            else:
+                uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 0, 0))
+        uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 0, 0))
+        #After login
+        uiMenuBar = MenuBar()
+        uiMenuBar.setupUi(uiMainWindow)
+        uiWelMsg = WelMsg()
+        uiWelMsg.setupUi(uiMainWindow)
+    #check if any course within 1 hr
+    #if yes, return course_id
+        course_id=''
+        if (True):
+            uiCourseInfo = CourseInfo()
+            uiCourseInfo.setupUi(uiMainWindow, course_id)
+    # else:
+    #     timtable()
+
+    def setupUi(self,uiMainWindow):
+        self.frame = QFrame()
+        self.frame.setFixedHeight(1080)
+        self.frame.setFixedWidth(1920)
+        self.frame.setFrameShape(QFrame.StyledPanel)
+        self.frame.setFrameShadow(QFrame.Raised)
+        self.frame.setObjectName("frame")
         
         # use the stacked widget as a means to switch between screens
-        self.central_widget = QStackedWidget()
-        self.setCentralWidget(self.central_widget)
+        self.central_widget = QStackedWidget(self.frame)
+        uiMainWindow.setCentralWidget(self.central_widget)
         
-        self.setStyleSheet('background-color: #ffffff;')
-        self.setWindowTitle('Course Management System')
+        self.frame.setStyleSheet('background-color: #ffffff;')
+        self.frame.setWindowTitle('Course Management System')
 
-        self.login_widget = LoginWidget(self)
+        self.login_widget = LoginWidget(self.frame)
         self.face_recognition_widget = FaceRecognitionWidget()
-        self.logged_in_widget = LoggedWidget(self)
+        self.logged_in_widget = LoggedWidget(self.frame)
 
         self.central_widget.addWidget(self.login_widget)
         self.central_widget.addWidget(self.face_recognition_widget)
         self.central_widget.addWidget(self.logged_in_widget)
 
-        self.login_widget.login_button.clicked.connect(self.login)
+        self.login_widget.login_button.clicked.connect(lambda:self.toDashBoard(uiMainWindow))
         self.login_widget.face_recognition_button.clicked.connect(self.to_face_recognition)
         self.face_recognition_widget.return_to_login.clicked.connect(self.to_login)
+
+        uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 709, 1080))
+        uiMainWindow.HLayout.addWidget(self.frame)
 
     def login(self):
         # self.flg_login = not self.flg_login
@@ -246,11 +281,11 @@ class LoggedWidget(QWidget):
         layout.addWidget(self.label)
         self.setLayout(layout)
 
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    app.setStyle('Fusion')
-    window = MainWindow()
-    window.show()
-    window.setFixedSize(1920, 1014)
-    window.moveWindowToCenter()
-    sys.exit(app.exec_())
+# if __name__ == '__main__':
+#     app = QApplication(sys.argv)
+#     app.setStyle('Fusion')
+#     window = MainWindow()
+#     window.show()
+#     window.setFixedSize(1920, 1014)
+#     window.moveWindowToCenter()
+#     sys.exit(app.exec_())

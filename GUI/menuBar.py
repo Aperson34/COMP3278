@@ -18,7 +18,6 @@ class MenuBar(object):
         ui = Sidebar()
         ui.setupUi(MainWindow)
         MainWindow.HLayout.addWidget(ui.frame)
-        print('clicked')
 
     def setupUi(self, MainWindow):
         self.frame = QtWidgets.QFrame()
