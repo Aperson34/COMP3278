@@ -32,6 +32,20 @@ class Profile(object):
                          ("15 Nov 2023", "10:00pm", "15 Nov 2023", "11:00pm"),
                          ]
         
+        self.frame = QtWidgets.QFrame()
+        self.frame.setFixedHeight(833)
+        self.frame.setFixedWidth(1664)
+        self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame.setObjectName("frame")
+        self.frame.setStyleSheet("border: 3px")
+        self.gridLayoutWidget = QtWidgets.QWidget(self.frame)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(0, 0, 1664, 833))
+        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setObjectName("gridLayout")
+        
         self.profile_card = ProfileCard(profile_data, UID)
         self.login_hist_card = LoginHistoryCard(login_history)
 
@@ -44,11 +58,13 @@ class Profile(object):
         padding.setMinimumHeight(20)
         padding.setStyleSheet("background-color: transparent;")
 
-        MainWindow.gridLayout.addWidget(self.title1, 2, 1, 1, 1)
-        MainWindow.gridLayout.addWidget(self.profile_card, 3, 1, 1, 1)
-        MainWindow.gridLayout.addWidget(self.title2, 4, 1, 1, 1)
-        MainWindow.gridLayout.addWidget(self.login_hist_card, 5, 1, 1, 1)
-        MainWindow.gridLayout.addWidget(padding, 6, 1, 1, 1)
+
+        self.gridLayout.addWidget(self.title1, 2, 1, 1, 1)
+        self.gridLayout.addWidget(self.profile_card, 3, 1, 1, 1)
+        self.gridLayout.addWidget(self.title2, 4, 1, 1, 1)
+        self.gridLayout.addWidget(self.login_hist_card, 5, 1, 1, 1)
+        self.gridLayout.addWidget(padding, 6, 1, 1, 1)
+        MainWindow.gridLayout.addWidget(self.frame,2,1,1,1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
 class ProfileCard(QFrame):
