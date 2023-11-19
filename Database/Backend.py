@@ -79,8 +79,8 @@ def getCourseClassInfo(course_id, class_id):
   myresult = mycursor.fetchall()
   return(myresult)
 
-def getCourseMaterial(course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
-  mycursor.execute(f"SELECT courses.course_code, coursematerial.material_name,coursematerial.class_date,coursematerial.class_time,coursematerial.file_path FROM coursematerial,courses WHERE coursematerial.course_id=courses.course_id AND courses.course_id='{course_id}'") #input instructions
+def getCourseMaterial(course_id, class_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
+  mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 
@@ -161,14 +161,23 @@ def HaveClassIn1Hr(LectureToday):
     for i in range(len(LectureToday)):
         if within1hr(LectureToday[i][2],LectureToday[i][3],LectureToday[i][4]):
             return LectureToday[i]
-    return "" #need some dummy
+    return [(0, 0, "1997-01-01", timedelta(days=0), timedelta(days=0), "000", "", False)]
 
 def within1hr(date,starttime,endtime):
-    now = datetime.now()
-    if ((datetime.combine(date, datetime.min.time()) + starttime) <= now+timedelta(hours=1)) and ((datetime.combine(date, datetime.min.time()) + endtime) >= now): #startime < 1 hour from now and now is not yet endtime
-        return True
-    else:
-        return False
+  now = datetime.now()
+  if ((datetime.combine(date, datetime.min.time()) + starttime) <= now+timedelta(hours=1)) and ((datetime.combine(date, datetime.min.time()) + endtime) >= now): #startime < 1 hour from now and now is not yet endtime
+    return True
+  else:
+    return False
+
+def checkClassWithin1Hr(student_id):  #checkClassWithin1Hr(3035788621)
+  mycursor.execute(f"SELECT courseclass.class_date,courseclass.class_time,courseclass.class_end_time from courseclass,coursetaken WHERE courseclass.course_id=coursetaken.course_id AND coursetaken.student_id='{student_id}'") #input instructions
+  myresult = mycursor.fetchall()
+  Ans = False
+  for i in range(len(myresult)):
+    Ans = Ans or within1hr(myresult[i][0],myresult[i][1],myresult[i][2])
+  print(Ans)
+  return(Ans)
     
 def getCourseTaken(student_id): #untested
   mycursor.execute(f"SELECT C.course_code, C.class_code, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
