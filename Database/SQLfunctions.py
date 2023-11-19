@@ -1,5 +1,6 @@
 #for testing purposes
 from Backend import *
+createicms()
 executeSQL("proj_tables_1.sql")
 
 
