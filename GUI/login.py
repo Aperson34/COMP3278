@@ -14,11 +14,18 @@ from qtwidgets import AnimatedToggle
 import pickle
 sys.path.append('../Database')
 import Backend
+from timetable import Timetable
 from course_info import CourseInfo
 
 from menuBar import MenuBar
 from welcomeMsg import WelMsg
+import sys
+import os
 
+path = os.path.abspath("Database")
+sys.path.append(path)
+
+import Backend
 class MainWindow(object):
 
     #after login successfully, please run this function
@@ -32,13 +39,14 @@ class MainWindow(object):
         uiWelMsg = WelMsg()
         uiWelMsg.setupUi(uiMainWindow)
     #check if any course within 1 hr
-    #if yes, return course_id
-        course_id=''
-        if (True):
+        temp = Backend.HaveClassIn1Hr(uiMainWindow.stu_id)
+        if (temp):
+            course_id=temp[0]
             uiCourseInfo = CourseInfo()
             uiCourseInfo.setupUi(uiMainWindow, course_id)
-    # else:
-    #     timtable()
+        else: 
+            uiTimetable = Timetable()
+            uiTimetable.setupUi(MainWindow)
 
     def setupUi(self,uiMainWindow):
         self.frame = QFrame()
