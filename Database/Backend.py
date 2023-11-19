@@ -8,7 +8,7 @@ import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
 
-mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
+mydb = mysql.connector.connect(host="localhost", user="root", password="hidden") #change the password
 mycursor = mydb.cursor()
 mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
 mycursor.execute("CREATE DATABASE GROUP19ICMS;")
