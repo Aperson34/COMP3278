@@ -126,10 +126,10 @@ def getCourseInfo(course_id): #tested
 def getLoginBehaviour(student_id):
   mycursor.execute(f"SELECT * FROM LoginBehaviour WHERE student_id = {student_id}") #input instructions
   myresult = mycursor.fetchall()
-  login_time = myresult[0][2]
-  login_date = myresult[0][3]
-  logout_time = myresult[0][4]
-  logout_date = myresult[0][5]
+  login_time = myresult[0][1]
+  login_date = myresult[0][2]
+  logout_time = myresult[0][3]
+  logout_date = myresult[0][4]
   return (login_time, login_date, logout_time, logout_date)
 
 def getCourseTeacher(course_id):
