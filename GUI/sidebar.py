@@ -12,9 +12,20 @@ from profile import Profile
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from course_list import Course_List
+from timetable import Timetable
+import sys
+import os
+
+path = os.path.abspath("Database")
+sys.path.append(path)
+
+import Backend
 
 
 class Sidebar(QtWidgets.QWidget):
+    def logout(self, MainWindow):
+        Backend.putLogoutInfo() ##not sure about the param
+        MainWindow.close()
     def setupUi(self, MainWindow):
         font = QtGui.QFont()
         font.setPointSize(24)
@@ -33,6 +44,7 @@ class Sidebar(QtWidgets.QWidget):
         self.pushButton.setObjectName("pushButton")
         self.pushButton.setStyleSheet('background-color: rgb(91, 50, 86)')  
         self.pushButton.setFont(font) 
+        self.backButton.clicked.connect(lambda:self.logout(MainWindow))
 
         self.backButton = QtWidgets.QPushButton(self.frame)
         self.backButton.setGeometry(QtCore.QRect(600, 0, 100, 100))
@@ -106,8 +118,8 @@ class Sidebar(QtWidgets.QWidget):
             if widget is not None:
                 widget.deleteLater()
         self.hideSideBar(MainWindow)
-        # uiTimetable = Timetable()
-        # uiTimetable.setupUi(MainWindow)
+        uiTimetable = Timetable()
+        uiTimetable.setupUi(MainWindow)
     
     def toProfile(self,MainWindow):
         item = MainWindow.gridLayout.takeAt(2)

@@ -11,6 +11,13 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
+import sys
+import os
+
+path = os.path.abspath("Database")
+sys.path.append(path)
+
+import Backend
 
 class Material_Item:
         
@@ -41,14 +48,15 @@ class Material_Item:
 class Material_List(object):
     def setupUi(self, MainWindow ,course_id):
         #fetch course material data with given course_id
-        self.sqlMaterialData = [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Tutoraial 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Lecture 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
-                   ("COMP3278","Tutoraial 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
-                   ,("COMP3278","Lecture 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
-                   ,("COMP3278","Tutoraial 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))]
+        self.sqlMaterialData = Backend.getCourseMaterial(course_id)
+        # [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+        #            ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+        #            ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+        #            ("COMP3278","Tutoraial 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+        #            ("COMP3278","Lecture 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
+        #            ("COMP3278","Tutoraial 3 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
+        #            ,("COMP3278","Lecture 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))
+        #            ,("COMP3278","Tutoraial 4 note", datetime.date(2023,11,16), datetime.time(15,30,00,00))]
         self.frame = QtWidgets.QFrame(MainWindow)
         self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)

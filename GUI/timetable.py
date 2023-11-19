@@ -22,18 +22,18 @@ class ClassItem(QtWidgets.QTableWidgetItem):
         self.setBackground(brush)
         self.setText(_translate("Form",text))
 
-class Ui_Form(object):
+class Timetable(object):
     def setupUi(self, Form):
         self.sqlCourseData = [("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,7), datetime.time(15,30,00,00), datetime.time(17,20,00,00)),
                               ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,10), datetime.time(16,30,00,00), datetime.time(17,20,00,00)),
                               ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,9), datetime.time(9,30,00,00), datetime.time(17,20,00,00))]
-        Form.setObjectName("Form")
-        Form.resize(4095, 1080)
-        self.frame = QtWidgets.QFrame(Form)
-        self.frame.setGeometry(QtCore.QRect(100, 120, 1664, 833))
+        self.frame = QtWidgets.QFrame()
+        self.frame.setFixedHeight(833)
+        self.frame.setFixedWidth(1664)
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
+
         self.tableWidget = QtWidgets.QTableWidget(self.frame)
         self.tableWidget.setGeometry(QtCore.QRect(0, 0, 1664, 833))
         self.tableWidget.setDisabled(True)
@@ -92,9 +92,9 @@ class Ui_Form(object):
 
         self.tableWidget.horizontalHeader().setDefaultSectionSize(220)
         self.tableWidget.verticalHeader().setDefaultSectionSize(80)
+        Form.gridLayout.addWidget(self.frame,2,1,1,1)
 
         self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
@@ -134,13 +134,3 @@ class Ui_Form(object):
         __sortingEnabled = self.tableWidget.isSortingEnabled()
         self.tableWidget.setSortingEnabled(False)
         self.tableWidget.setSortingEnabled(__sortingEnabled)
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    Form = QtWidgets.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())

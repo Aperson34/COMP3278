@@ -10,6 +10,13 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
+import sys
+import os
+
+path = os.path.abspath("Database")
+sys.path.append(path)
+
+import Backend
 
 from course_material import Material_List
 #from sql
@@ -17,9 +24,9 @@ from course_material import Material_List
 class CourseInfo(object):
     def setupUi(self, MainWindow, course_id):
         #using course_id to fetch data
-        self.sqlCourseData = [("COMP3278", "Introduction to Database Management Systems", "[teacher’s message]", "classroom address",
-        datetime.time(15,30,00,00),"[links of Zoom]")]
-        self.sqlMaterialData = [("Lecture 1 note"),("Lecture 2 note"),("Lecture 3 note")]
+        self.sqlCourseData = Backend.getCourseData(MainWindow.stu_id,course_id) # [("COMP3278", "Introduction to Database Management Systems", "[teacher’s message]", "classroom address",
+        # datetime.time(15,30,00,00),"[links of Zoom]")]
+        self.sqlMaterialData = Backend.getCourseMaterial(MainWindow.stu_id,course_id)#[("Lecture 1 note"),("Lecture 2 note"),("Lecture 3 note")]
         # end of fetching, start gui construction
         self.sqlCourseData = self.sqlCourseData[0]
         self.frame = QtWidgets.QFrame()
@@ -59,7 +66,7 @@ class CourseInfo(object):
         time = self.sqlCourseData[4].strftime("%H:%M:%S")
         materialList = ""
         for i in self.sqlMaterialData:
-            materialList = materialList+i+"<br />"
+            materialList = materialList+i[2]+"<br />"
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.textBrowser.setHtml(_translate("Form", "<html><head/>\n"

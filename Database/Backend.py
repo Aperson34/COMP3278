@@ -77,7 +77,7 @@ def getCourseClassInfo(course_id, class_id):
   return(myresult)
 
 def getCourseMaterial(course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
-  mycursor.execute(f"SELECT courses.course_code, coursematerial.material_name,coursematerial.class_date,coursematerial.class_time FROM coursematerial,courses WHERE coursematerial.course_id=courses.course_id AND courses.course_id='{course_id}'") #input instructions
+  mycursor.execute(f"SELECT courses.course_code, coursematerial.material_name,coursematerial.class_date,coursematerial.class_time,coursematerial.class_id,,coursematerial.course_id FROM coursematerial,courses WHERE coursematerial.course_id=courses.course_id AND courses.course_id='{course_id}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 

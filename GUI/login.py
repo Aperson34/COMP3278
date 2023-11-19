@@ -3,7 +3,7 @@
 import os
 import sys 
 
-from PyQt5.QtCore import Qt, QTimer, QSize, QRect
+from PyQt5.QtCore import Qt, QTimer, QSize, QRect,QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap, QCursor
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QPushButton, QLabel, QApplication
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFrame, QDesktopWidget, QLineEdit
@@ -16,14 +16,8 @@ from welcomeMsg import WelMsg
 class MainWindow(object):
     #after login successfully, please run this function
     def toDashBoard(self,uiMainWindow):
-        print("clicked")
-        while uiMainWindow.HLayout.count():
-            item = uiMainWindow.HLayout.takeAt(0)
-            widget = item.widget()
-            if widget is not None:
-                widget.deleteLater()
-            else:
-                uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 0, 0))
+        self.central_widget.deleteLater()
+        self.frame.deleteLater()
         uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 0, 0))
         #After login
         uiMenuBar = MenuBar()
@@ -55,21 +49,22 @@ class MainWindow(object):
         self.frame.setWindowTitle('Course Management System')
 
         self.login_widget = LoginWidget(self.frame)
-        self.face_recognition_widget = FaceRecognitionWidget()
+        self.face_recognition_widget = FaceRecognitionWidget(self.frame)
         self.logged_in_widget = LoggedWidget(self.frame)
 
         self.central_widget.addWidget(self.login_widget)
         self.central_widget.addWidget(self.face_recognition_widget)
         self.central_widget.addWidget(self.logged_in_widget)
 
-        self.login_widget.login_button.clicked.connect(lambda:self.toDashBoard(uiMainWindow))
+
+        uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 1920,1080))
+        uiMainWindow.HLayout.addWidget(self.frame)
+
+        self.login_widget.login_button.clicked.connect(lambda:self.login(uiMainWindow))
         self.login_widget.face_recognition_button.clicked.connect(self.to_face_recognition)
         self.face_recognition_widget.return_to_login.clicked.connect(self.to_login)
 
-        uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 709, 1080))
-        uiMainWindow.HLayout.addWidget(self.frame)
-
-    def login(self):
+    def login(self, uiMainWindow):
         # self.flg_login = not self.flg_login
         # if self.flg_login:
         #     username = self.login_page.uid_input.text()
@@ -90,6 +85,7 @@ class MainWindow(object):
         #     self.btn_login.setStyleSheet(self.btn_login_style_0)
         #     self.btn_login.setText('Log in')
 
+        # uiMainWindow.stu_id = checkLoginCredentials(idk the pram)
         self.central_widget.setCurrentWidget(self.logged_in_widget)
 
     def to_face_recognition(self):
@@ -105,7 +101,7 @@ class MainWindow(object):
         self.move(window_rect.topLeft())
 
 class LoginWidget(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent):
         super().__init__(parent)
         layout = QGridLayout()
 
@@ -186,7 +182,7 @@ class LoginWidget(QWidget):
         self.display1.setText("modified text")
 
 class FaceRecognitionWidget(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent):
         super().__init__(parent)
         layout = QGridLayout()
         self.setStyleSheet('font-family: inter; font-weight:bold; font-size: 48px;')
@@ -250,7 +246,10 @@ class FaceRecognitionWidget(QWidget):
 
         self.setLayout(layout)
 
-    # def connect(self):
+    # def connect(self,uiMainWindow):
+
+    #### plz put stu_id in here: uiMainWindow.stu_id
+
     #     if self.flg_recd:
     #         self.record()
     #     self.flg_conn = not self.flg_conn
@@ -274,7 +273,7 @@ class FaceRecognitionWidget(QWidget):
     #     return
     
 class LoggedWidget(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent):
         super().__init__(parent)
         layout = QHBoxLayout()
         self.label = QLabel('logged in!')
