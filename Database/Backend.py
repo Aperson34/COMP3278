@@ -10,8 +10,6 @@ from mysql.connector import Error
 
 mydb = mysql.connector.connect(host="localhost", user="root", password="hidden") #change the password
 mycursor = mydb.cursor()
-mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
-mycursor.execute("CREATE DATABASE GROUP19ICMS;")
 mycursor.execute("USE GROUP19ICMS;")
 
 
