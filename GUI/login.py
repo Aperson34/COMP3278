@@ -8,11 +8,18 @@ from PyQt5.QtGui import QIcon, QPixmap, QCursor
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QPushButton, QLabel, QApplication
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFrame, QDesktopWidget, QLineEdit
 from qtwidgets import AnimatedToggle
+from timetable import Timetable
 from course_info import CourseInfo
 
 from menuBar import MenuBar
 from welcomeMsg import WelMsg
+import sys
+import os
 
+path = os.path.abspath("Database")
+sys.path.append(path)
+
+import Backend
 class MainWindow(object):
     #after login successfully, please run this function
     def toDashBoard(self,uiMainWindow):
@@ -25,13 +32,14 @@ class MainWindow(object):
         uiWelMsg = WelMsg()
         uiWelMsg.setupUi(uiMainWindow)
     #check if any course within 1 hr
-    #if yes, return course_id
-        course_id=''
-        if (True):
+        temp = Backend.HaveClassIn1Hr(uiMainWindow.stu_id)
+        if (temp):
+            course_id=temp[0]
             uiCourseInfo = CourseInfo()
             uiCourseInfo.setupUi(uiMainWindow, course_id)
-    # else:
-    #     timtable()
+        else: 
+            uiTimetable = Timetable()
+            uiTimetable.setupUi(MainWindow)
 
     def setupUi(self,uiMainWindow):
         self.frame = QFrame()

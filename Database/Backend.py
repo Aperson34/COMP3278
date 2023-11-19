@@ -161,8 +161,7 @@ def HaveClassIn1Hr(LectureToday):
     for i in range(len(LectureToday)):
         if within1hr(LectureToday[i][2],LectureToday[i][3],LectureToday[i][4]):
             return LectureToday[i]
-    return [(0, 0, "1997-01-01", timedelta(days=0), timedelta(days=0), "000", "", False)]
-
+    return False
 def within1hr(date,starttime,endtime):
   now = datetime.now()
   if ((datetime.combine(date, datetime.min.time()) + starttime) <= now+timedelta(hours=1)) and ((datetime.combine(date, datetime.min.time()) + endtime) >= now): #startime < 1 hour from now and now is not yet endtime
