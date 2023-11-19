@@ -17,14 +17,17 @@ def createicms():
     mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
     mycursor.execute("CREATE DATABASE GROUP19ICMS;")
 
-def sendemail(filename,to,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
+def sendemail(filename,stu_id,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
     mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
     myresult = mycursor.fetchall()
+    mycursor.execute(f"SELECT email from Student WHERE student_id='{stu_id}'") #input instructions
+    myresult1 = mycursor.fetchall()
+
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
     email_password = 'gkma bvtw qbii wulg'
-    email_receiver = to
+    email_receiver = myresult1[0][0]
     # Set the subject and body of the email
     subject = f"Please Find Your Course Information Attached - {myresult[0][9]}"
     body = f"Course Code: {myresult[0][9]}\nCourse Name: {myresult[0][12]}\nCourse Date: {myresult[0][2]}\nCourse Start Time: {myresult[0][3]}\nCourse End Time: {myresult[0][4]}\nClass Location: {myresult[0][5]}\nZoom Link: {myresult[0][6]}"
@@ -77,7 +80,7 @@ def getCourseClassInfo(course_id, class_id):
   return(myresult)
 
 def getCourseMaterial(course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
-  mycursor.execute(f"SELECT courses.course_code, coursematerial.material_name,coursematerial.class_date,coursematerial.class_time,coursematerial.class_id,,coursematerial.course_id FROM coursematerial,courses WHERE coursematerial.course_id=courses.course_id AND courses.course_id='{course_id}'") #input instructions
+  mycursor.execute(f"SELECT courses.course_code, coursematerial.material_name,coursematerial.class_date,coursematerial.class_time,coursematerial.file_path FROM coursematerial,courses WHERE coursematerial.course_id=courses.course_id AND courses.course_id='{course_id}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 

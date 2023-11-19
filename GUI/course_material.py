@@ -71,6 +71,7 @@ class Material_List(object):
         self.pushButton.setFont(font)
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setObjectName("pushButton")
+        self.pushButton.clicked.connect(lambda:self.sendEmail(MainWindow,course_id))
         self.Title = QtWidgets.QLabel(self.frame)
         self.Title.setGeometry(QtCore.QRect(0, 0, 1664, 110))
         font = QtGui.QFont()
@@ -104,5 +105,12 @@ class Material_List(object):
         MainWindow.setWindowTitle(_translate("Form", "Form"))
         self.pushButton.setText(_translate("Form", "Send to Email"))
         self.Title.setText(_translate("Form", "COMP3278 Material"))
+
+    def sendEmail(self,MainWindow,course_id):
+        materialNeeded = []
+        for i in range(0,len(self.sqlMaterialData )):
+            if self.checkedList[i]:
+                materialNeeded.append(self.sqlMaterialData[i][4])
+        Backend.sendemail(materialNeeded, MainWindow.stu_id,course_id)
       
 
