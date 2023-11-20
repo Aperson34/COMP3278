@@ -10,7 +10,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 import time
-import asyncio
 #from sql
 class WelMsg(object):
     

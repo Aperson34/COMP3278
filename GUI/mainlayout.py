@@ -18,10 +18,8 @@ from sidebar import Sidebar
 
 import sys
 import os
-
 path = os.path.abspath("Database")
 sys.path.append(path)
-
 from Backend import Backend
 class Ui_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):

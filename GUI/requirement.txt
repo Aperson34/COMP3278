@@ -1,0 +1,5 @@
+PyQt5
+qtwidgets
+opencv-python
+opencv-contrib-python
+mysql-connector-python
