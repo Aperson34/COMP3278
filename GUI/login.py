@@ -30,7 +30,7 @@ class MainWindow(object):
         uiWelMsg = WelMsg()
         uiWelMsg.setupUi(uiMainWindow)
     #check if any course within 1 hr
-        temp = MainWindow.backend.HaveClassIn1Hr(uiMainWindow.stu_id)
+        temp = uiMainWindow.backend.HaveClassIn1Hr(uiMainWindow.stu_id)
         if (temp):
             course_id=temp[0]
             uiCourseInfo = CourseInfo()
@@ -70,7 +70,7 @@ class MainWindow(object):
     def login(self, uiMainWindow):
         UID = self.login_widget.uid_input.text()
         password = self.login_widget.password_input.text()
-        query_result = MainWindow.backend.checkLoginCredentials(UID, password)
+        query_result = uiMainWindow.backend.checkLoginCredentials(UID, password)
         if query_result != "0000000000":
             uiMainWindow.stu_id = query_result
             uiMainWindow.login_time = datetime.now()
