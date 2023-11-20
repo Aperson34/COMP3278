@@ -5,7 +5,7 @@ import sys
 import cv2
 from datetime import datetime
 
-from PyQt5.QtCore import Qt, QTimer, QSize, QRect,QMetaObject
+from PyQt5.QtCore import Qt, QTimer, QSize, QRect, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap, QCursor, QImage
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QPushButton, QLabel, QApplication
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFrame, QDesktopWidget, QLineEdit
@@ -116,12 +116,13 @@ class LoginWidget(QWidget):
         self.uid_input = QLineEdit()
         self.uid_input.setMinimumSize(250, 50)
         self.uid_input.setStyleSheet(input_style)
-        self.uid_input.setPlaceholderText(' UID')
+        self.uid_input.setPlaceholderText(' Username')
 
         self.password_input = QLineEdit()
         self.password_input.setMinimumSize(250, 50)
         self.password_input.setStyleSheet(input_style)
         self.password_input.setPlaceholderText(' Password')
+        self.password_input.setEchoMode(QLineEdit.Password)
 
         # create the button spacing box
         button_slot = QHBoxLayout()
