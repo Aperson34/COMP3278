@@ -8,14 +8,24 @@ import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
 
-mydb = mysql.connector.connect(host="localhost", user="root", password="hidden") #change the password
+mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
 mycursor = mydb.cursor()
-mycursor.execute("USE GROUP19ICMS;")
-
+def executeSQL(filename):
+    try:
+          with open(filename, "r") as file:
+              sql_script = file.read()
+              mycursor.execute(sql_script, multi=True)
+              print("SQL script executed successfully")
+    except Error as e:
+          print("Error executing SQL script", e)
 
 def createicms():
     mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
     mycursor.execute("CREATE DATABASE GROUP19ICMS;")
+    mycursor.execute("USE GROUP19ICMS;")
+    executeSQL("../Database/proj_data_1.sql")
+    executeSQL("../Database/proj_tables_1.sql")
+createicms()
 
 def sendemail(filename,stu_id,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
     mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
@@ -52,14 +62,7 @@ def sendemail(filename,stu_id,class_id):  #sendemail(["../CourseMaterials/2023-2
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
 
-def executeSQL(filename):
-    try:
-          with open(filename, "r") as file:
-              sql_script = file.read()
-              mycursor.execute(sql_script, multi=True)
-              print("SQL script executed successfully")
-    except Error as e:
-          print("Error executing SQL script", e)
+
 
 def executeSQLdata(filename):
     try:
