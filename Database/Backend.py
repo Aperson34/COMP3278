@@ -10,7 +10,7 @@ from mysql.connector import Error
 class Backend(object):
   def __init__(self):
     super().__init__()
-    self.mydb = mysql.connector.connect(host="localhost", user="root", password="hidden") #change the password
+    self.mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
     self.mycursor = self.mydb.cursor()
 
   def createicms(self):
