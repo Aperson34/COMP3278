@@ -8,7 +8,7 @@ import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
 
-mydb = mysql.connector.connect(host="localhost", user="root", password="hidden") #change the password
+mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
 mycursor = mydb.cursor()
 
 def createicms():
