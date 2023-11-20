@@ -8,7 +8,7 @@ import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
 
-mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
+mydb = mysql.connector.connect(host="localhost", user="root", password="hidden") #change the password
 mycursor = mydb.cursor()
 
 def createicms():
@@ -36,8 +36,9 @@ def executeSQL(filename):
 
 
 
-def sendemail(filename,stu_id,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
-    mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
+def sendemail(filename,stu_id,course_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
+    class_id = HaveClassIn1Hr(stu_id)[1]
+    mycursor.execute(f"SELECT * from CourseClass, Courses WHERE CourseClass.course_id=Courses.course_id AND CourseClass.course_id = '{course_id}' AND CourseClass.class_id='{class_id}'") #input instructions
     myresult = mycursor.fetchall()
     mycursor.execute(f"SELECT email from Student WHERE student_id='{stu_id}'") #input instructions
     myresult1 = mycursor.fetchall()
@@ -71,12 +72,14 @@ def sendemail(filename,stu_id,class_id):  #sendemail(["../CourseMaterials/2023-2
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
 
-def getCourseClassInfo(course_id, class_id):
+def getCourseClassInfo(student_id, course_id):
+  class_id = HaveClassIn1Hr(student_id)[1]
   mycursor.execute(f"SELECT * FROM CourseClass AS CC WHERE CC.course_id = '{course_id}' AND CC.class_id='{class_id}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
 
-def getCourseMaterial(course_id, class_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
+def getCourseMaterial(student_id, course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
+  class_id = HaveClassIn1Hr(student_id)[1]
   mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
   myresult = mycursor.fetchall()
   return(myresult)
