@@ -10,22 +10,31 @@ from mysql.connector import Error
 
 mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
 mycursor = mydb.cursor()
-def executeSQL(filename):
-    try:
-          with open(filename, "r") as file:
-              sql_script = file.read()
-              mycursor.execute(sql_script, multi=True)
-              print("SQL script executed successfully")
-    except Error as e:
-          print("Error executing SQL script", e)
 
 def createicms():
     mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
     mycursor.execute("CREATE DATABASE GROUP19ICMS;")
     mycursor.execute("USE GROUP19ICMS;")
-    executeSQL("../Database/proj_data_1.sql")
     executeSQL("../Database/proj_tables_1.sql")
-createicms()
+    executeSQL("../Database/proj_data_1.sql")
+
+
+def executeSQL(filename):
+    print("test")
+    try:
+          with open(filename, "r") as file:
+              sql_script = file.read()
+              statements = sql_script.split(';')
+              for statement in statements:
+                if statement.strip():
+                  mycursor.execute(statement)
+              #mycursor.execute(sql_script, multi=True)
+              print("SQL script executed successfully")
+    except Error as e:
+          print("Error executing SQL script", e)
+    mydb.commit()
+
+
 
 def sendemail(filename,stu_id,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
     mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions

@@ -1,4 +1,4 @@
-INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788621', "alix@mail.com", "Alix Lee Ka Shing", "2001-10-30");
+INSERT INTO Student (student_id, email, s_name, birthday) VALUES ("3035788621", "alix@mail.com", "Alix Lee Ka Shing", "2001-10-30");
 INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788622', "janice@connect.hku.hk", "Janice Lui", "2002-05-06");
 INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788623', "jeremy123@outlook.com", "Jeremy Chan", "2003-07-14");
 INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788624', "justin@gmail.com", "Justin NG", "1999-12-09");
@@ -32,13 +32,13 @@ INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "6", "2023-09-19", "13:30:00", "15:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", False);
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "7", "2023-09-21", "14:30:00", "16:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
 
-INSERT INTO CourseMaterial (course_id, class_id, material_name file_path) VALUES ("1", "1", "intro", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name file_path) VALUES ("1", "2", "diagrams1", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name file_path) VALUES ("1", "3", "diagrams1", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name file_path) VALUES ("1", "3", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name file_path) VALUES ("1", "4", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name file_path) VALUES ("1", "4", "sql1", "../CourseMaterials/2023-24/COMP3278/lec03.pdf");
---INSERT INTO CourseMaterial (course_id, class_id, material_name file_path) VALUES ("1", "2023-09-21", "14:30:00", "sql2", "C:\\Users\\admin\\Desktop\\COMP3278\\lec3.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "1", "intro", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "2", "diagrams1", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "3", "diagrams1", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "3", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "4", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "4", "sql1", "../CourseMaterials/2023-24/COMP3278/lec03.pdf");
+
 
 INSERT INTO CourseTaken (student_id, course_id) VALUES ("3035788621", "1");
 INSERT INTO CourseTaken (student_id, course_id) VALUES ("3035788622", "1");
@@ -74,13 +74,3 @@ INSERT INTO CourseTaught (teacher_id, course_id) VALUES ("8", "5");
 INSERT INTO CourseTaught (teacher_id, course_id) VALUES ("8", "6");
 INSERT INTO CourseTaught (teacher_id, course_id) VALUES ("9", "6");
   
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("1", "1", "Hi", "2023-08-25", "13:30:00");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("2", "2", "Hi1", "2023-08-25", "14:30:00");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("3", "1", "Hi2", "2023-08-25", "15:30:00");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("4", "3", "Hi3", "2023-08-25", "16:30:00");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("5", "4", "Hi4", "2023-08-25", "17:30:00");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("6", "4", "Hi5", "2023-08-25", "18:30:00");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("7", "5", "Hi6", "2023-08-25", "19:30:00");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("8", "5", "E=mc2", "2023-11-01", "00:00:01");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("8", "6", "E=mc2", "2023-10-010", "00:00:01");
-INSERT INTO TeacherMessage (teacher_id, course_id, t_message, message_date, message_time) VALUES ("9", "6", "Believe", "2023-11-17", "00:00:01");

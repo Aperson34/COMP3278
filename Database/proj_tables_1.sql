@@ -1,5 +1,4 @@
-DROP TABLE IF EXISTS LoginCredentials;
-DROP TABLE IF EXISTS Student;
+
 
 -- Create TABLE 'Student'
 CREATE TABLE Student (
@@ -30,15 +29,6 @@ CREATE TABLE LoginBehaviour (
   PRIMARY KEY (student_id, login_time, login_date),
   FOREIGN KEY (student_id) REFERENCES Student(student_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- CREATE TABLE 'RecognitionModel'
-/*CREATE TABLE RecognitionModel (
-  model_id int NOT NULL,
-  file_path varchar(100) NOT NULL,
-  date_created date NOT NULL,
-  student_id int NOT NULL,
-  PRIMARY KEY (model_id)
-);*/
 
 -- CREATE TABLE 'Courses'
 CREATE TABLE Courses (
@@ -100,14 +90,3 @@ CREATE TABLE CourseTaught (
   FOREIGN KEY (course_id) REFERENCES Courses(course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- CREATE TABLE 'TeacherMessage'
-CREATE TABLE TeacherMessage (
-  teacher_id int NOT NULL,
-  course_id int NOT NULL,
-  t_message varchar(1000) NOT NULL,
-  message_date date NOT NULL,
-  message_time time NOT NULL,
-  PRIMARY KEY (teacher_id, course_id, message_date, message_time),
-  FOREIGN KEY (teacher_id) REFERENCES Teachers(teacher_id),
-  FOREIGN KEY (course_id) REFERENCES Courses(course_id)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;

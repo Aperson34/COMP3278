@@ -1,8 +1,7 @@
 #for testing purposes
 from Backend import *
 createicms()
-executeSQL("proj_tables_1.sql")
-executeSQL("proj_data_1.sql")
+
 
 
 #(email,name,birthday) = getStudentInfo("3035788625")
