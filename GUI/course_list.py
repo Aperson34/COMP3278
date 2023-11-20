@@ -13,13 +13,6 @@ import datetime
 
 from course_info import CourseInfo
 
-import sys
-import os
-
-path = os.path.abspath("Database")
-sys.path.append(path)
-
-import Backend
 
 
 class Course_Item:
@@ -54,13 +47,13 @@ class Course_Item:
 class Course_List(object):
     def setupUi(self, MainWindow):
     # base on ClassTaken and Courses, from sql
-        self.sqlSem1CourseData = Backend.getCourseList(MainWindow.stu_id, 1)
+        self.sqlSem1CourseData = MainWindow.backend.getCourseList(MainWindow.stu_id, 1)
                         #   [("COMP3278","Course Name","course_id"),
                         #  ("COMP3278","Course Name","course_id"),
                         #  ("COMP3278","Course Name","course_id"),
                         #  ("COMP3278","Course Name","course_id"),
                         #  ("COMP3278","Course Name","course_id")]
-        self.sqlSem2CourseData = Backend.getCourseList(MainWindow.stu_id, 1)
+        self.sqlSem2CourseData = MainWindow.backend.getCourseList(MainWindow.stu_id, 1)
                         #   [("COMP3297","Course Name","course_id"),
                         #  ("COMP3297","Course Name","course_id"),
                         #  ("COMP3297","Course Name","course_id"),

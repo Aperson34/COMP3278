@@ -1,6 +1,6 @@
 #for testing purposes
 from Backend import *
-createicms()
+Backend.createicms()
 
 
 
