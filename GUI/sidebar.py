@@ -13,18 +13,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from course_list import Course_List
 from timetable import Timetable
-import sys
-import os
-
-path = os.path.abspath("Database")
-sys.path.append(path)
-
-import Backend
-
+import datetime
 
 class Sidebar(QtWidgets.QWidget):
     def logout(self, MainWindow):
-        Backend.putLogoutInfo() ##not sure about the param
+        MainWindow.backend.putLogoutInfo(MainWindow.stu_id, MainWindow.login_time.time(), MainWindow.login_time.date(), datetime.now().time(), datetime.now().date()) ##not sure about the param
         MainWindow.close()
     def setupUi(self, MainWindow):
         font = QtGui.QFont()

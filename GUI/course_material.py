@@ -11,13 +11,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
-import sys
-import os
-
-path = os.path.abspath("Database")
-sys.path.append(path)
-
-import Backend
 
 class Material_Item:
         
@@ -48,7 +41,7 @@ class Material_Item:
 class Material_List(object):
     def setupUi(self, MainWindow ,course_id):
         #fetch course material data with given course_id
-        self.sqlMaterialData = Backend.getCourseMaterial(course_id)
+        self.sqlMaterialData = MainWindow.backend.getCourseMaterial(course_id)
         # [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
         #            ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
         #            ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
@@ -111,6 +104,6 @@ class Material_List(object):
         for i in range(0,len(self.sqlMaterialData )):
             if self.checkedList[i]:
                 materialNeeded.append(self.sqlMaterialData[i][4])
-        Backend.sendemail(materialNeeded, MainWindow.stu_id,course_id)
+        MainWindow.backend.sendemail(materialNeeded, MainWindow.stu_id,course_id)
       
 
