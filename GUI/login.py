@@ -5,27 +5,18 @@ import sys
 import cv2
 from datetime import datetime
 
-from PyQt5.QtCore import Qt, QTimer, QSize, QRect,QMetaObject
+from PyQt5.QtCore import Qt, QTimer, QSize, QRect, QMetaObject
 from PyQt5.QtGui import QIcon, QPixmap, QCursor, QImage
 from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QPushButton, QLabel, QApplication
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFrame, QDesktopWidget, QLineEdit
 from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from qtwidgets import AnimatedToggle
 import pickle
-sys.path.append('../Database')
-import Backend
 from timetable import Timetable
 from course_info import CourseInfo
 
 from menuBar import MenuBar
 from welcomeMsg import WelMsg
-import sys
-import os
-
-path = os.path.abspath("Database")
-sys.path.append(path)
-
-import Backend
 class MainWindow(object):
 
     #after login successfully, please run this function
@@ -39,7 +30,7 @@ class MainWindow(object):
         uiWelMsg = WelMsg()
         uiWelMsg.setupUi(uiMainWindow)
     #check if any course within 1 hr
-        temp = Backend.HaveClassIn1Hr(uiMainWindow.stu_id)
+        temp = MainWindow.backend.HaveClassIn1Hr(uiMainWindow.stu_id)
         if (temp):
             course_id=temp[0]
             uiCourseInfo = CourseInfo()
@@ -79,7 +70,7 @@ class MainWindow(object):
     def login(self, uiMainWindow):
         UID = self.login_widget.uid_input.text()
         password = self.login_widget.password_input.text()
-        query_result = Backend.checkLoginCredentials(UID, password)
+        query_result = MainWindow.backend.checkLoginCredentials(UID, password)
         if query_result != "0000000000":
             uiMainWindow.stu_id = query_result
             uiMainWindow.login_time = datetime.now()
@@ -125,12 +116,13 @@ class LoginWidget(QWidget):
         self.uid_input = QLineEdit()
         self.uid_input.setMinimumSize(250, 50)
         self.uid_input.setStyleSheet(input_style)
-        self.uid_input.setPlaceholderText(' UID')
+        self.uid_input.setPlaceholderText(' Username')
 
         self.password_input = QLineEdit()
         self.password_input.setMinimumSize(250, 50)
         self.password_input.setStyleSheet(input_style)
         self.password_input.setPlaceholderText(' Password')
+        self.password_input.setEchoMode(QLineEdit.Password)
 
         # create the button spacing box
         button_slot = QHBoxLayout()

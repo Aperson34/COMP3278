@@ -16,6 +16,13 @@ from course_info import CourseInfo
 from menuBar import MenuBar
 from sidebar import Sidebar
 
+import sys
+import os
+
+path = os.path.abspath("Database")
+sys.path.append(path)
+
+from Backend import Backend
 class Ui_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
@@ -23,6 +30,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.login_time = None
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint) 
         self.setupUi()
+        self.backend = Backend()
 
     def setupUi(self):
         self.setObjectName("MainWindow")
