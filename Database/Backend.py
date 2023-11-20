@@ -71,21 +71,6 @@ def sendemail(filename,stu_id,class_id):  #sendemail(["../CourseMaterials/2023-2
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
 
-
-
-def executeSQLdata(filename):
-    try:
-          with open(filename, "r") as file:
-              sql_script = file.read()
-              mycursor.execute(sql_script, multi=True)
-              mydb.commit()
-              print("SQL script executed successfully")
-    except Error as e:
-          print("Error executing data SQL script", e)
-#executeSQL("proj_tables_1.sql")
-#executeSQLdata("proj_data_1.sql")
-#these should only be executed once for initialisation, better use another .py to handle
-
 def getCourseClassInfo(course_id, class_id):
   mycursor.execute(f"SELECT * FROM CourseClass AS CC WHERE CC.course_id = '{course_id}' AND CC.class_id='{class_id}'") #input instructions
   myresult = mycursor.fetchall()
