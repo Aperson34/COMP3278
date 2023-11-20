@@ -95,7 +95,7 @@ class Backend(object):
     return(myresult)
 
   def getCourseData(self,student_id, course_id):  #for course_info.py line 19, e.g. getCourseData(1,1)
-    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.welcome_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from CourseTaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id = Courses.course_id AND CourseTaken.course_id = CourseClass.course_id AND CourseTaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
+    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.t_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from CourseTaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id = Courses.course_id AND CourseTaken.course_id = CourseClass.course_id AND CourseTaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
     myresult = self.mycursor.fetchall()
     if (len(myresult) != 0):
       return(myresult[0])
@@ -137,8 +137,8 @@ class Backend(object):
     class_id = myresult[0][2]
     year_offered = myresult[0][3]
     coursename = myresult[0][4]
-    welcome_message = myresult[0][5]
-    return (course_code, class_id, year_offered, coursename, welcome_message)
+    t_message = myresult[0][5]
+    return (course_code, class_id, year_offered, coursename, t_message)
 
   def getLoginBehaviour(self,student_id):
     self.mycursor.execute(f"SELECT * FROM LoginBehaviour WHERE student_id = {student_id}") #input instructions
