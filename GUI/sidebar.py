@@ -17,6 +17,7 @@ import datetime
 
 class Sidebar(QtWidgets.QWidget):
     def logout(self, MainWindow):
+        #Please follow this format: MainWindow.backend.putLogoutInfo("3035788621", "10:20:03", "2023-11-22", "12:02:03", "2023-11-22")
         MainWindow.backend.putLogoutInfo(MainWindow.stu_id, MainWindow.login_time.time(), MainWindow.login_time.date(), datetime.now().time(), datetime.now().date()) ##not sure about the param
         MainWindow.close()
     def setupUi(self, MainWindow):
