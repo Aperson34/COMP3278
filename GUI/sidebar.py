@@ -39,7 +39,7 @@ class Sidebar(QtWidgets.QWidget):
 
     def setupUi(self, MainWindow):
         font = QtGui.QFont()
-        font.setPointSize(24)
+        font.setPointSize(18)
         font.setBold(True)
         font.setWeight(75)
         font.setKerning(True)
