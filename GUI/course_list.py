@@ -53,7 +53,7 @@ class Course_List(object):
                         #  ("COMP3278","Course Name","course_id"),
                         #  ("COMP3278","Course Name","course_id"),
                         #  ("COMP3278","Course Name","course_id")]
-        self.sqlSem2CourseData = MainWindow.backend.getCourseList(MainWindow.stu_id, 1)
+        self.sqlSem2CourseData = MainWindow.backend.getCourseList(MainWindow.stu_id, 2)
                         #   [("COMP3297","Course Name","course_id"),
                         #  ("COMP3297","Course Name","course_id"),
                         #  ("COMP3297","Course Name","course_id"),

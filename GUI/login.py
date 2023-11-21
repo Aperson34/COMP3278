@@ -328,6 +328,7 @@ class FaceRecognitionWidget(QWidget):
 
             # If the face is recognized
             if conf >= self.confidence_threshold: # 60
+                self.timer.stop()
                 uid = labels[id_]
                 uiMainWindow.stu_id = uid
                 toDashBoard(uiMainWindow)
