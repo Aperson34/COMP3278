@@ -84,7 +84,7 @@ class Backend(object):
 
   def getCourseMaterial(self,student_id, course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
     class_id = self.HaveClassIn1Hr(student_id)[1]
-    self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
+    self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
 
