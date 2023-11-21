@@ -81,7 +81,7 @@ class ProfileCard(QFrame):
         self.UID = QLabel(UID)
         self.name = QLabel(profile_data[0])
         self.email = QLabel(profile_data[1])
-        self.last_login_date = QLabel(profile_data[2])
+        self.last_login_date = QLabel(str(profile_data[2]))
 
         layout.addWidget(QLabel("UID"), 0, 0, 1, 3)
         layout.addWidget(QLabel("Name"), 1, 0, 1, 3)
@@ -118,10 +118,10 @@ class LoginHistoryCard(QScrollArea):
         
         # TODO change dummy data into correct format and compute total duration of login
         for i in range(len(login_history)):
-            layout.addWidget(QLabel(login_history[i][0]), i+1, 0, 1, 3)
-            layout.addWidget(QLabel(login_history[i][1]), i+1, 3, 1, 3)
-            layout.addWidget(QLabel(login_history[i][2]), i+1, 6, 1, 3)
-            layout.addWidget(QLabel(login_history[i][3]), i+1, 9, 1, 3)
+            layout.addWidget(QLabel(str(login_history[i][0])), i+1, 0, 1, 3)
+            layout.addWidget(QLabel(str(login_history[i][1])), i+1, 3, 1, 3)
+            layout.addWidget(QLabel(str(login_history[i][2])), i+1, 6, 1, 3)
+            layout.addWidget(QLabel(str(login_history[i][3])), i+1, 9, 1, 3)
 
         temp = QWidget()
         temp.setLayout(layout)

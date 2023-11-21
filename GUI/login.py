@@ -74,6 +74,7 @@ class MainWindow(object):
         if query_result != "0000000000":
             uiMainWindow.stu_id = query_result
             uiMainWindow.login_time = datetime.now()
+            uiMainWindow.username = UID
             uiMainWindow.backend.putLoginInfo(query_result,  uiMainWindow.login_time.time(), uiMainWindow.login_time.date())
             self.toDashBoard(uiMainWindow)
         else:

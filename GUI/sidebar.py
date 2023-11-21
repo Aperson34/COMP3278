@@ -13,7 +13,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from course_list import Course_List
 from timetable import Timetable
-import datetime
+from datetime import datetime
 
 class Sidebar(QtWidgets.QWidget):
     def logout(self, MainWindow):

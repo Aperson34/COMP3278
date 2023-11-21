@@ -49,9 +49,6 @@ class MenuBar(object):
         # self.menubar.addAction(self.menuusername.menuAction())
         MainWindow.gridLayout.addWidget(self.frame,0,0,1,3)
 
-        self.retranslateUi()
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        self.menuusername.setText(_translate("Form", "UserName"))
+        self.menuusername.setText(_translate("Form", MainWindow.username))
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
