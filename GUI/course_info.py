@@ -58,7 +58,7 @@ class CourseInfo(object):
         time = str(self.sqlCourseData[4])
         materialList = ""
         for i in self.sqlMaterialData:
-            materialList = materialList+i[2]+"<br />"
+            materialList = materialList+i[0]+"<br />"
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.textBrowser.setHtml(_translate("Form", "<html><head/>\n"
