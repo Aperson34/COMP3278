@@ -99,7 +99,7 @@ class Backend(object):
     if (len(myresult) != 0):
       now = datetime.now()
       for i in myresult:
-        if i[7]>now.date() and i[6] > now.time():
+        if i[7]>now.date() and (datetime.datetime.min + i[6]).time() > now.time():
           return i
       return myresult[len(myresult)-1]
 
