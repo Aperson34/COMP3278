@@ -103,13 +103,13 @@ class Backend(object):
 
   def putLoginInfo(self,student_id, ctime, cdate):
     self.mycursor.execute("LOCK TABLES LoginBehaviour WRITE;")
-    self.mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {ctime}, {cdate}, 0, 0);") #insert login data
+    self.mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES (\"{student_id}\", \"{ctime}\", \"{cdate}\", \"00:00:00\", \"2000-01-01\");") #insert login data
     self.mycursor.execute("UNLOCK TABLES;")
 
   def putLogoutInfo(self,student_id, login_time, login_date, ctime, cdate):
     self.mycursor.execute("LOCK TABLES LoginBehaviour WRITE;")
-    self.mycursor.execute(f"DELETE FROM LoginBehaviour WHERE student_id = {student_id} AND login_time = {login_time} AND login_date = {login_date};") #delete partial login record
-    self.mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ({student_id}, {login_time}, {login_date}, {ctime}, {cdate});") #insert login data
+    self.mycursor.execute(f"DELETE FROM LoginBehaviour WHERE student_id = \"{student_id}\" AND login_time = \"{login_time}\" AND login_date = \"{login_date}\";") #delete partial login record
+    self.mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES (\"{student_id}\", \"{login_time}\", \"{login_date}\", \"{ctime}\", \"{cdate}\");") #insert login data
     self.mycursor.execute("UNLOCK TABLES;")
 
   def getStudentInfo(self,student_id): #tested
