@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QScrollArea
 class Profile(object):
     def setupUi(self, MainWindow):
 
-        profile_data = MainWindow.stud_info
+        profile_data = MainWindow.stu_info
         # [("Chan Tai Man"), ("u3030303@connect.hku.hk"), ("4 Nov 2023 4:52pm")]
         # these should all be datetime.date or datetime.time's
         login_history = MainWindow.backend.getLoginBehaviour(MainWindow.stu_id)
