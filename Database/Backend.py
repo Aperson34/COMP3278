@@ -170,7 +170,7 @@ class Backend(object):
     for i in range(len(LectureToday)):
         if self.within1hr(LectureToday[i][2],LectureToday[i][3],LectureToday[i][4]):
             return LectureToday[i]
-    return [(0, 0, "1997-01-01", timedelta(days=0), timedelta(days=0), "000", "", False)]
+    return (0, 0, date(1997,1,1), timedelta(seconds=0), timedelta(seconds=0), "000", "", False, '0000000000', 0)
 
   def within1hr(self,date,starttime,endtime):
     now = datetime.now()

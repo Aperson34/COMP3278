@@ -37,7 +37,7 @@ CREATE TABLE Courses (
   class_code varchar(2) NOT NULL,
   year_offered int NOT NULL,
   course_name varchar(50) NOT NULL,
-  welcome_message varchar(1000),
+  t_message varchar(1000),
   PRIMARY KEY (course_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
