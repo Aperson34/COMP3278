@@ -83,7 +83,7 @@ class Timetable(object):
             startTime = dateTimeB - begin 
             startCell = math.ceil(startTime.total_seconds() / 3600) 
             for j in range(0,dateTimeDifferenceInHours):
-                classItem = ClassItem(i[1]+i[2])
+                classItem = ClassItem(i[1]+' '+i[2])
                 week =(i[3].weekday() + 1)%7
                 self.tableWidget.setItem(startCell+j, week, classItem)
 
