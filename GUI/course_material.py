@@ -41,7 +41,7 @@ class Material_Item:
 class Material_List(object):
     def setupUi(self, MainWindow ,course_id):
         #fetch course material data with given course_id
-        self.sqlMaterialData = MainWindow.backend.getCourseMaterial(course_id)
+        self.sqlMaterialData = MainWindow.backend.getCourseMaterial(MainWindow.stu_id,course_id)
         # [("COMP3278","Lecture 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
         #            ("COMP3278","Tutoraial 1 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),
         #            ("COMP3278","Lecture 2 note", datetime.date(2023,11,16), datetime.time(15,30,00,00)),

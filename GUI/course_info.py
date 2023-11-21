@@ -55,7 +55,7 @@ class CourseInfo(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, Form):
-        time = self.sqlCourseData[4].strftime("%H:%M:%S")
+        time = str(self.sqlCourseData[4])
         materialList = ""
         for i in self.sqlMaterialData:
             materialList = materialList+i[2]+"<br />"

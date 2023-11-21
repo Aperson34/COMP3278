@@ -17,20 +17,21 @@ from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QScrollArea
 class Profile(object):
     def setupUi(self, MainWindow):
 
-        UID = "303030303"
-        profile_data = [("Chan Tai Man"), ("u3030303@connect.hku.hk"), ("4 Nov 2023 4:52pm")]
+        profile_data = MainWindow.backend.getStudentInfo(MainWindow.stu_id)
+        # [("Chan Tai Man"), ("u3030303@connect.hku.hk"), ("4 Nov 2023 4:52pm")]
         # these should all be datetime.date or datetime.time's
-        login_history = [("8 Nov 2023", "1:00pm", "8 Nov 2023", "2:00pm"),
-                         ("8 Nov 2023", "5:00pm", "8 Nov 2023", "6:00pm"),
-                         ("9 Nov 2023", "11:00am", "9 Nov 2023", "12:00pm"),
-                         ("11 Nov 2023", "1:00pm", "11 Nov 2023", "2:00pm"),
-                         ("12 Nov 2023", "11:00pm", "13 Nov 2023", "12:00am"),
-                         ("15 Nov 2023", "1:00pm", "15 Nov 2023", "2:00pm"),
-                         ("15 Nov 2023", "1:00pm", "15 Nov 2023", "2:00pm"),
-                         ("15 Nov 2023", "3:00pm", "15 Nov 2023", "4:00pm"),
-                         ("15 Nov 2023", "6:00pm", "15 Nov 2023", "7:00pm"),
-                         ("15 Nov 2023", "10:00pm", "15 Nov 2023", "11:00pm"),
-                         ]
+        login_history = MainWindow.backend.getLoginBehaviour(MainWindow.stu_id)
+        # [("8 Nov 2023", "1:00pm", "8 Nov 2023", "2:00pm"),
+        #                  ("8 Nov 2023", "5:00pm", "8 Nov 2023", "6:00pm"),
+        #                  ("9 Nov 2023", "11:00am", "9 Nov 2023", "12:00pm"),
+        #                  ("11 Nov 2023", "1:00pm", "11 Nov 2023", "2:00pm"),
+        #                  ("12 Nov 2023", "11:00pm", "13 Nov 2023", "12:00am"),
+        #                  ("15 Nov 2023", "1:00pm", "15 Nov 2023", "2:00pm"),
+        #                  ("15 Nov 2023", "1:00pm", "15 Nov 2023", "2:00pm"),
+        #                  ("15 Nov 2023", "3:00pm", "15 Nov 2023", "4:00pm"),
+        #                  ("15 Nov 2023", "6:00pm", "15 Nov 2023", "7:00pm"),
+        #                  ("15 Nov 2023", "10:00pm", "15 Nov 2023", "11:00pm"),
+        #                  ]
         
         self.frame = QtWidgets.QFrame()
         self.frame.setFixedHeight(833)
@@ -46,7 +47,7 @@ class Profile(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.gridLayout.setObjectName("gridLayout")
         
-        self.profile_card = ProfileCard(profile_data, UID)
+        self.profile_card = ProfileCard(profile_data, MainWindow.stu_id)
         self.login_hist_card = LoginHistoryCard(login_history)
 
         self.title1 = QLabel("Profile")
@@ -75,6 +76,7 @@ class ProfileCard(QFrame):
         self.setStyleSheet('QFrame {background-color: #fff; border: 1px solid grey; border-radius:15px; font-family: inter;} QLabel {border: none; font-weight:bold; font-size: 30px; }')
         self.setFixedWidth(1620)
         self.setFixedHeight(300)
+        print(profile_data)
         
         self.UID = QLabel(UID)
         self.name = QLabel(profile_data[0])
@@ -84,7 +86,7 @@ class ProfileCard(QFrame):
         layout.addWidget(QLabel("UID"), 0, 0, 1, 3)
         layout.addWidget(QLabel("Name"), 1, 0, 1, 3)
         layout.addWidget(QLabel("Email"), 2, 0, 1, 3)
-        layout.addWidget(QLabel("Last Login Date"), 3, 0, 1, 3)
+        layout.addWidget(QLabel("Birthday"), 3, 0, 1, 3)
 
         layout.addWidget(self.UID, 0, 3, 1, 5)
         layout.addWidget(self.name, 1, 3, 1, 5)

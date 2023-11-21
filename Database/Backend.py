@@ -12,6 +12,7 @@ class Backend(object):
     super().__init__()
     self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
     self.mycursor = self.mydb.cursor()
+    self.createicms()
     self.mycursor.execute("USE GROUP19ICMS;")
 
   def createicms(self):
@@ -142,11 +143,11 @@ class Backend(object):
   def getLoginBehaviour(self,student_id):
     self.mycursor.execute(f"SELECT * FROM LoginBehaviour WHERE student_id = {student_id}") #input instructions
     myresult = self.mycursor.fetchall()
-    login_time = myresult[:][1]
-    login_date = myresult[:][2]
-    logout_time = myresult[:][3]
-    logout_date = myresult[:][4]
-    return (login_time, login_date, logout_time, logout_date)
+    # login_time = myresult[:][1]
+    # login_date = myresult[:][2]
+    # logout_time = myresult[:][3]
+    # logout_date = myresult[:][4]
+    return myresult #(login_time, login_date, logout_time, logout_date)
 
   def getCourseTeacher(self,course_id):
     self.mycursor.execute(f"SELECT * FROM CourseTaught AS CT JOIN Teacher AS T WHERE CT.course_id = {course_id} AND CT.teacher_id = T.teacher_id") #input instructions
