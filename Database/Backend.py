@@ -10,7 +10,7 @@ from mysql.connector import Error
 class Backend(object):
   def __init__(self):
     super().__init__()
-    self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
+    self.mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
     self.mycursor = self.mydb.cursor()
     # self.createicms()
     self.mycursor.execute("USE GROUP19ICMS;")
@@ -44,7 +44,11 @@ class Backend(object):
     myresult = self.mycursor.fetchall()
     self.mycursor.execute(f"SELECT email from Student WHERE student_id='{stu_id}'") #input instructions
     myresult1 = self.mycursor.fetchall()
-
+    material_paths=[]
+    for i in range(len(filename)):
+      self.mycursor.execute(f"SELECT CM.file_path from CourseMaterial AS CM JOIN CourseClass AS CC WHERE CC.course_id = CM.course_id AND CC.class_id = CM.class_id AND CC.course_id = '{course_id}' AND CC.class_id = '{class_id}' AND CM.material_name = '{filename[i]}'")
+      material_paths.append(self.mycursor.fetchall()[0][0])
+    
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
@@ -62,8 +66,8 @@ class Backend(object):
     em.set_content(body)
 
     # Add the attachment to the email
-    for i in range(len(filename)):
-      attachment_path = filename[i]
+    for i in range(len(material_paths)):
+      attachment_path = material_paths[i]
       with open(attachment_path, 'rb') as attachment:
           em.add_attachment(attachment.read(), maintype='application', subtype='octet-stream', filename=attachment_path)
     # Add SSL (layer of security)
