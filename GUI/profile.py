@@ -17,7 +17,7 @@ from PyQt5.QtWidgets import QGraphicsDropShadowEffect, QScrollArea
 class Profile(object):
     def setupUi(self, MainWindow):
 
-        profile_data = MainWindow.backend.getStudentInfo(MainWindow.stu_id)
+        profile_data = MainWindow.stud_info
         # [("Chan Tai Man"), ("u3030303@connect.hku.hk"), ("4 Nov 2023 4:52pm")]
         # these should all be datetime.date or datetime.time's
         login_history = MainWindow.backend.getLoginBehaviour(MainWindow.stu_id)
@@ -76,7 +76,6 @@ class ProfileCard(QFrame):
         self.setStyleSheet('QFrame {background-color: #fff; border: 1px solid grey; border-radius:15px; font-family: inter;} QLabel {border: none; font-weight:bold; font-size: 30px; }')
         self.setFixedWidth(1620)
         self.setFixedHeight(300)
-        print(profile_data)
         
         self.UID = QLabel(UID)
         self.name = QLabel(profile_data[0])

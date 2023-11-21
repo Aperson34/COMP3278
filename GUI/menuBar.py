@@ -50,5 +50,5 @@ class MenuBar(object):
         MainWindow.gridLayout.addWidget(self.frame,0,0,1,3)
 
         _translate = QtCore.QCoreApplication.translate
-        self.menuusername.setText(_translate("Form", MainWindow.username))
+        self.menuusername.setText(_translate("Form", MainWindow.stu_info[0]))
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
