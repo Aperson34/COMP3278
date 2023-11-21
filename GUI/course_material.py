@@ -86,7 +86,7 @@ class Material_List(object):
         self.materialItem = []
         self.checkedList = []
         for i in range(0,len(self.sqlMaterialData)):
-            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents,self.sqlMaterialData[i][1], i, self.checkedList))
+            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents,self.sqlMaterialData[i][0], i, self.checkedList))
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         MainWindow.gridLayout.addWidget(self.frame,2,1,1,1)
