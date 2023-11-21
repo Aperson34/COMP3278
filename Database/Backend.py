@@ -38,29 +38,23 @@ class Backend(object):
 
 
 
-  def sendemail(self,filename,stu_id,course_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
-    class_id = self.HaveClassIn1Hr(stu_id)[1]
-    self.mycursor.execute(f"SELECT * from CourseClass, Courses WHERE CourseClass.course_id=Courses.course_id AND CourseClass.course_id = '{course_id}' AND CourseClass.class_id='{class_id}'") #input instructions
+  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
+  def sendemail(self,filename,to,class_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
+    self.mycursor.execute(f"SELECT * from CourseClass,courses WHERE CourseClass.course_id=courses.course_id AND CourseClass.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
-    self.mycursor.execute(f"SELECT email from Student WHERE student_id='{stu_id}'") #input instructions
-    myresult1 = self.mycursor.fetchall()
-
     # Define email sender and receiver
     email_sender = 'dbmsgroup19@gmail.com'
     #google password: icmsicms1919
     email_password = 'gkma bvtw qbii wulg'
-    email_receiver = myresult1[0][0]
+    email_receiver = to
     # Set the subject and body of the email
     subject = f"Please Find Your Course Information Attached - {myresult[0][9]}"
     body = f"Course Code: {myresult[0][9]}\nCourse Name: {myresult[0][12]}\nCourse Date: {myresult[0][2]}\nCourse Start Time: {myresult[0][3]}\nCourse End Time: {myresult[0][4]}\nClass Location: {myresult[0][5]}\nZoom Link: {myresult[0][6]}"
-
     em = EmailMessage()
     em['From'] = email_sender
     em['To'] = email_receiver
     em['Subject'] = subject
-
     em.set_content(body)
-
     # Add the attachment to the email
     for i in range(len(filename)):
       attachment_path = filename[i]
@@ -68,11 +62,11 @@ class Backend(object):
           em.add_attachment(attachment.read(), maintype='application', subtype='octet-stream', filename=attachment_path)
     # Add SSL (layer of security)
     context = ssl.create_default_context()
-
     # Log in and send the email
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context) as smtp:
         smtp.login(email_sender, email_password)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
+
 
   def getCourseClassInfo(self,student_id, course_id):
     class_id = self.HaveClassIn1Hr(student_id)[1]
