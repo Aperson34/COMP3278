@@ -89,7 +89,7 @@ class Backend(object):
 
   def getCourseList(self,student_id,sem):  #for course_list.py line 48, e.g. getCourseList(1,2)
     filter = str(sem)+"%"
-    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from CourseTaken, Courses WHERE CourseTaken.course_id=Courses.course_id AND courses.class_id LIKE '{filter}' AND CourseTaken.student_id='{student_id}'") #input instructions
+    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from CourseTaken, Courses WHERE CourseTaken.course_id=Courses.course_id AND courses.class_code LIKE '{filter}' AND CourseTaken.student_id='{student_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
 
