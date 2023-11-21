@@ -23,10 +23,10 @@ class ClassItem(QtWidgets.QTableWidgetItem):
 
 class Timetable(object):
     def setupUi(self, Form):
-        self.sqlCourseData = Form.backend.getTimeTableDisplayData(Form.stu_id)
-        # [("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,7), datetime.time(15,30,00,00), datetime.time(17,20,00,00)),
-        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,10), datetime.time(16,30,00,00), datetime.time(17,20,00,00)),
-        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,9), datetime.time(9,30,00,00), datetime.time(17,20,00,00))]
+        self.sqlCourseData =Form.backend.getTimeTableDisplayData(Form.stu_id) 
+        # [("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,7), datetime.timedelta(0,15*3600+30*60), datetime.timedelta(0,17*3600+20*60)),
+        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,10), datetime.timedelta(0,16*3600+30*60), datetime.timedelta(0,17*3600+20*60)),
+        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,9), datetime.timedelta(0,9*3600+30*60), datetime.timedelta(0,10*3600+20*60))]
         self.frame = QtWidgets.QFrame()
         self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)
@@ -76,8 +76,8 @@ class Timetable(object):
 
         for i in self.sqlCourseData:
             begin = datetime.datetime.combine(datetime.date.today(), datetime.time(9,30,00,00))
-            dateTimeA = datetime.datetime.combine(datetime.date.today(), i[5])
-            dateTimeB = datetime.datetime.combine(datetime.date.today(), i[4])
+            dateTimeA = datetime.datetime.combine(datetime.date.today(), (datetime.datetime.min + i[5]).time())
+            dateTimeB = datetime.datetime.combine(datetime.date.today(), (datetime.datetime.min + i[4]).time())
             dateTimeDifference = dateTimeA - dateTimeB 
             dateTimeDifferenceInHours = math.ceil(dateTimeDifference.total_seconds() / 3600)
             startTime = dateTimeB - begin 
