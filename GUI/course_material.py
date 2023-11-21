@@ -103,7 +103,7 @@ class Material_List(object):
         materialNeeded = []
         for i in range(0,len(self.sqlMaterialData )):
             if self.checkedList[i]:
-                materialNeeded.append(self.sqlMaterialData[i][4])
+                materialNeeded.append(self.sqlMaterialData[i][0])
         MainWindow.backend.sendemail(materialNeeded, MainWindow.stu_id,course_id)
       
 
