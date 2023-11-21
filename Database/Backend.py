@@ -10,7 +10,7 @@ from mysql.connector import Error
 class Backend(object):
   def __init__(self):
     super().__init__()
-    self.mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
+    self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
     self.mycursor = self.mydb.cursor()
     # self.createicms()
     self.mycursor.execute("USE GROUP19ICMS;")
@@ -87,7 +87,7 @@ class Backend(object):
     return(myresult)
 
   def getCourseData(self,student_id, course_id):  #for course_info.py line 19, e.g. getCourseData(1,1)
-    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.t_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink from CourseTaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id = Courses.course_id AND CourseTaken.course_id = CourseClass.course_id AND CourseTaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
+    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.t_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink,CourseClass.class_end_time,CourseClass.class_date from CourseTaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id = Courses.course_id AND CourseTaken.course_id = CourseClass.course_id AND CourseTaken.student_id='{student_id}' ORDER BY CourseClass.class_date, CourseClass.class_time") #input instructions
     myresult = self.mycursor.fetchall()
     if (len(myresult) != 0):
       return(myresult[0])

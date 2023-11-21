@@ -55,7 +55,8 @@ class CourseInfo(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, Form):
-        time = str(self.sqlCourseData[4])
+        print(self.sqlCourseData)
+        time = str(self.sqlCourseData[4]) + '-' + str(self.sqlCourseData[6])
         materialList = ""
         for i in self.sqlMaterialData:
             materialList = materialList+i[0]+"<br />"
@@ -68,7 +69,7 @@ class CourseInfo(object):
         self.textBrowser_2.setHtml(_translate("Form","<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
-""+self.sqlCourseData[2]+"<br />"+self.sqlCourseData[3]+"<br />"+time+"<br />"+self.sqlCourseData[5]+"<br /></span></p></body></html>"))
+""+self.sqlCourseData[2]+"<br />"+self.sqlCourseData[3]+"<br />"+str(self.sqlCourseData[7])+"<br />"+time+"<br />"+self.sqlCourseData[5]+"<br /></span></p></body></html>"))
         self.textBrowser_3.setHtml(_translate("Form", "<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
