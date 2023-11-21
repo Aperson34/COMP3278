@@ -315,6 +315,8 @@ class FaceRecognitionWidget(QWidget):
                 uid = labels[id_]
                 uiMainWindow.stu_id = uid
                 uiMainWindow.login_time = datetime.now()
+                uiMainWindow.stu_info = uiMainWindow.backend.getStudentInfo(uiMainWindow.stu_id)
+                uiMainWindow.backend.putLoginInfo(uid,  uiMainWindow.login_time.time(), uiMainWindow.login_time.date())
                 toDashBoard(uiMainWindow)
 
         return
