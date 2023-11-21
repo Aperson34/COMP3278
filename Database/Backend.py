@@ -12,7 +12,7 @@ class Backend(object):
     super().__init__()
     self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
     self.mycursor = self.mydb.cursor()
-    self.createicms()
+    self.mycursor.execute("USE GROUP19ICMS;")
 
   def createicms(self):
     self.mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
