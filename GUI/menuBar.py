@@ -42,7 +42,7 @@ class MenuBar(object):
 
         self.menuusername = QtWidgets.QLabel(self.frame)
         self.menuusername.setObjectName("menuusername")
-        self.menuusername.setGeometry(QtCore.QRect(1920-len("Welcome, " + MainWindow.username)*25, 0, 500, 128))
+        self.menuusername.setGeometry(QtCore.QRect(1720-len("Welcome, " + MainWindow.username)*30, 0, 500, 128))
         self.menuusername.setFont(font)
 
         # self.menubar.addAction(self.menuicon.menuAction())

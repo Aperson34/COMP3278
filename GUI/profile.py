@@ -117,9 +117,9 @@ class LoginHistoryCard(QScrollArea):
         
         # TODO change dummy data into correct format and compute total duration of login
         for i in range(len(login_history)):
-            layout.addWidget(QLabel(str(login_history[i][0])), i+1, 0, 1, 3)
+            layout.addWidget(QLabel(str(login_history[i][2])), i+1, 0, 1, 3)
             layout.addWidget(QLabel(str(login_history[i][1])), i+1, 3, 1, 3)
-            layout.addWidget(QLabel(str(login_history[i][2])), i+1, 6, 1, 3)
+            layout.addWidget(QLabel(str(login_history[i][4])), i+1, 6, 1, 3)
             layout.addWidget(QLabel(str(login_history[i][3])), i+1, 9, 1, 3)
 
         temp = QWidget()
