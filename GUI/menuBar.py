@@ -30,7 +30,7 @@ class MenuBar(object):
         
         self.menuicon = QtWidgets.QPushButton(self.frame)
         self.menuicon.setGeometry(QtCore.QRect(0, 0, 128, 128))
-        self.menuicon.setIcon(QtGui.QIcon("GUI/menu.svg"))
+        self.menuicon.setIcon(QtGui.QIcon("menu.svg"))
         self.menuicon.setStyleSheet(" background-color: rgb(206,194,204);  border: none; ")  
         self.menuicon.setObjectName("menuicon")
         self.menuicon.clicked.connect(lambda:self.showSideBar(MainWindow))

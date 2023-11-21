@@ -10,10 +10,9 @@ from mysql.connector import Error
 class Backend(object):
   def __init__(self):
     super().__init__()
-    self.mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
+    self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
     self.mycursor = self.mydb.cursor()
-    self.mycursor.execute("CREATE DATABASE IF NOT EXISTS GROUP19ICMS;")
-    self.mycursor.execute("USE GROUP19ICMS;")
+    self.createicms()
 
   def createicms(self):
     self.mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")

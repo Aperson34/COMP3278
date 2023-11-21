@@ -31,13 +31,13 @@ class MainWindow(object):
         uiWelMsg.setupUi(uiMainWindow)
     #check if any course within 1 hr
         temp = uiMainWindow.backend.HaveClassIn1Hr(uiMainWindow.stu_id)
-        if (temp):
+        if (temp[0] != 0):
             course_id=temp[0]
             uiCourseInfo = CourseInfo()
             uiCourseInfo.setupUi(uiMainWindow, course_id)
         else: 
             uiTimetable = Timetable()
-            uiTimetable.setupUi(MainWindow)
+            uiTimetable.setupUi(uiMainWindow)
 
     def setupUi(self,uiMainWindow):
         self.frame = QFrame()

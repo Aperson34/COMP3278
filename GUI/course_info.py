@@ -21,7 +21,6 @@ class CourseInfo(object):
         # datetime.time(15,30,00,00),"[links of Zoom]")]
         self.sqlMaterialData = MainWindow.backend.getCourseMaterial(MainWindow.stu_id,course_id)#[("Lecture 1 note"),("Lecture 2 note"),("Lecture 3 note")]
         # end of fetching, start gui construction
-        self.sqlCourseData = self.sqlCourseData[0]
         self.frame = QtWidgets.QFrame()
         self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)

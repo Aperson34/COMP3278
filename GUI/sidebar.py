@@ -37,7 +37,7 @@ class Sidebar(QtWidgets.QWidget):
         self.pushButton.setObjectName("pushButton")
         self.pushButton.setStyleSheet('background-color: rgb(91, 50, 86)')  
         self.pushButton.setFont(font) 
-        self.backButton.clicked.connect(lambda:self.logout(MainWindow))
+        self.pushButton.clicked.connect(lambda:self.logout(MainWindow))
 
         self.backButton = QtWidgets.QPushButton(self.frame)
         self.backButton.setGeometry(QtCore.QRect(600, 0, 100, 100))
