@@ -2,6 +2,7 @@
 from Backend import *
 temp = Backend()
 temp.__init__()
+temp.createicms()
 
 now = datetime.now()
 d_string = now.strftime("%Y-%m-%d")

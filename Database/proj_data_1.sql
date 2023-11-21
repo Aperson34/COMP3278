@@ -17,12 +17,12 @@ INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, log
 INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES ("3035788625", "23:02:07", "2023-11-16", "23:05:04", "2023-11-16");
 
 
-INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, welcome_message) VALUES ("1", "COMP3278", "1A", "2023", "Introduction to database management systems", "Hi this is introduction to database management system subclass 1A");
-INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, welcome_message) VALUES ("2", "COMP3278", "1B", "2023", "Introduction to database management systems", "Hi this is introduction to database management system subclass 1B");
-INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, welcome_message) VALUES ("3", "COMP3230", "1A", "2022", "Principles of Operating Systems", "Hi2");
-INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, welcome_message) VALUES ("4", "COMP3314", "2B", "2023", "Machine Learning", "Hi3");
-INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, welcome_message) VALUES ("5", "COMP3251", "1A", "2022", "Algorithm design", "Hi4");
-INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, welcome_message) VALUES ("6", "COMP3252", "1A", "2022", "Algorithm design and analysis", "Hi4");
+INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, t_message) VALUES ("1", "COMP3278", "1A", "2023", "Introduction to database management systems", "Hi this is introduction to database management system subclass 1A");
+INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, t_message) VALUES ("2", "COMP3278", "1B", "2023", "Introduction to database management systems", "Hi this is introduction to database management system subclass 1B");
+INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, t_message) VALUES ("3", "COMP3230", "1A", "2022", "Principles of Operating Systems", "Hi2");
+INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, t_message) VALUES ("4", "COMP3314", "2B", "2023", "Machine Learning", "Hi3");
+INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, t_message) VALUES ("5", "COMP3251", "1A", "2022", "Algorithm design", "Hi4");
+INSERT INTO Courses (course_id, course_code, class_code, year_offered, course_name, t_message) VALUES ("6", "COMP3252", "1A", "2022", "Algorithm design and analysis", "Hi4");
 
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "1", "2023-09-01", "14:30:00", "16:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", False);
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "2", "2023-09-05", "13:30:00", "15:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", False);
