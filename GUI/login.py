@@ -17,14 +17,33 @@ from course_info import CourseInfo
 
 from menuBar import MenuBar
 from welcomeMsg import WelMsg
-class MainWindow(object):
 
+class MainWindow(object):
     #after login successfully, please run this function
     def toDashBoard(self,uiMainWindow):
         self.central_widget.deleteLater()
         self.frame.deleteLater()
         uiMainWindow.HLayoutWidget.setGeometry(QRect(0, 0, 0, 0))
         #After login
+        # compute mainwindow variables and write to DB
+        def timeToString(time):
+            return f'{time.hour}:{time.minute}:{time.second}'
+
+        def dateToString(date):
+            return f"{date.year}-{date.month}-{date.day}"
+        
+        def datetimeToString(datetime):
+            # different date format from above
+            d = [None, "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            return f"{datetime.year} {d[datetime.month]} {datetime.day}"
+
+        now = datetime.now()
+        uiMainWindow.login_time = timeToString(now.time())
+        uiMainWindow.login_date = dateToString(now.date())
+        uiMainWindow.backend.putLoginInfo(uiMainWindow.stu_id, uiMainWindow.login_time, uiMainWindow.login_date)
+        uiMainWindow.email, uiMainWindow.username, uiMainWindow.last_login_time = uiMainWindow.backend.getStudentInfo(uiMainWindow.stu_id)
+        uiMainWindow.last_login_time = datetimeToString(uiMainWindow.last_login_time)
+
         uiMenuBar = MenuBar()
         uiMenuBar.setupUi(uiMainWindow)
         uiWelMsg = WelMsg()
@@ -73,9 +92,6 @@ class MainWindow(object):
         query_result = uiMainWindow.backend.checkLoginCredentials(UID, password)
         if query_result != "0000000000":
             uiMainWindow.stu_id = query_result
-            uiMainWindow.login_time = datetime.now()
-            uiMainWindow.stu_info = uiMainWindow.backend.getStudentInfo(uiMainWindow.stu_id)
-            uiMainWindow.backend.putLoginInfo(query_result,  uiMainWindow.login_time.time(), uiMainWindow.login_time.date())
             self.toDashBoard(uiMainWindow)
         else:
             self.error_message = QLabel("Login Failed!")
@@ -90,8 +106,8 @@ class MainWindow(object):
         if self.face_recognition_widget.device is not None:
             self.face_recognition_widget.device.release()
             self.face_recognition_widget.device = None
-        self.face_recognition_widget.cam_feed.clear()
-        self.face_recognition_widget.timer.stop()
+            self.face_recognition_widget.cam_feed.clear()
+            self.face_recognition_widget.timer.stop()
         self.central_widget.setCurrentWidget(self.login_widget)
 
     def moveWindowToCenter(self):
@@ -314,9 +330,6 @@ class FaceRecognitionWidget(QWidget):
             if conf >= self.confidence_threshold: # 60
                 uid = labels[id_]
                 uiMainWindow.stu_id = uid
-                uiMainWindow.login_time = datetime.now()
-                uiMainWindow.stu_info = uiMainWindow.backend.getStudentInfo(uiMainWindow.stu_id)
-                uiMainWindow.backend.putLoginInfo(uid,  uiMainWindow.login_time.time(), uiMainWindow.login_time.date())
                 toDashBoard(uiMainWindow)
 
         return

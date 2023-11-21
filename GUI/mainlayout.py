@@ -26,6 +26,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.stu_id = '0000000000'
         self.login_time = None
+        self.login_date = None
+        self.username = 'Username'
+        self.email = None
+        self.last_login_time = None
         self.setWindowFlag(QtCore.Qt.FramelessWindowHint) 
         self.setupUi()
         self.backend = Backend()

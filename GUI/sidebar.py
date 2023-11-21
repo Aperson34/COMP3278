@@ -15,11 +15,28 @@ from course_list import Course_List
 from timetable import Timetable
 from datetime import datetime
 
+def timeToString(time):
+    return f'{time.hour}:{time.minute}:{time.second}'
+
+def dateToString(date):
+    return f"{date.year}-{date.month}-{date.day}"
+
 class Sidebar(QtWidgets.QWidget):
+    
     def logout(self, MainWindow):
+        def timeToString(time):
+            return f'{time.hour}:{time.minute}:{time.second}'
+
+        def dateToString(date):
+            return f"{date.year}-{date.month}-{date.day}"
+        
+        now = datetime.now()
+        logout_time = timeToString(now.time())
+        logout_date = dateToString(now.date())
         #Please follow this format: MainWindow.backend.putLogoutInfo("3035788621", "10:20:03", "2023-11-22", "12:02:03", "2023-11-22")
-        MainWindow.backend.putLogoutInfo(MainWindow.stu_id, MainWindow.login_time.time(), MainWindow.login_time.date(), datetime.now().time(), datetime.now().date())
+        MainWindow.backend.putLogoutInfo(MainWindow.stu_id, MainWindow.login_time, MainWindow.login_date, logout_time, logout_date)
         MainWindow.close()
+
     def setupUi(self, MainWindow):
         font = QtGui.QFont()
         font.setPointSize(24)
