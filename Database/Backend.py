@@ -138,11 +138,11 @@ class Backend(object):
     self.mycursor.execute(f"SELECT * FROM Courses WHERE course_id = {course_id}") 
     myresult = self.mycursor.fetchall()
     course_code = myresult[0][1]
-    class_id = myresult[0][2]
+    class_code = myresult[0][2]
     year_offered = myresult[0][3]
     coursename = myresult[0][4]
     t_message = myresult[0][5]
-    return (course_code, class_id, year_offered, coursename, t_message)
+    return (course_code, class_code, year_offered, coursename, t_message)
 
   def getLoginBehaviour(self,student_id):
     self.mycursor.execute(f"SELECT * FROM LoginBehaviour WHERE student_id = '{student_id}' ORDER BY login_date DESC, login_time DESC")
