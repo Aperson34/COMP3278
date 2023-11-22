@@ -32,8 +32,17 @@ INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "3", "2023-09-07", "14:30:00", "16:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", False);
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "4", "2023-09-12", "13:30:00", "15:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", False);
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "5", "2023-09-14", "14:30:00", "16:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
-
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("1", "7", "2023-11-22", "01:30:00", "02:20:00", "MWT1", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "1", "2023-09-01", "12:30:00", "13:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "2", "2023-09-04", "12:30:00", "14:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "3", "2023-09-08", "12:30:00", "13:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "4", "2023-09-11", "12:30:00", "14:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "5", "2023-11-24", "12:30:00", "13:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "6", "2023-11-27", "12:30:00", "14:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "7", "2023-11-30", "12:30:00", "13:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("7", "8", "2023-12-01", "12:30:00", "14:20:00", "CPD-3.06", "https://hku.zoom.us/j/93189128050?pwd=RVZjcnl0anVDbW5OT0EzSXRON3lFdz09", True);
+
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("9", "1", "2023-09-04", "15:30:00", "17:20:00", "CPD-LG.07", "", False);
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("9", "2", "2023-09-07", "15:30:00", "16:20:00", "CPD-G.02", "", False);
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("9", "3", "2023-09-11", "15:30:00", "17:20:00", "CPD-LG.07", "", False);
@@ -60,6 +69,14 @@ INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUE
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "4", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "7", "sql1", "../CourseMaterials/2023-24/COMP3278/lec03.pdf");
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "7", "sql2", "../CourseMaterials/2023-24/COMP3278/lec04.pdf");
+
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("7", "3", "lecture_3", "../CourseMaterials/2023-24/CAES9542/3.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("7", "4", "lecture_4", "../CourseMaterials/2023-24/CAES9542/4.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("7", "5", "lecture_5", "../CourseMaterials/2023-24/CAES9542/5.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("7", "6", "lecture_6", "../CourseMaterials/2023-24/CAES9542/6.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("7", "7", "lecture_7", "../CourseMaterials/2023-24/CAES9542/7.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("7", "8", "lecture_8", "../CourseMaterials/2023-24/CAES9542/8.pdf");
+
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "1", "lecture_1", "../CourseMaterials/2023-24/COMP3353/lecture_1.pdf");
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "2", "lecture_2", "../CourseMaterials/2023-24/COMP3353/lecture_2.pdf");
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "3", "lecture_3", "../CourseMaterials/2023-24/COMP3353/lecture_3.pdf");
