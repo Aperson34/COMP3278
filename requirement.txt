@@ -7,3 +7,4 @@ Pillow
 pysimplegui
 PyQt5
 qtwidgets
+QtPy
