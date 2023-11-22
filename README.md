@@ -2,7 +2,7 @@
 User Menu for ICMS
 
 Before using the ICMS:
-First, go to Backend.py. In __init__ methonf of the class Backend, replace the default password with the corresponding password to your local mySQL server.
+First, go to Backend.py. In __init__ method of the class Backend, replace the default password with the corresponding password to your local mySQL server.
 Next, in cmd, run the command "python initDatabase" to initialise the database to be used by ICMS.
 Then, navigate to /COMP3278/GUI and run the command "python mainlayout.py" to start using the ICMS.
 
