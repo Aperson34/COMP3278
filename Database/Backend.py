@@ -11,7 +11,6 @@ class Backend(object):
     super().__init__()
     self.mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
     self.mycursor = self.mydb.cursor()
-    # self.createicms()
     self.mycursor.execute("USE GROUP19ICMS;")
 
   def createicms(self):
@@ -118,15 +117,15 @@ class Backend(object):
     self.mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES (\"{student_id}\", \"{login_time}\", \"{login_date}\", \"{ctime}\", \"{cdate}\");") #insert login data
     self.mycursor.execute("UNLOCK TABLES;")
 
-  def getStudentInfo(self,student_id): #tested
-    self.mycursor.execute(f"SELECT * FROM Student WHERE student_id = {student_id}") #input instructions
+  def getStudentInfo(self,student_id):
+    self.mycursor.execute(f"SELECT * FROM Student WHERE student_id = {student_id}")
     myresult = self.mycursor.fetchall()
     email = myresult[0][1]
     name = myresult[0][2]
     birthday = myresult[0][3]
     return (email, name, birthday)
 
-  def checkLoginCredentials(self,username, password): #tested
+  def checkLoginCredentials(self,username, password):
     query = f"SELECT username, pswd, student_id FROM LoginCredentials WHERE username = '{username}' AND pswd = '{password}'"
     self.mycursor.execute(query)
     myresult = self.mycursor.fetchall()
@@ -135,8 +134,8 @@ class Backend(object):
     else:
         return "0000000000"
 
-  def getCourseInfo(self,course_id): #tested
-    self.mycursor.execute(f"SELECT * FROM Courses WHERE course_id = {course_id}") #input instructions
+  def getCourseInfo(self,course_id):
+    self.mycursor.execute(f"SELECT * FROM Courses WHERE course_id = {course_id}") 
     myresult = self.mycursor.fetchall()
     course_code = myresult[0][1]
     class_id = myresult[0][2]
@@ -146,16 +145,12 @@ class Backend(object):
     return (course_code, class_id, year_offered, coursename, t_message)
 
   def getLoginBehaviour(self,student_id):
-    self.mycursor.execute(f"SELECT * FROM LoginBehaviour WHERE student_id = '{student_id}' ORDER BY login_date DESC, login_time DESC") #input instructions
+    self.mycursor.execute(f"SELECT * FROM LoginBehaviour WHERE student_id = '{student_id}' ORDER BY login_date DESC, login_time DESC")
     myresult = self.mycursor.fetchall()
-    # login_time = myresult[:][1]
-    # login_date = myresult[:][2]
-    # logout_time = myresult[:][3]
-    # logout_date = myresult[:][4]
     return myresult #(login_time, login_date, logout_time, logout_date)
 
   def getCourseTeacher(self,course_id):
-    self.mycursor.execute(f"SELECT * FROM CourseTaught AS CT JOIN Teacher AS T WHERE CT.course_id = {course_id} AND CT.teacher_id = T.teacher_id") #input instructions
+    self.mycursor.execute(f"SELECT * FROM CourseTaught AS CT JOIN Teacher AS T WHERE CT.course_id = {course_id} AND CT.teacher_id = T.teacher_id")
     myresult = self.mycursor.fetchall()
     teacher_name = ()
     for row in myresult:
@@ -164,10 +159,10 @@ class Backend(object):
 
 
   
-  def getLectureToday(self,student_id): #tested with 1 record
+  def getLectureToday(self,student_id):
     now = datetime.now()
     d_string = now.strftime("%Y-%m-%d")
-    self.mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN CourseTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string}' ORDER BY CC.class_date ASC, CC.class_time ASC") #input instructions
+    self.mycursor.execute(f"SELECT * FROM CourseClass AS CC JOIN CourseTaken AS CT WHERE CC.course_id = CT.course_id AND student_id = '{student_id}' AND CC.class_date='{d_string}' ORDER BY CC.class_date ASC, CC.class_time ASC")
     myresult = self.mycursor.fetchall()
     return(myresult)
   def HaveClassIn1Hr(self,student_id):
@@ -184,8 +179,8 @@ class Backend(object):
     else:
       return False
 
-  def checkClassWithin1Hr(self,student_id):  #checkClassWithin1Hr(3035788621)
-    self.mycursor.execute(f"SELECT courseclass.class_date,courseclass.class_time,courseclass.class_end_time from courseclass,coursetaken WHERE courseclass.course_id=coursetaken.course_id AND coursetaken.student_id='{student_id}'") #input instructions
+  def checkClassWithin1Hr(self,student_id): 
+    self.mycursor.execute(f"SELECT courseclass.class_date,courseclass.class_time,courseclass.class_end_time from courseclass,coursetaken WHERE courseclass.course_id=coursetaken.course_id AND coursetaken.student_id='{student_id}'")
     myresult = self.mycursor.fetchall()
     Ans = False
     for i in range(len(myresult)):
@@ -193,8 +188,8 @@ class Backend(object):
     print(Ans)
     return(Ans)
     
-  def getCourseTaken(self,student_id): #untested
-    self.mycursor.execute(f"SELECT C.course_code, C.class_code, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id") #input instructions
+  def getCourseTaken(self,student_id): 
+    self.mycursor.execute(f"SELECT C.course_code, C.class_code, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id")
     myresult = self.mycursor.fetchall()
     return(myresult)
 
@@ -211,6 +206,6 @@ class Backend(object):
     weekday = today.weekday()
     sunday = today - timedelta(days=(weekday+1)%7)
     saturday = sunday + timedelta(days=6)
-    self.mycursor.execute(f"SELECT C.course_id, C.course_code, C.course_name, CC.class_date, CC.class_time, CC.class_end_time FROM CourseClass AS CC JOIN CourseTaken AS CT JOIN Courses AS C WHERE CC.course_id = CT.course_id AND C.course_id = CC.course_id AND CT.student_id = '{student_id}' AND CC.class_date BETWEEN '{sunday}' AND '{saturday}' ORDER BY CC.class_date ASC, CC.class_time ASC") #input instructions
+    self.mycursor.execute(f"SELECT C.course_id, C.course_code, C.course_name, CC.class_date, CC.class_time, CC.class_end_time FROM CourseClass AS CC JOIN CourseTaken AS CT JOIN Courses AS C WHERE CC.course_id = CT.course_id AND C.course_id = CC.course_id AND CT.student_id = '{student_id}' AND CC.class_date BETWEEN '{sunday}' AND '{saturday}' ORDER BY CC.class_date ASC, CC.class_time ASC")
     myresult = self.mycursor.fetchall()
     return myresult
