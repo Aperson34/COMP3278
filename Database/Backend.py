@@ -1,5 +1,3 @@
-#change the password & databasename
-# delete all '#' in .sql file
 import smtplib
 import ssl
 from email.message import EmailMessage
@@ -8,6 +6,7 @@ import mysql.connector #MySQL API Library
 from mysql.connector import Error
 
 class Backend(object):
+  
   def __init__(self):
     super().__init__()
     self.mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
@@ -22,7 +21,6 @@ class Backend(object):
     self.executeSQL("../Database/proj_tables_1.sql")
     self.executeSQL("../Database/proj_data_1.sql")
 
-
   def executeSQL(self,filename):
     try:
       with open(filename, "r") as file:
@@ -35,10 +33,8 @@ class Backend(object):
     except Error as e:
       print("Error executing SQL script", e)
     self.mydb.commit()
-
-
-
-  def sendemail(self,filename,stu_id,course_id):  #sendemail(["../CourseMaterials/2023-24/COMP3278/lec01.pdf","../CourseMaterials/2023-24/COMP3278/lec02.pdf"],"justinyeung1096@gmail.com","5")
+  
+  def sendemail(self,filename,stu_id,course_id):
     class_id = self.HaveClassIn1Hr(stu_id)[1]
     self.mycursor.execute(f"SELECT * from CourseClass, Courses WHERE CourseClass.course_id=Courses.course_id AND CourseClass.course_id = '{course_id}' AND CourseClass.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
