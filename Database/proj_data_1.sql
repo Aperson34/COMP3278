@@ -64,21 +64,21 @@ INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("9", "17", "2023-11-23", "15:30:00", "16:20:00", "CPD-G.02", "", False);
 INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("9", "18", "2023-11-27", "15:30:00", "17:20:00", "CPD-LG.07", "", False);
 
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "1", "2023-01-17", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "2", "2023-01-24", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "3", "2023-01-31", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "4", "2023-02-07", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "5", "2023-02-14", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "6", "2023-02-21", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "7", "2023-02-28", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "8", "2023-03-06", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "9", "2023-03-13", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "10", "2023-03-20", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "11", "2023-03-27", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "12", "2023-04-03", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "13", "2023-04-10", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "14", "2023-04-17", "09:30:00", "12:30:00", "CYMPP3", "", False);
-INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "15", "2023-04-24", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "1", "2024-01-17", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "2", "2024-01-24", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "3", "2024-01-31", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "4", "2024-02-07", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "5", "2024-02-14", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "6", "2024-02-21", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "7", "2024-02-28", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "8", "2024-03-06", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "9", "2024-03-13", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "10", "2024-03-20", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "11", "2024-03-27", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "12", "2024-04-03", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "13", "2024-04-10", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "14", "2024-04-17", "09:30:00", "12:30:00", "CYMPP3", "", False);
+INSERT INTO CourseClass (course_id, class_id, class_date, class_time, class_end_time, class_venue, zoomlink, is_tutorial) VALUES ("10", "15", "2024-04-24", "09:30:00", "12:30:00", "CYMPP3", "", False);
 
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "1", "intro", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "2", "diagrams1", "../CourseMaterials/2023-24/COMP3278/lec01.pdf");
