@@ -158,6 +158,14 @@ class Backend(object):
     return teacher_name
 
 
+  def nearestClass(self,student_id):
+    now = datetime.now()
+    d_string = now.strftime("%Y-%m-%d")
+    t_string = now.strftime("%H:%M:%S")
+    self.mycursor.execute(f"SELECT * FROM coursetaken,courseclass WHERE courseclass.class_date >= '{d_string}' AND courseclass.class_time >= '{t_string}' AND student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id")
+    myresult = self.mycursor.fetchall()
+    return(myresult)
+
   
   def getLectureToday(self,student_id):
     now = datetime.now()
