@@ -126,8 +126,8 @@ class Backend(object):
     return (email, name, birthday)
 
   def checkLoginCredentials(self,username, password):
-    query = f"SELECT username, pswd, student_id FROM LoginCredentials WHERE username = '{username}' AND pswd = '{password}'"
-    self.mycursor.execute(query)
+    
+    self.mycursor.execute("SELECT username, pswd, student_id FROM LoginCredentials WHERE username = %s AND pswd = %s", (username, password))
     myresult = self.mycursor.fetchall()
     if len(myresult) != 0:
         return myresult[0][2]
