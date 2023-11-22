@@ -10,7 +10,7 @@ class Backend(object):
 
   def __init__(self):
     super().__init__()
-    self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
+    self.mydb = mysql.connector.connect(host="localhost", user="admin", password="1") #change the password
     self.mycursor = self.mydb.cursor()
     self.mycursor.execute("CREATE DATABASE IF NOT EXISTS GROUP19ICMS;")
     self.mycursor.execute("USE GROUP19ICMS;")
@@ -142,8 +142,10 @@ class Backend(object):
 
 
   def checkLoginCredentials(self,username, password):
-    
-    self.mycursor.execute("SELECT username, pswd, student_id FROM LoginCredentials WHERE username = %s AND pswd = %s", (username, password))
+    stmt = "SELECT username, pswd, student_id FROM LoginCredentials WHERE username = %s AND pswd = %s", (username, password)
+    if " " in username != 0:
+        return "0000000000"
+    self.mycursor.execute(stmt)
     myresult = self.mycursor.fetchall()
     if len(myresult) != 0:
         return myresult[0][2]

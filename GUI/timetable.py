@@ -24,9 +24,7 @@ class ClassItem(QtWidgets.QTableWidgetItem):
 class Timetable(object):
     def setupUi(self, Form):
         self.sqlCourseData =Form.backend.getTimeTableDisplayData(Form.stu_id) 
-        # [("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,7), datetime.timedelta(0,15*3600+30*60), datetime.timedelta(0,17*3600+20*60)),
-        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,10), datetime.timedelta(0,16*3600+30*60), datetime.timedelta(0,17*3600+20*60)),
-        #                       ("2","COMP3278", "Introduction to Database Management Systems", datetime.date(2023,11,9), datetime.timedelta(0,9*3600+30*60), datetime.timedelta(0,10*3600+20*60))]
+        
         self.frame = QtWidgets.QFrame()
         self.frame.setFixedHeight(833)
         self.frame.setFixedWidth(1664)
