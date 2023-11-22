@@ -48,7 +48,7 @@ CREATE TABLE CourseClass (
   class_date date NOT NULL,
   class_time time NOT NULL,
   class_end_time time NOT NULL,
-  class_venue varchar(8),
+  class_venue varchar(10),
   zoomlink varchar(1000),
   is_tutorial boolean NOT NULL,
   PRIMARY KEY (course_id, class_id),
