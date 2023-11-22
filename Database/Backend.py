@@ -9,7 +9,7 @@ class Backend(object):
   
   def __init__(self):
     super().__init__()
-    self.mydb = mysql.connector.connect(host="localhost", user="root", password="Z@y8472279") #change the password
+    self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
     self.mycursor = self.mydb.cursor()
     self.mycursor.execute("USE GROUP19ICMS;")
 
@@ -90,7 +90,13 @@ class Backend(object):
 
   def getCourseList(self,student_id,sem):  #for course_list.py line 48, e.g. getCourseList(1,2)
     filter = str(sem)+"%"
-    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from CourseTaken, Courses WHERE CourseTaken.course_id=Courses.course_id AND courses.class_code LIKE '{filter}' AND CourseTaken.student_id='{student_id}'") #input instructions
+    today = datetime.now()
+    sem1 = today.year-1
+    sem2 = today.year
+    if (today.month>8):
+      sem1 = today.year
+      sem2 = today.year+1
+    self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.course_id from CourseTaken, Courses WHERE CourseTaken.course_id=Courses.course_id AND courses.class_code LIKE '{filter}' AND CourseTaken.student_id='{student_id}' AND Courses.year_offered >= '{sem1}' AND Courses.year_offered  <= '{sem2}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
 
