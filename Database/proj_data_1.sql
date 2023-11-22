@@ -163,7 +163,7 @@ INSERT INTO Teachers (teacher_id, teacher_name) VALUES ("8", "Albert Einstein");
 INSERT INTO Teachers (teacher_id, teacher_name) VALUES ("9", "Jesus Christ");
 INSERT INTO Teachers (teacher_id, teacher_name) VALUES ("10", "RB Luo");
 INSERT INTO Teachers (teacher_id, teacher_name) VALUES ("11", "Yekai Zhou");
-INSERT INTO Teachers (teacher_id, teacher_name) VALUES ("12", "PHILLIPS, David Lee")
+INSERT INTO Teachers (teacher_id, teacher_name) VALUES ("12", "PHILLIPS, David Lee");
 
 INSERT INTO CourseTaught (teacher_id, course_id) VALUES ("1", "1");
 INSERT INTO CourseTaught (teacher_id, course_id) VALUES ("2", "2");
