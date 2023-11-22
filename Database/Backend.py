@@ -99,7 +99,6 @@ class Backend(object):
     myresult = self.mycursor.fetchall()
     if (len(myresult) != 0):
       now = datetime.now()
-      print(myresult)
       for i in myresult:
         if i[7]>now.date() or (i[7]==now.date() and (datetime.min + i[6]).time() > now.time()):
           return i
