@@ -77,13 +77,13 @@ class Backend(object):
 
 
   def getCourseClassInfo(self,student_id, course_id):
-    class_id = self.HaveClassIn1Hr(student_id)[1]
+    class_id = self.nearestClass(student_id,course_id)[0]
     self.mycursor.execute(f"SELECT * FROM CourseClass AS CC WHERE CC.course_id = '{course_id}' AND CC.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
 
   def getCourseMaterial(self,student_id, course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
-    class_id = self.nearestClass(student_id,course_id)[1]
+    class_id = self.nearestClass(student_id,course_id)[0]
     self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
