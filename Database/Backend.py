@@ -7,6 +7,7 @@ from mysql.connector import Error
 
 class Backend(object):
   
+
   def __init__(self):
     super().__init__()
     self.mydb = mysql.connector.connect(host="localhost", user="root", password="1989") #change the password
@@ -22,6 +23,7 @@ class Backend(object):
     self.executeSQL("../Database/proj_tables_1.sql")
     self.executeSQL("../Database/proj_data_1.sql")
 
+
   def executeSQL(self,filename):
     try:
       with open(filename, "r") as file:
@@ -35,6 +37,7 @@ class Backend(object):
       print("Error executing SQL script", e)
     self.mydb.commit()
   
+
   def sendemail(self,filename,stu_id,course_id):
     class_id = self.nearestClass(stu_id, course_id)[0]
     if class_id==0:
@@ -84,11 +87,13 @@ class Backend(object):
     myresult = self.mycursor.fetchall()
     return(myresult)
 
+
   def getCourseMaterial(self,student_id, course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
     class_id = self.nearestClass(student_id,course_id)[0]
     self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
+
 
   def getCourseList(self,student_id,sem):  #for course_list.py line 48, e.g. getCourseList(1,2)
     filter = str(sem)+"%"
@@ -102,6 +107,7 @@ class Backend(object):
     myresult = self.mycursor.fetchall()
     return(myresult)
 
+
   def getCourseData(self,student_id, course_id):  #for course_info.py line 19, e.g. getCourseData(1,1)
     self.mycursor.execute(f"SELECT courses.course_code,courses.course_name,courses.t_message, CourseClass.class_venue, CourseClass.class_time,CourseClass.zoomlink,CourseClass.class_end_time,CourseClass.class_date from CourseTaken,CourseClass,courses WHERE CourseClass.course_id='{course_id}' AND CourseClass.course_id = Courses.course_id AND CourseTaken.course_id = CourseClass.course_id AND CourseTaken.student_id='{student_id}' ORDER BY CourseClass.class_date , CourseClass.class_time") #input instructions
     myresult = self.mycursor.fetchall()
@@ -113,17 +119,18 @@ class Backend(object):
       return myresult[len(myresult)-1]
 
 
-
   def putLoginInfo(self,student_id, ctime, cdate):
     self.mycursor.execute("LOCK TABLES LoginBehaviour WRITE;")
     self.mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES (\"{student_id}\", \"{ctime}\", \"{cdate}\", \"00:00:00\", \"2000-01-01\");") #insert login data
     self.mycursor.execute("UNLOCK TABLES;")
+
 
   def putLogoutInfo(self,student_id, login_time, login_date, ctime, cdate):
     self.mycursor.execute("LOCK TABLES LoginBehaviour WRITE;")
     self.mycursor.execute(f"DELETE FROM LoginBehaviour WHERE student_id = \"{student_id}\" AND login_time = \"{login_time}\" AND login_date = \"{login_date}\";") #delete partial login record
     self.mycursor.execute(f"INSERT INTO LoginBehaviour (student_id, login_time, login_date, logout_time, logout_date) VALUES (\"{student_id}\", \"{login_time}\", \"{login_date}\", \"{ctime}\", \"{cdate}\");") #insert login data
     self.mycursor.execute("UNLOCK TABLES;")
+
 
   def getStudentInfo(self,student_id):
     self.mycursor.execute(f"SELECT * FROM Student WHERE student_id = {student_id}")
@@ -133,6 +140,7 @@ class Backend(object):
     birthday = myresult[0][3]
     return (email, name, birthday)
 
+
   def checkLoginCredentials(self,username, password):
     
     self.mycursor.execute("SELECT username, pswd, student_id FROM LoginCredentials WHERE username = %s AND pswd = %s", (username, password))
@@ -141,6 +149,7 @@ class Backend(object):
         return myresult[0][2]
     else:
         return "0000000000"
+
 
   def getCourseInfo(self,course_id):
     self.mycursor.execute(f"SELECT * FROM Courses WHERE course_id = {course_id}") 
@@ -152,10 +161,12 @@ class Backend(object):
     t_message = myresult[0][5]
     return (course_code, class_code, year_offered, coursename, t_message)
 
+
   def getLoginBehaviour(self,student_id):
     self.mycursor.execute(f"SELECT * FROM LoginBehaviour WHERE student_id = '{student_id}' ORDER BY login_date DESC, login_time DESC")
     myresult = self.mycursor.fetchall()
     return myresult #(login_time, login_date, logout_time, logout_date)
+
 
   def getCourseTeacher(self,course_id):
     self.mycursor.execute(f"SELECT * FROM CourseTaught AS CT JOIN Teacher AS T WHERE CT.course_id = {course_id} AND CT.teacher_id = T.teacher_id")
@@ -195,12 +206,14 @@ class Backend(object):
             return LectureToday[i]
     return (0, 0, date(1997,1,1), timedelta(seconds=0), timedelta(seconds=0), "000", "", False, '0000000000', 0)
 
+
   def within1hr(self,date,starttime,endtime):
     now = datetime.now()
     if ((datetime.combine(date, datetime.min.time()) + starttime) <= now+timedelta(hours=1)) and ((datetime.combine(date, datetime.min.time()) + endtime) >= now): #startime < 1 hour from now and now is not yet endtime
       return True
     else:
       return False
+
 
   def checkClassWithin1Hr(self,student_id): 
     self.mycursor.execute(f"SELECT courseclass.class_date,courseclass.class_time,courseclass.class_end_time from courseclass,coursetaken WHERE courseclass.course_id=coursetaken.course_id AND coursetaken.student_id='{student_id}'")
@@ -210,10 +223,12 @@ class Backend(object):
       Ans = Ans or self.within1hr(myresult[i][0],myresult[i][1],myresult[i][2])
     return(Ans)
     
+
   def getCourseTaken(self,student_id): 
     self.mycursor.execute(f"SELECT C.course_code, C.class_code, C.course_name FROM Courses AS C JOIN CourseTaken as CT WHERE CT.student_id = '{student_id}' and C.course_id = CT.course_id")
     myresult = self.mycursor.fetchall()
     return(myresult)
+
 
   def getLectureMaterialPath(self,course_id, class_id):
     self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id = '{course_id}' and CM.class_id = '{class_id}'") #input instructions
@@ -222,6 +237,7 @@ class Backend(object):
     for row in myresult:
       filepaths.append(row[0])
     return filepaths
+
 
   def getTimeTableDisplayData(self,student_id):
     today = date.today()
