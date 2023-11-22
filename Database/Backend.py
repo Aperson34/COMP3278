@@ -143,7 +143,7 @@ class Backend(object):
 
   def checkLoginCredentials(self,username, password):
     stmt = "SELECT username, pswd, student_id FROM LoginCredentials WHERE username = %s AND pswd = %s", (username, password)
-    if " " in username != 0:
+    if " " in username or " " in password:
         return "0000000000"
     self.mycursor.execute(stmt)
     myresult = self.mycursor.fetchall()
