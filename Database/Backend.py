@@ -83,7 +83,7 @@ class Backend(object):
     return(myresult)
 
   def getCourseMaterial(self,student_id, course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
-    class_id = self.HaveClassIn1Hr(student_id)[1]
+    class_id = self.nearestClass(student_id,course_id)[1]
     self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
@@ -100,7 +100,7 @@ class Backend(object):
     if (len(myresult) != 0):
       now = datetime.now()
       for i in myresult:
-        if i[7]>now.date() and (datetime.min + i[6]).time() > now.time():
+        if i[7]>now.date() or (i[7]==now.date() and (datetime.min + i[6]).time() > now.time()):
           return i
       return myresult[len(myresult)-1]
 

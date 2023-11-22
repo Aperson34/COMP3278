@@ -60,25 +60,26 @@ INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUE
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "4", "diagrams2", "../CourseMaterials/2023-24/COMP3278/lec02.pdf");
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "7", "sql1", "../CourseMaterials/2023-24/COMP3278/lec03.pdf");
 INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("1", "7", "sql2", "../CourseMaterials/2023-24/COMP3278/lec04.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "1", "lecture 1", "../CourseMaterials/2023-24/COMP3353/lecture 1.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "2", "lecture 2", "../CourseMaterials/2023-24/COMP3353/lecture 2.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "3", "lecture 3", "../CourseMaterials/2023-24/COMP3353/lecture 3.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "4", "lecture 3", "../CourseMaterials/2023-24/COMP3353/lecture 3.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "4", "lecture 4", "../CourseMaterials/2023-24/COMP3353/lecture 4.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "5", "lecture 5", "../CourseMaterials/2023-24/COMP3353/lecture 5.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "5", "lecture 6", "../CourseMaterials/2023-24/COMP3353/lecture 6.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "6", "lecture 6", "../CourseMaterials/2023-24/COMP3353/lecture 6.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "7", "lecture 7", "../CourseMaterials/2023-24/COMP3353/lecture 7.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "8", "lecture 8", "../CourseMaterials/2023-24/COMP3353/lecture 8.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "8", "lecture 9", "../CourseMaterials/2023-24/COMP3353/lecture 9.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "10", "lecture 10", "../CourseMaterials/2023-24/COMP3353/lecture 10.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "11", "lecture 11", "../CourseMaterials/2023-24/COMP3353/lecture 11.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "12", "lecture 12", "../CourseMaterials/2023-24/COMP3353/lecture 12.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "13", "lecture 13", "../CourseMaterials/2023-24/COMP3353/lecture 13.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "14", "lecture 14", "../CourseMaterials/2023-24/COMP3353/lecture 14.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "15", "lecture 15", "../CourseMaterials/2023-24/COMP3353/lecture 15.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "16", "lecture 16", "../CourseMaterials/2023-24/COMP3353/lecture 16.pdf");
-INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "17", "lecture 17", "../CourseMaterials/2023-24/COMP3353/lecture 17.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "1", "lecture_1", "../CourseMaterials/2023-24/COMP3353/lecture_1.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "2", "lecture_2", "../CourseMaterials/2023-24/COMP3353/lecture_2.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "3", "lecture_3", "../CourseMaterials/2023-24/COMP3353/lecture_3.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "4", "lecture_3", "../CourseMaterials/2023-24/COMP3353/lecture_3.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "4", "lecture_4", "../CourseMaterials/2023-24/COMP3353/lecture_4.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "5", "lecture_5", "../CourseMaterials/2023-24/COMP3353/lecture_5.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "5", "lecture_6", "../CourseMaterials/2023-24/COMP3353/lecture_6.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "6", "lecture_6", "../CourseMaterials/2023-24/COMP3353/lecture_6.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "7", "lecture_7", "../CourseMaterials/2023-24/COMP3353/lecture_7.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "8", "lecture_8", "../CourseMaterials/2023-24/COMP3353/lecture_8.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "8", "lecture_9", "../CourseMaterials/2023-24/COMP3353/lecture_9.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "10", "lecture_10", "../CourseMaterials/2023-24/COMP3353/lecture_10.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "11", "lecture_11", "../CourseMaterials/2023-24/COMP3353/lecture_11.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "12", "lecture_12", "../CourseMaterials/2023-24/COMP3353/lecture_12.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "13", "lecture_13", "../CourseMaterials/2023-24/COMP3353/lecture_13.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "14", "lecture_14", "../CourseMaterials/2023-24/COMP3353/lecture_14.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "15", "lecture_15", "../CourseMaterials/2023-24/COMP3353/lecture_15.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "16", "lecture_16", "../CourseMaterials/2023-24/COMP3353/lecture_16.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "17", "lecture_16", "../CourseMaterials/2023-24/COMP3353/lecture_16.pdf");
+INSERT INTO CourseMaterial (course_id, class_id, material_name, file_path) VALUES ("9", "17", "lecture_17", "../CourseMaterials/2023-24/COMP3353/lecture_17.pdf");
 
 
 
