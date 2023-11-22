@@ -11,6 +11,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
+from timetable import Timetable
+
 
 class Material_Item:
         
@@ -105,5 +107,12 @@ class Material_List(object):
             if self.checkedList[i]:
                 materialNeeded.append(self.sqlMaterialData[i][0])
         MainWindow.backend.sendemail(materialNeeded, MainWindow.stu_id,course_id)
-      
-
+        self.toCourseList(MainWindow)
+    def toCourseList(self,MainWindow):
+        item = MainWindow.gridLayout.takeAt(2)
+        if item is not None:
+            widget = item.widget()
+            if widget is not None:
+                widget.deleteLater()
+        uiCourseMaterial = Timetable()
+        uiCourseMaterial.setupUi(MainWindow)
