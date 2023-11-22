@@ -2,16 +2,15 @@
 
 import os
 import sys
+import pickle
 import cv2
 from datetime import datetime
 
-from PyQt5.QtCore import Qt, QTimer, QSize, QRect, QMetaObject
+from PyQt5.QtCore import Qt, QTimer, QSize, QRect
 from PyQt5.QtGui import QIcon, QPixmap, QCursor, QImage
-from PyQt5.QtWidgets import QMainWindow, QStackedWidget, QWidget, QPushButton, QLabel, QApplication
+from PyQt5.QtWidgets import QStackedWidget, QWidget, QPushButton, QLabel, QGraphicsDropShadowEffect
 from PyQt5.QtWidgets import QHBoxLayout, QVBoxLayout, QGridLayout, QFrame, QDesktopWidget, QLineEdit
-from PyQt5.QtWidgets import QGraphicsDropShadowEffect
 from qtwidgets import AnimatedToggle
-import pickle
 from timetable import Timetable
 from course_info import CourseInfo
 
