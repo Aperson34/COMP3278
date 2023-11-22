@@ -36,6 +36,8 @@ class Backend(object):
   
   def sendemail(self,filename,stu_id,course_id):
     class_id = self.HaveClassIn1Hr(stu_id)[1]
+    if class_id==0:
+      return
     self.mycursor.execute(f"SELECT * from CourseClass, Courses WHERE CourseClass.course_id=Courses.course_id AND CourseClass.course_id = '{course_id}' AND CourseClass.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     self.mycursor.execute(f"SELECT email from Student WHERE student_id='{stu_id}'") #input instructions
