@@ -162,9 +162,12 @@ class Backend(object):
     now = datetime.now()
     d_string = now.strftime("%Y-%m-%d")
     t_string = now.strftime("%H:%M:%S")
-    self.mycursor.execute(f"SELECT * FROM coursetaken,courseclass WHERE courseclass.class_date >= '{d_string}' AND courseclass.class_time >= '{t_string}' AND student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id")
+    self.mycursor.execute(f"SELECT * FROM coursetaken,courseclass WHERE (courseclass.class_date > '{d_string}' OR (courseclass.class_time >= '{t_string}' AND courseclass.class_date = '{d_string}')) AND student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id ORDER BY courseclass.class_date,courseclass.class_time")
     myresult = self.mycursor.fetchall()
-    return(myresult)
+    if (len(myresult) > 0):
+      return(myresult[0])
+    else:
+      return([])
 
   
   def getLectureToday(self,student_id):
