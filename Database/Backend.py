@@ -167,7 +167,9 @@ class Backend(object):
     if (len(myresult) > 0):
       return(myresult[0])
     else:
-      return(0)
+      self.mycursor.execute(f"SELECT class_id FROM coursetaken,courseclass WHERE student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id AND coursetaken.course_id = '{course_id}' ORDER BY courseclass.class_date DESC, courseclass.class_time DESC")
+      myresult = self.mycursor.fetchall()
+      return(myresult[0])
 
   
   def getLectureToday(self,student_id):
