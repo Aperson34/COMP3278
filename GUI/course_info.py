@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
 from course_material import Material_List
+import webbrowser
 #from sql
 #give the nearest one if there are more than one class
 class CourseInfo(object):
@@ -42,6 +43,8 @@ class CourseInfo(object):
 
         self.pushButton = QtWidgets.QPushButton(self.frame)
         self.pushButton.setGeometry(QtCore.QRect(1269, 684, 395, 73))
+        self.zoom = QtWidgets.QPushButton(self.frame)
+        self.zoom.setGeometry(QtCore.QRect(0, 684, 395, 73))
         
         font = QtGui.QFont()
         font.setPointSize(24)
@@ -49,6 +52,10 @@ class CourseInfo(object):
         self.pushButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton.setObjectName("pushButton")
         self.pushButton.clicked.connect(lambda:self.toMaterial(MainWindow,course_id))
+        self.zoom.setFont(font)
+        self.zoom.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.zoom.setObjectName("zoom")
+        self.zoom.clicked.connect(lambda:self.openLink())
         MainWindow.gridLayout.addWidget(self.frame,2,1,1,1)
 
         self.retranslateUi(MainWindow)
@@ -68,12 +75,13 @@ class CourseInfo(object):
         self.textBrowser_2.setHtml(_translate("Form","<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
-""+self.sqlCourseData[2]+"<br />"+self.sqlCourseData[3]+"<br />"+str(self.sqlCourseData[7])+"<br />"+time+"<br />"+self.sqlCourseData[5]+"<br /></span></p></body></html>"))
+""+self.sqlCourseData[2]+"<br />"+self.sqlCourseData[3]+"<br />"+str(self.sqlCourseData[7])+"<br />"+time+"<br /></span></p></body></html>"))
         self.textBrowser_3.setHtml(_translate("Form", "<html><head/>\n"
 "<body>\n<p align=\"center\" style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">\n"
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
 ""+materialList+"</span></p></body></html>"))
         self.pushButton.setText(_translate("Form", "Get Material"))
+        self.zoom.setText(_translate("Form", "Open zoom"))
     
     def toMaterial(self,MainWindow,course_id):
         item = MainWindow.gridLayout.takeAt(2)
@@ -83,6 +91,9 @@ class CourseInfo(object):
                 widget.deleteLater()
         uiCourseMaterial = Material_List()
         uiCourseMaterial.setupUi(MainWindow,course_id)
+    
+    def openLink(self):
+        webbrowser.open(self.sqlCourseData[5], new=2)
 
 # if __name__ == "__main__":
 #     import sys
