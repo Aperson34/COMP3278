@@ -34,7 +34,7 @@ class Backend(object):
     self.mydb.commit()
   
   def sendemail(self,filename,stu_id,course_id):
-    class_id = self.nearestClass(stu_id, course_id)
+    class_id = self.nearestClass(stu_id, course_id)[0]
     if class_id==0:
       return
     self.mycursor.execute(f"SELECT * from CourseClass, Courses WHERE CourseClass.course_id=Courses.course_id AND CourseClass.course_id = '{course_id}' AND CourseClass.class_id='{class_id}'") #input instructions
