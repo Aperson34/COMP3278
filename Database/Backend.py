@@ -34,7 +34,7 @@ class Backend(object):
     self.mydb.commit()
   
   def sendemail(self,filename,stu_id,course_id):
-    class_id = self.HaveClassIn1Hr(stu_id)[1]
+    class_id = self.nearestClass(stu_id, course_id)
     if class_id==0:
       return
     self.mycursor.execute(f"SELECT * from CourseClass, Courses WHERE CourseClass.course_id=Courses.course_id AND CourseClass.course_id = '{course_id}' AND CourseClass.class_id='{class_id}'") #input instructions
@@ -158,16 +158,16 @@ class Backend(object):
     return teacher_name
 
 
-  def nearestClass(self,student_id):
+  def nearestClass(self,student_id, course_id):
     now = datetime.now()
     d_string = now.strftime("%Y-%m-%d")
     t_string = now.strftime("%H:%M:%S")
-    self.mycursor.execute(f"SELECT * FROM coursetaken,courseclass WHERE (courseclass.class_date > '{d_string}' OR (courseclass.class_time >= '{t_string}' AND courseclass.class_date = '{d_string}')) AND student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id ORDER BY courseclass.class_date,courseclass.class_time")
+    self.mycursor.execute(f"SELECT * FROM coursetaken,courseclass WHERE (courseclass.class_date > '{d_string}' OR (courseclass.class_time >= '{t_string}' AND courseclass.class_date = '{d_string}')) AND student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id AND coursetaken.course_id = '{course_id}' ORDER BY courseclass.class_date,courseclass.class_time")
     myresult = self.mycursor.fetchall()
     if (len(myresult) > 0):
-      return(myresult[0])
+      return(myresult[0][2])
     else:
-      return([])
+      return(0)
 
   
   def getLectureToday(self,student_id):
