@@ -160,12 +160,12 @@ class Backend(object):
 
   def nearestClass(self,student_id, course_id):
     now = datetime.now()
-    d_string = now.strftime("%Y-%m-%d")
-    t_string = now.strftime("%H:%M:%S")
-    self.mycursor.execute(f"SELECT * FROM coursetaken,courseclass WHERE (courseclass.class_date > '{d_string}' OR (courseclass.class_time >= '{t_string}' AND courseclass.class_date = '{d_string}')) AND student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id AND coursetaken.course_id = '{course_id}' ORDER BY courseclass.class_date,courseclass.class_time")
+    d_string = now.date()
+    t_string = now.time()
+    self.mycursor.execute(f"SELECT class_id FROM coursetaken,courseclass WHERE (courseclass.class_date > '{d_string}' OR (courseclass.class_time >= '{t_string}' AND courseclass.class_date = '{d_string}')) AND student_id = '{student_id}' AND coursetaken.course_id=courseclass.course_id AND coursetaken.course_id = '{course_id}' ORDER BY courseclass.class_date,courseclass.class_time")
     myresult = self.mycursor.fetchall()
     if (len(myresult) > 0):
-      return(myresult[0][2])
+      return(myresult[0])
     else:
       return(0)
 
