@@ -185,7 +185,6 @@ class Backend(object):
     Ans = False
     for i in range(len(myresult)):
       Ans = Ans or self.within1hr(myresult[i][0],myresult[i][1],myresult[i][2])
-    print(Ans)
     return(Ans)
     
   def getCourseTaken(self,student_id): 
@@ -193,7 +192,7 @@ class Backend(object):
     myresult = self.mycursor.fetchall()
     return(myresult)
 
-  def getLectureMaterialPath(self,course_id, class_id): #untested
+  def getLectureMaterialPath(self,course_id, class_id):
     self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id = '{course_id}' and CM.class_id = '{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     filepaths=[]
