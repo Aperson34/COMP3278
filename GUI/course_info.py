@@ -81,7 +81,10 @@ class CourseInfo(object):
 "<span style=\"font-family:\'Inter\'; font-size:28px; font-weight:696; color:#000000;\">"
 ""+materialList+"</span></p></body></html>"))
         self.pushButton.setText(_translate("Form", "Get Material"))
-        self.zoom.setText(_translate("Form", "Open zoom"))
+        if (self.sqlCourseData[5]):
+            self.zoom.setText(_translate("Form", "Open zoom"))
+        else:
+            self.zoom.setText(_translate("Form", "No zoom"))
     
     def toMaterial(self,MainWindow,course_id):
         item = MainWindow.gridLayout.takeAt(2)
@@ -93,7 +96,8 @@ class CourseInfo(object):
         uiCourseMaterial.setupUi(MainWindow,course_id)
     
     def openLink(self):
-        webbrowser.open(self.sqlCourseData[5], new=2)
+        if (self.sqlCourseData[5]):
+            webbrowser.open(self.sqlCourseData[5], new=2)
 
 # if __name__ == "__main__":
 #     import sys
