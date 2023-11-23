@@ -18,6 +18,8 @@ class Material_Item:
         
     def __init__(self, scrollAreaWidgetContents, name, i,checkedList, link):
         def openLink(link):
+            link = link[2:]
+            link =  'https://icms.com'+link
             webbrowser.open(link, new=2)
         def checked(checkedList, i):
             checkedList[i] = not checkedList[i]
