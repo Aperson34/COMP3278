@@ -1,6 +1,6 @@
 INSERT INTO Student (student_id, email, s_name, birthday) VALUES ("3035788621", "alix@mail.com", "Alix Lee Ka Shing", "2001-10-30");
 INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788622', "janice@connect.hku.hk", "Janice Lui", "2002-05-06");
-INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788623', "jeremy123@outlook.com", "Jeremy Chan", "2003-07-14");
+INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788623', "jeremy20030425@gmail.com", "Jeremy Chan", "2003-07-14");
 INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788624', "justinyeung1096@gmail.com", "Justin Yeung", "2002-04-02");
 INSERT INTO Student (student_id, email, s_name, birthday) VALUES ('3035788625', "zaychan80@gmail.com", "Chan Chin Hung", "2002-08-10");
 

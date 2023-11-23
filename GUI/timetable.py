@@ -13,14 +13,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
 class ClassItem(QtWidgets.QTableWidgetItem):
-    def __init__(self, text):
+    def __init__(self, text,idx):
         super().__init__()
         _translate = QtCore.QCoreApplication.translate
-        brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
+        brush = QtGui.QBrush(QtGui.QColor(65+idx*18,150,255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         self.setBackground(brush)
         self.setText(_translate("Form",text))
-
+        self.setForeground(QtGui.QBrush(QtGui.QColor(0, 0, 0)))
 class Timetable(object):
     def setupUi(self, Form):
         self.sqlCourseData =Form.backend.getTimeTableDisplayData(Form.stu_id) 
@@ -72,7 +72,7 @@ class Timetable(object):
         self.tableWidget.setHorizontalHeaderItem(6, item)
         
 
-        for i in self.sqlCourseData:
+        for idx, i in enumerate(self.sqlCourseData):
             begin = datetime.datetime.combine(datetime.date.today(), datetime.time(9,30,00,00))
             dateTimeA = datetime.datetime.combine(datetime.date.today(), (datetime.datetime.min + i[5]).time())
             dateTimeB = datetime.datetime.combine(datetime.date.today(), (datetime.datetime.min + i[4]).time())
@@ -81,7 +81,7 @@ class Timetable(object):
             startTime = dateTimeB - begin 
             startCell = math.ceil(startTime.total_seconds() / 3600) 
             for j in range(0,dateTimeDifferenceInHours):
-                classItem = ClassItem(i[1]+' '+i[2])
+                classItem = ClassItem(i[1]+' '+i[2],idx)
                 week =(i[3].weekday() + 1)%7
                 self.tableWidget.setItem(startCell+j, week, classItem)
 
