@@ -15,7 +15,6 @@ class Backend(object):
     self.mycursor.execute("CREATE DATABASE IF NOT EXISTS GROUP19ICMS;")
     self.mycursor.execute("USE GROUP19ICMS;")
 
-
   def createicms(self):
     self.mycursor.execute("DROP DATABASE IF EXISTS GROUP19ICMS;")
     self.mycursor.execute("CREATE DATABASE GROUP19ICMS;")
@@ -90,7 +89,7 @@ class Backend(object):
 
   def getCourseMaterial(self,student_id, course_id):   #for course_material.py line 43, e.g. getCourseMaterial(1)
     class_id = self.nearestClass(student_id,course_id)[0]
-    self.mycursor.execute(f"SELECT CM.material_name FROM CourseMaterial AS CM WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
+    self.mycursor.execute(f"SELECT CM.material_name, CM.file_path FROM CourseMaterial AS CM WHERE CM.course_id='{course_id}' AND CM.class_id='{class_id}'") #input instructions
     myresult = self.mycursor.fetchall()
     return(myresult)
 

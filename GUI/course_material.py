@@ -12,11 +12,13 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import datetime
 
 from timetable import Timetable
-
+import webbrowser
 
 class Material_Item:
         
-    def __init__(self, scrollAreaWidgetContents, name, i,checkedList):
+    def __init__(self, scrollAreaWidgetContents, name, i,checkedList, link):
+        def openLink(link):
+            webbrowser.open(link, new=2)
         def checked(checkedList, i):
             checkedList[i] = not checkedList[i]
         _translate = QtCore.QCoreApplication.translate
@@ -29,15 +31,19 @@ class Material_Item:
         checkBox.setIconSize(QtCore.QSize(50, 48))
         checkBox.setObjectName("checkBox_1")
         checkBox.clicked.connect(lambda:checked(checkedList, i))
-        label = QtWidgets.QLabel(self)
-        label.setGeometry(QtCore.QRect(100, 20, 1501, 61))
+        materialButton = QtWidgets.QPushButton(self)
+        materialButton.setGeometry(QtCore.QRect(100, 20, 1501, 61))
+        materialButton.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        materialButton.clicked.connect(lambda:openLink(link))
+        materialButton.setStyleSheet("border: none; text-align:left; background-color:#F4F4F4")
         font = QtGui.QFont()
         font.setPointSize(24)
         font.setBold(True)
         font.setWeight(75)
-        label.setFont(font)
-        label.setObjectName("label_1")
-        label.setText(_translate("Form", name))
+        materialButton.setFont(font)
+        materialButton.setLayoutDirection(QtCore.Qt.LeftToRight)
+        materialButton.setObjectName("label_1")
+        materialButton.setText(_translate("Form", name))
         checkedList.append(False)
 
 class Material_List(object):
@@ -88,7 +94,7 @@ class Material_List(object):
         self.materialItem = []
         self.checkedList = []
         for i in range(0,len(self.sqlMaterialData)):
-            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents,self.sqlMaterialData[i][0], i, self.checkedList))
+            self.materialItem.append(Material_Item(self.scrollAreaWidgetContents,self.sqlMaterialData[i][0], i, self.checkedList ,self.sqlMaterialData[i][1]))
 
         self.scrollArea.setWidget(self.scrollAreaWidgetContents)
         MainWindow.gridLayout.addWidget(self.frame,2,1,1,1)
