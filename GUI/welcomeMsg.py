@@ -36,8 +36,8 @@ class WelMsg(object):
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(Form)
         self.mytimer = QtCore.QTimer(self.frame)
-        self.mytimer.timeout.connect(self.removeMsg)
-        self.mytimer.start(10000)
+        self.mytimer.timeout.connect(lambda:self.removeMsg())
+        self.mytimer.start(1000)
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.textBrowser.setHtml(_translate("Form", "<html><head/>\n"
