@@ -231,7 +231,7 @@ class FaceRecognitionWidget(QWidget):
             checked_color="#3399ff",
             pulse_checked_color="#443399ff"
         )
-        self.toggle_button.toggled.connect(lambda: self.connect(uiMainWindow, toDashBoard))
+        self.toggle_button.toggled.connect(lambda: self.connect_cam(uiMainWindow, toDashBoard))
 
         self.return_to_login = QPushButton('Return to Login')
         self.return_to_login.setMinimumHeight(80)
@@ -271,8 +271,15 @@ class FaceRecognitionWidget(QWidget):
         self.flg_conn = False
         self.device = None
 
+    def test_camera():
+        device = cv2.VideoCapture(0)
+        if device is None or not device.isOpened():
+            return False
+        return True
+
     # ~~~~~~~~ connect device ~~~~~~~~
-    def connect(self, uiMainWindow, toDashBoard):
+    def connect_cam(self, uiMainWindow, toDashBoard):
+        print("called")
         if not os.path.isfile('../FaceRecognition/train.yml'):
             self.error_message = QLabel("Model not found!")
             self.error_message.setStyleSheet("QLabel {font-size: 24px; color: red; background-color:#fff}")
@@ -286,21 +293,31 @@ class FaceRecognitionWidget(QWidget):
             self.recognizer = cv2.face.LBPHFaceRecognizer_create()
             self.recognizer.read("../FaceRecognition/train.yml")
 
+        print(self.flg_conn)
         self.flg_conn = not self.flg_conn
         if self.flg_conn:
-            self.camera_status.setText('Camera On')
-            if self.device is None:
+            if self.device is None or not self.device.isOpened(): # this condition cannot be joined with the top one due to the else statement below
                 self.device = cv2.VideoCapture(0)
-            self.timer = QTimer()
-            self.timer.timeout.connect(lambda: self.update(uiMainWindow, toDashBoard))
-            self.timer.start(50)
+                if self.device is None or not self.device.isOpened():
+                    self.error_message = QLabel("Camera not detected!")
+                    self.error_message.setStyleSheet("QLabel {font-size: 24px; color: red; background-color:#fff}")
+                    self.error_message.setGeometry(0, 0, 400, 100)
+                    self.error_message.show()
+                    
+                    self.toggle_button.setChecked(False)
+                    return 
+                else:
+                    self.camera_status.setText('Camera On')
+                    self.timer = QTimer()
+                    self.timer.timeout.connect(lambda: self.update(uiMainWindow, toDashBoard))
+                    self.timer.start(50)
         else:
             self.camera_status.setText('Camera not turned on')
-            if self.device is not None:
+            if self.device is not None and self.device.isOpened():
                 self.device.release()
                 self.device = None
-            self.cam_feed.clear()
-            self.timer.stop()
+                self.cam_feed.clear()
+                self.timer.stop()
         
         return
 
